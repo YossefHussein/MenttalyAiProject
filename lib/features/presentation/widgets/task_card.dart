@@ -18,10 +18,14 @@ class TaskCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(16),
-      decoration:
-          BoxDecoration(color: color, borderRadius: BorderRadius.circular(12)),
+      decoration: BoxDecoration(
+        color: color,
+        borderRadius: BorderRadius.circular(12),
+      ),
       child: Row(
         children: [
+          // this expand the colum
+          // if don't adding expanded the is to be hidden description
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

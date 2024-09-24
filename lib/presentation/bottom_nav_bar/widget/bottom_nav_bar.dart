@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mental_health_app/presentation/nav_bar/bloc/navigation_bloc.dart';
-import 'package:mental_health_app/presentation/nav_bar/bloc/navigation_events.dart';
+import 'package:mental_health_app/presentation/bottom_nav_bar/bloc/navigation_bloc.dart';
+import 'package:mental_health_app/presentation/bottom_nav_bar/bloc/navigation_events.dart';
+
+
 
 class BottomNavBar extends StatelessWidget {
   final List<BottomNavigationBarItem> items;

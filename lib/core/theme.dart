@@ -28,7 +28,7 @@ class AppTheme {
     return ThemeData(
       primaryColor: const Color(0xFFAEAFF7),
       focusColor: const Color(0xFF371B34),
-      scaffoldBackgroundColor: Colors.white,
+      scaffoldBackgroundColor: DefaultColors.white,
       appBarTheme: const AppBarTheme(
         backgroundColor: Colors.white,
         elevation: 0,
@@ -36,15 +36,15 @@ class AppTheme {
       textTheme: TextTheme(
         bodySmall: GoogleFonts.alegreyaSans(
           fontSize: FontSizes.small,
-          color: Colors.white,
+          color: Colors.black,
         ),
         bodyMedium: GoogleFonts.alegreyaSans(
           fontSize: FontSizes.standard,
-          color: Colors.white,
+          color: Colors.black,
         ),
         bodyLarge: GoogleFonts.alegreyaSans(
           fontSize: FontSizes.large,
-          color: Colors.white,
+          color: Colors.black,
         ),
         titleSmall: GoogleFonts.alegreyaSans(
           fontSize: FontSizes.large,
