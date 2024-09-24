@@ -75,7 +75,7 @@ class MeditationScreen extends StatelessWidget {
                 height: 16,
               ),
               TaskCard(
-                title: 'Morning 😎',
+                title: 'Morning 😊',
                 description:
                     'Let\'s open up to the thing that matters among the people ',
                 actionText: '',
@@ -85,7 +85,7 @@ class MeditationScreen extends StatelessWidget {
                 height: 16,
               ),
               TaskCard(
-                title: 'Noon 😊',
+                title: 'Noon 😎',
                 description:
                     'Let\'s open up to the thing that matters among the people ',
                 actionText: '',
