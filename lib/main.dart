@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mental_health_app/core/theme.dart';
-import 'package:mental_health_app/features/presentation/pages/meditation_screen.dart';
 import 'package:mental_health_app/presentation/home_screen/home_screen.dart';
 
 import 'presentation/bottom_nav_bar/bloc/navigation_bloc.dart';

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mental_health_app/core/theme.dart';
-import 'package:mental_health_app/features/presentation/widgets/feeling_button.dart';
-import 'package:mental_health_app/features/presentation/widgets/task_card.dart';
+import 'package:mental_health_app/features/presentation/meditation/widgets/feeling_button.dart';
+import 'package:mental_health_app/features/presentation/meditation/widgets/task_card.dart';
+
 
 class MeditationScreen extends StatelessWidget {
   const MeditationScreen({super.key});

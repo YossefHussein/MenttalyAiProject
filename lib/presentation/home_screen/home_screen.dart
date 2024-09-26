@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mental_health_app/features/presentation/pages/meditation_screen.dart';
+import 'package:mental_health_app/features/presentation/meditation/page/meditation_screen.dart';
+import 'package:mental_health_app/features/presentation/music/page/playlist_screen.dart';
+import 'package:mental_health_app/features/presentation/music/page/song_screen.dart';
 import 'package:mental_health_app/presentation/bottom_nav_bar/bloc/navigation_bloc.dart';
 import 'package:mental_health_app/presentation/bottom_nav_bar/bloc/navigation_states.dart';
 import 'package:mental_health_app/presentation/bottom_nav_bar/widget/bottom_nav_bar.dart';
@@ -10,28 +12,25 @@ class HomeScreen extends StatelessWidget {
 
   final List<Widget> pages = [
     MeditationScreen(),
-    Scaffold(
-      body: Center(
-        child: Text('test 2'),
-      ),
-    ),
+    PlaylistScreen(),
   ];
-
+  //  this to adding active color
   BottomNavigationBarItem createBottomNavigationBarItem({
     required String assetName,
     required bool isActive,
     required BuildContext context,
   }) {
     return BottomNavigationBarItem(
-        icon: Image.asset(
-          assetName,
-          // this to change color of icon when the user
-          // click on button nav bar
-          color: isActive
-              ? Theme.of(context).focusColor
-              : Theme.of(context).primaryColor,
-        ),
-        label: '');
+      icon: Image.asset(
+        assetName,
+        // this to change color of icon when the user
+        // click on button nav bar
+        color: isActive
+            ? Theme.of(context).focusColor
+            : Theme.of(context).primaryColor,
+      ),
+      label: '',
+    );
   }
 
   @override
@@ -39,10 +38,14 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       body: BlocBuilder<NavigationBloc, NavigationState>(
         builder: (context, state) {
+          // if state in [NavigationChanged]
           if (state is NavigationChanged) {
+            // this mean return page and change with change the index
             return pages[state.index];
           }
+          // this to see what is state in
           debugPrint("state $state");
+          // this is return the first screen [MeditationScreen]
           return pages[0];
         },
       ),
