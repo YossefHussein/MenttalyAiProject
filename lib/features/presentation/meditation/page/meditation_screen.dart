@@ -1,20 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:mental_health_app/core/theme.dart';
+import 'package:mental_health_app/features/presentation/meditation/widgets/drawer_widget.dart';
 import 'package:mental_health_app/features/presentation/meditation/widgets/feeling_button.dart';
 import 'package:mental_health_app/features/presentation/meditation/widgets/task_card.dart';
 
+class MeditationScreen extends StatefulWidget {
+  MeditationScreen({super.key});
 
-class MeditationScreen extends StatelessWidget {
-  const MeditationScreen({super.key});
+  @override
+  State<MeditationScreen> createState() => _MeditationScreenState();
+}
+
+class _MeditationScreenState extends State<MeditationScreen> {
+  GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: DrawerWidget(),
+      key: scaffoldKey,
       appBar: AppBar(
-        leading: Image.asset('assets/menu_burger.png'),
+        leading: InkWell(
+            onTap: () {
+              scaffoldKey.currentState?.openDrawer();
+            },
+            child: Image.asset('assets/menu_burger.png')),
         actions: const [
           CircleAvatar(
-            backgroundImage: AssetImage('assets/profile.png'),
+            backgroundImage: AssetImage('assets/girl_profile.jpg'),
           ),
           SizedBox(
             width: 16,
@@ -61,7 +74,7 @@ class MeditationScreen extends StatelessWidget {
                   FeelingButton(
                     label: 'Focus',
                     image: 'assets/focus.png',
-                    color: DefaultColors.lightteal,
+                    color: DefaultColors.lightTeal,
                   ),
                 ],
               ),
