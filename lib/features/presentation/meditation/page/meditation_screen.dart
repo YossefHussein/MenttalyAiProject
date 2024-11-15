@@ -5,7 +5,7 @@ import 'package:mental_health_app/features/presentation/meditation/widgets/feeli
 import 'package:mental_health_app/features/presentation/meditation/widgets/task_card.dart';
 
 class MeditationScreen extends StatefulWidget {
-  MeditationScreen({super.key});
+  const MeditationScreen({super.key});
 
   @override
   State<MeditationScreen> createState() => _MeditationScreenState();
@@ -17,7 +17,7 @@ class _MeditationScreenState extends State<MeditationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: DrawerWidget(),
+      drawer: const DrawerWidget(),
       key: scaffoldKey,
       appBar: AppBar(
         leading: InkWell(

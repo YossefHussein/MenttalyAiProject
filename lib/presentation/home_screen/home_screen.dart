@@ -7,7 +7,7 @@ import 'package:mental_health_app/presentation/bottom_nav_bar/bloc/navigation_st
 import 'package:mental_health_app/presentation/bottom_nav_bar/widget/bottom_nav_bar.dart';
 
 class HomeScreen extends StatefulWidget {
-  HomeScreen({super.key});
+  const HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();

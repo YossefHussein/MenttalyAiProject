@@ -53,7 +53,7 @@ class PlaylistScreen extends StatelessWidget {
               itemCount: state.songs.length,
               itemBuilder: (context, index) {
                 return ListTile(
-                  leading: CircleAvatar(
+                  leading: const CircleAvatar(
                     backgroundImage: AssetImage('assets/child_with_dog.png'),
                   ),
                   trailing: const Icon(Icons.arrow_forward_ios),
