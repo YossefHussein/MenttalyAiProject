@@ -8,25 +8,7 @@ import 'package:http/http.dart' as http;
 import 'package:mental_health_app/features/presentation/music/widgets/songs_bottomsheet.dart';
 
 class PlaylistScreen extends StatelessWidget {
-  PlaylistScreen({super.key});
-
-  final List<Map<String, String>> song = [
-    {
-      'title': 'rain on glass',
-      'artist': 'rain on glass',
-      'thumbnail': 'assets/child_with_dog.png',
-    },
-    {
-      'title': 'gentle breeze',
-      'artist': 'armando kover',
-      'thumbnail': 'assets/child_with_dog.png',
-    },
-    {
-      'title': 'petter arkove',
-      'artist': 'petter arkove',
-      'thumbnail': 'assets/child_with_dog.png',
-    },
-  ];
+  const PlaylistScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -83,12 +65,10 @@ class PlaylistScreen extends StatelessWidget {
               ),
             );
           } else {
-            return Container(
-              child: Center(
-                child: Text(
-                  'No Songs Found',
-                  style: Theme.of(context).textTheme.labelSmall,
-                ),
+            return Center(
+              child: Text(
+                'No Songs Found',
+                style: Theme.of(context).textTheme.labelSmall,
               ),
             );
           }

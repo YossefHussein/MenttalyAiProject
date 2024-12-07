@@ -5,7 +5,7 @@ import 'package:mental_health_app/presentation/bottom_nav_bar/bloc/navigation_st
 class NavigationBloc extends Bloc<NavigationEvent, NavigationState> {
   NavigationBloc() : super(NavigationChanged(index: 0)) {
     // when state in [NavigateTo]
-    on<NavigateTo>((event, emit) {
+    on<NavigateToEvent>((event, emit) {
       // assign the index from state [NavigateTo] to state
       // of [NavigationChanged] by event the parameter
       emit(NavigationChanged(index: event.index));

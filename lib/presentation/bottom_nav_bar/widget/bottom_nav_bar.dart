@@ -25,7 +25,7 @@ class BottomNavBar extends StatelessWidget {
        * which is a class (or event) that likely
        * takes an index as a parameter to determine where to navigate.*/
       onTap: (index) {
-        context.read<NavigationBloc>().add(NavigateTo(index: index));
+        context.read<NavigationBloc>().add(NavigateToEvent(index: index));
       },
     );
   }

@@ -39,7 +39,7 @@ class _SongsBottomSheetState extends State<SongsBottomSheet> {
   @override
   void initState() {
     _audioPlayer = AudioPlayer();
-    _audioPlayer.setUrl('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3');
+    _audioPlayer.setUrl(widget.songs.songLike);
     super.initState();
   }
 

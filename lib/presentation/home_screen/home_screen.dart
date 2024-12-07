@@ -15,8 +15,8 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final List<Widget> pages = [
-    MeditationScreen(),
-    PlaylistScreen(),
+    const MeditationScreen(),
+    const PlaylistScreen(),
   ];
 
   //  this to adding active color

@@ -3,5 +3,5 @@ import 'package:mental_health_app/features/presentation/meditation/domain/entiti
 
 abstract class MeditationRepository {
  Future<DailyQuote> getDailyQuote();
- Future<MoodMessage> getMoodMessage({String mood});
+ Future<MoodMessage> getMoodMessage(String mood);
 }

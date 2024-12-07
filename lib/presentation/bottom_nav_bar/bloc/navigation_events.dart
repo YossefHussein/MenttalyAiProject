@@ -1,6 +1,6 @@
 abstract class NavigationEvent {}
 
-class NavigateTo extends NavigationEvent {
+class NavigateToEvent extends NavigationEvent {
   final int index;
-  NavigateTo({required this.index});
+  NavigateToEvent({required this.index});
 }

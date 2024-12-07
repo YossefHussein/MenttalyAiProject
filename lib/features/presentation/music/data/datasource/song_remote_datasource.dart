@@ -18,7 +18,7 @@ class SongRemoteDataSourceImpl implements SongRemoteDataSource {
   Future<List<SongModel>> getAllSongs() async {
     // get the api url and parsing from string to url
     // from [client] use get method to getting data form api
-    final response = await client.get(Uri.parse('http://<IP>:6000/songs/all'));
+    final response = await client.get(Uri.parse('http://192.168.87.42:6000/songs/all'));
     // print('statusCode ${response.statusCode}');
     if (response.statusCode == 200) {
       // make list and from [response] to getting the response from api to and decoding as list [jsonResponse]

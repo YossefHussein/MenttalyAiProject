@@ -3,14 +3,12 @@ import 'package:flutter/material.dart';
 class TaskCard extends StatelessWidget {
   final String title;
   final String description;
-  final String actionText;
   final Color color;
 
   const TaskCard({
     super.key,
     required this.title,
     required this.description,
-    required this.actionText,
     required this.color,
   });
 

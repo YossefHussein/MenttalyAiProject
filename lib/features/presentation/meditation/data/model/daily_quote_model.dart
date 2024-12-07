@@ -1,5 +1,6 @@
 import 'package:mental_health_app/features/presentation/meditation/domain/entities/daily_quotes.dart';
 
+// this to get daily quote of mood
 class DailyQuoteModel extends DailyQuote {
   DailyQuoteModel({
     required super.morningQuote,
@@ -7,6 +8,7 @@ class DailyQuoteModel extends DailyQuote {
     required super.eveningQuote,
   });
 
+  // convert from json to dart
   factory DailyQuoteModel.fromJson(Map<String, dynamic> json) {
     final quotes = json['text'];
     return DailyQuoteModel(
