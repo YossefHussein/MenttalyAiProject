@@ -2,13 +2,19 @@
 class Song {
   final int id;
   final String title;
-  final String authors;
-  final String songLike;
+  final String author;
+  final String songLink;
+  final String typeSong;
+  final String colorTypeOfSong;
+  final String thumbnail;
 
   Song({
     required this.id,
     required this.title,
-    required this.authors,
-    required this.songLike,
+    required this.author,
+    required this.songLink,
+    required this.typeSong,
+    required this.colorTypeOfSong,
+    required this.thumbnail,
   });
 }

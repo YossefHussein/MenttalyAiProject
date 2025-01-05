@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
 class TaskCard extends StatelessWidget {
   final String title;
@@ -28,7 +29,7 @@ class TaskCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+                AutoSizeText(
                   title,
                   style: Theme.of(context).textTheme.labelMedium?.copyWith(
                         fontWeight: FontWeight.bold,
@@ -47,13 +48,13 @@ class TaskCard extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 3),
-                    Container(
-                      padding: const EdgeInsets.all(3),
-                      decoration: BoxDecoration(
-                          color: Colors.grey.shade200,
-                          borderRadius: BorderRadius.circular(50)),
-                      child: const Icon(Icons.arrow_forward_ios),
-                    ),
+                    // Container(
+                    //   padding: const EdgeInsets.all(3),
+                    //   decoration: BoxDecoration(
+                    //       color: Colors.grey.shade200,
+                    //       borderRadius: BorderRadius.circular(50)),
+                    //   child: const Icon(Icons.arrow_forward_ios),
+                    // ),
                   ],
                 )
               ],

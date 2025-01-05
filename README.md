@@ -2,3 +2,8 @@
 
 this is frond-end part there another application for server developer with nodejs 
 [link of mental health app serve](https://github.com/YossefHussein/mental_health_nodejs)
+
+<br>
+```
+flutter run -d chrome --web-hostname=127.0.0.1 --web-port=8200
+```

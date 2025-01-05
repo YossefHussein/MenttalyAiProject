@@ -12,7 +12,11 @@ class MeditationLoadingState extends MeditationState {}
 class MeditationErrorState extends MeditationState {
   final String message;
 
-  MeditationErrorState({required this.message});
+  MeditationErrorState({required this.message})
+  {
+    print(message);
+  }
+  // ;
 }
 
 // daily quote loading state

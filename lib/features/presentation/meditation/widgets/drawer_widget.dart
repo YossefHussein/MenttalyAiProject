@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:auto_size_text/auto_size_text.dart';
+import 'package:mental_health_app/presentation/tech_used.dart';
 
 class DrawerWidget extends StatelessWidget {
   const DrawerWidget({super.key});
@@ -60,7 +62,7 @@ class DrawerWidget extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: Align(
                   alignment: Alignment.bottomLeft,
-                  child: Text(
+                  child: AutoSizeText(
                     'Sabrina',
                     style: Theme.of(context).textTheme.labelLarge?.copyWith(
                           color: Colors.white,
@@ -71,8 +73,16 @@ class DrawerWidget extends StatelessWidget {
             ),
           ),
           const ListTile(
-            title: Text('About Developer'),
-          )
+            title: AutoSizeText('About Developer'),
+          ),
+          ListTile(
+            title: GestureDetector(
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => TechUsed()));
+                },
+                child: Text('Tech Used To Make App')),
+          ),
         ],
       ),
     );

@@ -32,6 +32,7 @@ class AppTheme {
       appBarTheme: const AppBarTheme(
         backgroundColor: Colors.white,
         elevation: 0,
+        centerTitle: true
       ),
       textTheme: TextTheme(
         bodySmall: GoogleFonts.alegreyaSans(
@@ -55,9 +56,10 @@ class AppTheme {
           color: Colors.black,
         ),
         titleLarge: GoogleFonts.alegreyaSans(
-            fontSize: FontSizes.doubleExtraLarge,
-            color: Colors.black,
-            fontWeight: FontWeight.bold),
+          fontSize: FontSizes.doubleExtraLarge,
+          color: Colors.black,
+          fontWeight: FontWeight.bold,
+        ),
         labelSmall: GoogleFonts.alegreyaSans(
           fontSize: FontSizes.small,
           color: Colors.black,
@@ -67,9 +69,10 @@ class AppTheme {
           color: Colors.black,
         ),
         labelLarge: GoogleFonts.alegreyaSans(
-            fontSize: FontSizes.doubleExtraLarge,
-            color: Colors.black,
-            fontWeight: FontWeight.bold),
+          fontSize: FontSizes.doubleExtraLarge,
+          color: Colors.black,
+          // fontWeight: FontWeight.bold,
+        ),
       ),
     );
   }

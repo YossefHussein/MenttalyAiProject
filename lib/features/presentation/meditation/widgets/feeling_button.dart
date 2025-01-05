@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
 // this is feeling button is used by the user
 // to know the feeling
@@ -29,7 +30,7 @@ class FeelingButton extends StatelessWidget {
               ),
               height: 25,
             ),),
-          Text(
+          AutoSizeText(
             label,
             style: Theme
                 .of(context)

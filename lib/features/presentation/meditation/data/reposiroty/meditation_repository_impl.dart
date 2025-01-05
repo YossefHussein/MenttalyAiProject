@@ -6,7 +6,7 @@ import 'package:mental_health_app/features/presentation/meditation/domain/reposi
 class MeditationRepositoryImpl implements MeditationRepository {
   final MeditationRemoteDataSource remoteDataSource;
 
-  MeditationRepositoryImpl(this.remoteDataSource);
+  MeditationRepositoryImpl({required this.remoteDataSource});
 
   @override
   Future<DailyQuote> getDailyQuote() async {

@@ -1,4 +1,5 @@
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:mental_health_app/core/theme.dart';
@@ -38,8 +39,12 @@ class _SongsBottomSheetState extends State<SongsBottomSheet> {
 
   @override
   void initState() {
+    // for initializing the music
     _audioPlayer = AudioPlayer();
-    _audioPlayer.setUrl(widget.songs.songLike);
+    // to set urk of music
+    _audioPlayer.setUrl(widget.songs.songLink);
+    // for auto start the music
+    _audioPlayer.play();
     super.initState();
   }
 
@@ -49,6 +54,7 @@ class _SongsBottomSheetState extends State<SongsBottomSheet> {
     super.dispose();
   }
 
+  // play and close music
   void togglePlayerPause() async {
     if (_audioPlayer.playing) {
       await _audioPlayer.pause();
@@ -57,13 +63,15 @@ class _SongsBottomSheetState extends State<SongsBottomSheet> {
     }
   }
 
+  // move to bake
   void seekBackward() async {
     final currentPosition = _audioPlayer.position;
     final newPosition = currentPosition - const Duration(seconds: 5);
-     _audioPlayer
+    _audioPlayer
         .seek(newPosition >= Duration.zero ? newPosition : Duration.zero);
   }
 
+  //  move to forward
   void seekForward() {
     final currentPosition = _audioPlayer.position;
     final newPosition = currentPosition + const Duration(seconds: 5);
@@ -71,6 +79,7 @@ class _SongsBottomSheetState extends State<SongsBottomSheet> {
         .seek(newPosition >= Duration.zero ? newPosition : Duration.zero);
   }
 
+  // make looping to music
   void toggleLoop() {
     setState(() {
       isLooping = !isLooping;
@@ -78,6 +87,7 @@ class _SongsBottomSheetState extends State<SongsBottomSheet> {
     });
   }
 
+  // to restart music from zero
   void seekRestart() {
     _audioPlayer.seek(Duration.zero);
   }
@@ -116,8 +126,8 @@ class _SongsBottomSheetState extends State<SongsBottomSheet> {
                       ),
                       ClipRRect(
                         borderRadius: BorderRadius.circular(15),
-                        child: Image.asset(
-                          'assets/child_with_dog.png',
+                        child: Image.network(
+                          '${widget.songs.thumbnail}',
                           width: double.infinity,
                           fit: BoxFit.cover,
                         ),
@@ -125,12 +135,12 @@ class _SongsBottomSheetState extends State<SongsBottomSheet> {
                       const SizedBox(
                         height: 16,
                       ),
-                      Text(
+                      AutoSizeText(
                         widget.songs.title,
                         style: Theme.of(context).textTheme.labelLarge,
                       ),
-                      Text(
-                        'By : ${widget.songs.authors.toString()}',
+                      AutoSizeText(
+                        'By : ${widget.songs.author}',
                         style: Theme.of(context).textTheme.labelSmall,
                       ),
                       StreamBuilder(
