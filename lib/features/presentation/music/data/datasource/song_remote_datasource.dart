@@ -1,6 +1,7 @@
 // data source is for fetch data from api or from local database
 import 'dart:convert';
 
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:mental_health_app/features/presentation/music/data/model/song_model.dart';
 
@@ -18,7 +19,7 @@ class SongRemoteDataSourceImpl implements SongRemoteDataSource {
   Future<List<SongModel>> getAllSongs() async {
     // get the api url and parsing from string to url
     // from [client] use get method to getting data form api
-    final response = await client.get(Uri.parse('http://localhost:6000/songs/all'));
+    final response = await client.get(Uri.parse('http://${dotenv.env['IpServer']}:6000/songs/all'));
     // print('statusCode ${response.statusCode}');
     if (response.statusCode == 200) {
       // make list and from [response] to getting the response from api to and decoding as list [jsonResponse]

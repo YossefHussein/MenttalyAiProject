@@ -24,8 +24,8 @@ class DefaultFirebaseOptions {
         return android;
       case TargetPlatform.iOS:
         return ios;
-      case TargetPlatform.macOS:
-        return macos;
+      // case TargetPlatform.macOS:
+      //   return macos;
       case TargetPlatform.windows:
         return windows;
       case TargetPlatform.linux:
@@ -67,14 +67,14 @@ class DefaultFirebaseOptions {
     iosBundleId: 'com.example.mentalHealthApp',
   );
 
-  static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyDPGgmuamwItDIMkJCImuG0f-XHjLztSds',
-    appId: '1:584316511993:ios:990933a40670334334a428',
-    messagingSenderId: '584316511993',
-    projectId: 'mental-health-app-85a6e',
-    storageBucket: 'mental-health-app-85a6e.firebasestorage.app',
-    iosBundleId: 'com.example.mentalHealthApp',
-  );
+  // static const FirebaseOptions macos = FirebaseOptions(
+  //   apiKey: 'AIzaSyDPGgmuamwItDIMkJCImuG0f-XHjLztSds',
+  //   appId: '1:584316511993:ios:990933a40670334334a428',
+  //   messagingSenderId: '584316511993',
+  //   projectId: 'mental-health-app-85a6e',
+  //   storageBucket: 'mental-health-app-85a6e.firebasestorage.app',
+  //   iosBundleId: 'com.example.mentalHealthApp',
+  // );
 
   static const FirebaseOptions windows = FirebaseOptions(
     apiKey: 'AIzaSyBQADCANXRqHiIF3z_wdix6K7g_wcUi49M',

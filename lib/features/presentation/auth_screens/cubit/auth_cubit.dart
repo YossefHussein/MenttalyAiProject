@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mental_health_app/features/presentation/auth_screens/cubit/auth_state.dart';
 import 'package:mental_health_app/features/presentation/auth_screens/widgets/widgets.dart';
 
-
-class AuthCubit extends Cubit<AuthCubitState> {
-  AuthCubit() : super(AuthCubitInitialState());
+class AuthCubit extends Cubit<AuthStates> {
+  AuthCubit() : super(AuthInitialState());
 
   static AuthCubit get(BuildContext context) => BlocProvider.of(context);
 
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmPasswordController =
-  TextEditingController();
+      TextEditingController();
+
   // login on app by firebase but that by email
   Future signInByEmail() async {
     await FirebaseAuth.instance
@@ -56,6 +57,32 @@ class AuthCubit extends Cubit<AuthCubitState> {
         emit(SignUpIsNotMatch());
       });
       return false;
+    }
+  }
+
+  // login with google
+  Future signInWithGoogle() async {
+    // Once signed in, return the UserCredential
+    try {
+      emit(LoginWithGoogleLoading());
+      // Trigger the authentication flow
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+      // Obtain the auth details from the request
+      final GoogleSignInAuthentication? googleAuth =
+          await googleUser?.authentication;
+
+      // Create a new credential
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth?.accessToken,
+        idToken: googleAuth?.idToken,
+      );
+      emit(LoginWithGoogleComplete());
+      return await FirebaseAuth.instance.signInWithCredential(credential);
+    } catch (error) {
+      print(error.toString());
+      emit(LoginWithGoogleError(error.toString()));
+      notPasswordMatch(error.toString());
     }
   }
 }

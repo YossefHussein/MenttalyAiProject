@@ -1,11 +1,20 @@
-abstract class AuthCubitState {}
+abstract class AuthStates {}
 
-class AuthCubitInitialState extends AuthCubitState {}
+class AuthInitialState extends AuthStates {}
 
-class SignInEmailState extends AuthCubitState {}
+class SignInEmailState extends AuthStates {}
 
-class OpenSignUpScreen extends AuthCubitState{}
+class OpenSignUpScreen extends AuthStates{}
 
-class SignUpIsMatchState extends AuthCubitState {}
+class SignUpIsMatchState extends AuthStates {}
 
-class SignUpIsNotMatch extends AuthCubitState {}
+class SignUpIsNotMatch extends AuthStates {}
+
+class LoginWithGoogleLoading extends AuthStates{}
+
+class LoginWithGoogleError extends AuthStates{
+  String error;
+  LoginWithGoogleError(this.error);
+}
+
+class LoginWithGoogleComplete extends AuthStates{}
