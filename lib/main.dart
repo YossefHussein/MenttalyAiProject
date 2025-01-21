@@ -23,7 +23,8 @@ import 'package:mental_health_app/presentation/auth.dart';
 import 'presentation/bottom_nav_bar/bloc/navigation_bloc.dart';
 import 'injection_container.dart' as di;
 
-void main() async {
+
+Future<void> main() async {
   // to fix problem when make async main function
   WidgetsFlutterBinding.ensureInitialized();
   // Observer is class watch the movement state of bloc
