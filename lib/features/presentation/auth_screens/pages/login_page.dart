@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:icons_plus/icons_plus.dart';
@@ -26,21 +27,17 @@ class _LogInScreenState extends State<LogInScreen> {
             children: [
               Positioned.fill(
                   child: Platform.isAndroid || Platform.isIOS
-                      ? FittedBox(
-                          child: Image.asset(
-                            width: MediaQuery.of(context).size.width,
-                            height: MediaQuery.of(context).size.height,
-                            'assets/onboarding.png',
-                            fit: BoxFit.fitWidth,
-                          ),
+                      ? Image.asset(
+                          width: MediaQuery.of(context).size.width,
+                          height: MediaQuery.of(context).size.height,
+                          'assets/onboarding.png',
+                          fit: BoxFit.fitWidth,
                         )
-                      : FittedBox(
-                          child: Image.network(
-                            width: MediaQuery.of(context).size.width,
-                            height: MediaQuery.of(context).size.height,
-                            'https://images.pexels.com/photos/1051838/pexels-photo-1051838.jpeg',
-                            fit: BoxFit.fitWidth,
-                          ),
+                      : Image.network(
+                          width: MediaQuery.of(context).size.width,
+                          height: MediaQuery.of(context).size.height,
+                          'https://images.pexels.com/photos/1051838/pexels-photo-1051838.jpeg',
+                          fit: BoxFit.fitWidth,
                         )),
               Column(
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -168,8 +165,8 @@ class _LogInScreenState extends State<LogInScreen> {
                   Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      const Text(
-                        'If You Dose Not Have?',
+                       AutoSizeText(
+                        'If You Dose Not Have Account?',
                         style: TextStyle(
                           color: DefaultColors.white,
                         ),
@@ -186,11 +183,11 @@ class _LogInScreenState extends State<LogInScreen> {
                             ),
                           );
                         },
-                        child: Text(
-                          'You Can Make It Here',
+                        child: AutoSizeText(
+                          'Make It Here',
                           style: TextStyle(
                               color: DefaultColors.white,
-                              fontSize: FontSizes.standard),
+                          ),
                         ),
                       ),
                     ],

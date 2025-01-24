@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:mental_health_app/features/presentation/chat_gemini/chat_with_gemini.dart';
+import 'package:mental_health_app/features/presentation/get_doctor/get_doctor.dart';
 import 'package:mental_health_app/features/presentation/meditation/page/meditation_screen.dart';
 import 'package:mental_health_app/features/presentation/music/page/playlist_screen.dart';
 import 'package:mental_health_app/presentation/bottom_nav_bar/bloc/navigation_bloc.dart';
@@ -17,25 +20,40 @@ class _HomeScreenState extends State<HomeScreen> {
   final List<Widget> pages = [
     const MeditationScreen(),
     const PlaylistScreen(),
+    const ChatWithGemini(),
+    const GetDoctor(),
   ];
 
   //  this to adding active color
   BottomNavigationBarItem createBottomNavigationBarItem({
-    required String assetName,
+    String assetName = '',
+    String assetSvgName = '',
+    bool isSvg = false,
     required String navTooltip,
     required bool isActive,
     required BuildContext context,
   }) {
     return BottomNavigationBarItem(
       tooltip: navTooltip,
-      icon: Image.asset(
-        assetName,
-        // this to change color of icon when the user
-        // click on button nav bar
-        color: isActive
-            ? Theme.of(context).focusColor
-            : Theme.of(context).primaryColor,
-      ),
+      icon: isSvg == false
+          ? Image.asset(
+              assetName,
+              // this to change color of icon when the user
+              // click on button nav bar
+              color: isActive
+                  ? Theme.of(context).focusColor
+                  : Theme.of(context).primaryColor,
+            )
+          : SvgPicture.asset(
+              assetSvgName,
+              height: 35,
+              width: 30,
+              // this to change color of icon when the user
+              // click on button nav bar
+              color: isActive
+                  ? Theme.of(context).focusColor
+                  : Theme.of(context).primaryColor,
+            ),
       label: '',
     );
   }
@@ -97,6 +115,18 @@ class _HomeScreenState extends State<HomeScreen> {
               isActive: currentIndex == 1,
               context: context,
             ),
+            createBottomNavigationBarItem(
+              isSvg: true,
+              assetSvgName: 'assets/google_gemini_icon.svg',
+              navTooltip: 'chat with me',
+              isActive: currentIndex == 2,
+              context: context,
+            ), createBottomNavigationBarItem(
+              assetName: 'assets/menu_teams.png',
+              navTooltip: 'chat with me',
+              isActive: currentIndex == 3,
+              context: context,
+            ),
           ];
           return BottomNavBar(
             items: bottomNavBarItem,
@@ -107,3 +137,5 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
+
+

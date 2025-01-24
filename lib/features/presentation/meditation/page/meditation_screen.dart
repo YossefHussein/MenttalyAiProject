@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:mental_health_app/core/theme.dart';
 import 'package:mental_health_app/features/presentation/meditation/bloc/daily_quotes/daily_quotes_bloc.dart';
 import 'package:mental_health_app/features/presentation/meditation/bloc/daily_quotes/daily_quotes_state.dart';
@@ -22,6 +25,16 @@ class MeditationScreen extends StatefulWidget {
 class _MeditationScreenState extends State<MeditationScreen> {
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
+  late File _selectedImage;
+
+  Future _pickImageFromGallery() async {
+    final returnImage =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
+    setState(() {
+      _selectedImage = File(returnImage!.path);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,10 +49,15 @@ class _MeditationScreenState extends State<MeditationScreen> {
           child: Image.asset('assets/menu_burger.png'),
         ),
         actions: [
-          CircleAvatar(
-            backgroundImage:
-                NetworkImage('${FirebaseAuth.instance.currentUser?.photoURL}'),
-          ),
+          // GestureDetector(
+          //   onTap: (){
+          //     _pickImageFromGallery();
+          //   },
+          //   child: CircleAvatar(
+          //     backgroundImage: NetworkImage(
+          //         '${FirebaseAuth.instance.currentUser?.photoURL == null ? Image.file(_selectedImage) : FirebaseAuth.instance.currentUser?.photoURL}'),
+          //   ),
+          // ),
           SizedBox(
             width: 16,
           )
@@ -127,6 +145,7 @@ class _MeditationScreenState extends State<MeditationScreen> {
                   } else if (state is DailyQuoteLoadedState) {
                     return Column(
                       children: [
+                        // tasks card
                         TaskCard(
                           title: 'Morning',
                           description: state.dailyQuote.morningQuote,
@@ -187,7 +206,9 @@ class _MeditationScreenState extends State<MeditationScreen> {
                                   TextButton(
                                       onPressed: () {
                                         Navigator.pop(context);
-                                        context.read<MoodMessageBloc>().add(ResetMoodMessage());
+                                        context
+                                            .read<MoodMessageBloc>()
+                                            .add(ResetMoodMessage());
                                       },
                                       child: Text('ok'))
                                 ],

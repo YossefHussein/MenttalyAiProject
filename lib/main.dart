@@ -7,16 +7,8 @@ import 'package:mental_health_app/features/presentation/auth_screens/cubit/auth_
 import 'package:mental_health_app/features/presentation/meditation/bloc/daily_quotes/daily_quotes_bloc.dart';
 import 'package:mental_health_app/features/presentation/meditation/bloc/daily_quotes/daily_quotes_event.dart';
 import 'package:mental_health_app/features/presentation/meditation/bloc/mode_message/mode_message_bloc.dart';
-import 'package:mental_health_app/features/presentation/meditation/data/datasource/meditation_remote_datasource.dart';
-import 'package:mental_health_app/features/presentation/meditation/data/reposiroty/meditation_repository_impl.dart';
-import 'package:mental_health_app/features/presentation/meditation/domain/usecase/get_daily_quote.dart';
-import 'package:mental_health_app/features/presentation/meditation/domain/usecase/get_mood_message.dart';
 import 'package:mental_health_app/features/presentation/music/bloc/song_bloc.dart';
 import 'package:mental_health_app/features/presentation/music/bloc/song_event.dart';
-import 'package:mental_health_app/features/presentation/music/data/datasource/song_remote_datasource.dart';
-import 'package:mental_health_app/features/presentation/music/data/repository/song_repository_impl.dart';
-import 'package:mental_health_app/features/presentation/music/domain/usecases/get_all_songs.dart';
-import 'package:http/http.dart' as http;
 import 'package:mental_health_app/firebase_options.dart';
 import 'package:mental_health_app/observer.dart';
 import 'package:mental_health_app/presentation/auth.dart';

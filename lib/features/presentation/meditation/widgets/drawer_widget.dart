@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:mental_health_app/features/presentation/about_developer/page/about_developer.dart';
 import 'package:mental_health_app/presentation/tech_used.dart';
 
 class DrawerWidget extends StatelessWidget {
@@ -29,15 +30,21 @@ class DrawerWidget extends StatelessWidget {
                   child: AutoSizeText(
                     '${FirebaseAuth.instance.currentUser?.email}',
                     style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                          color: Colors.white,
+                          color: Colors.red,
                         ),
                   ),
                 ),
               ),
             ),
           ),
-          const ListTile(
-            title: AutoSizeText('About Developer'),
+           ListTile(
+            onTap: (){
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => AboutDeveloper()));
+            },
+             title: GestureDetector(
+                child: AutoSizeText('About Developer')
+            ),
           ),
           ListTile(
             title: GestureDetector(
@@ -45,7 +52,7 @@ class DrawerWidget extends StatelessWidget {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => TechUsed()));
               },
-              child: Text('Tech Used To Make App'),
+              child: AutoSizeText('Tech Used To Make App'),
             ),
           ),
           ListTile(
@@ -59,11 +66,18 @@ class DrawerWidget extends StatelessWidget {
                               textAlign: TextAlign.start),
                           content: Text(
                             'My sir ${FirebaseAuth.instance.currentUser?.displayName} You Exit From Meditation environment to help YOU for make good Meditation time, Pleas think again and take option from these option under this text section',
-                            style: Theme.of(context).textTheme.labelSmall?.copyWith(fontSize:24),
+                            style: Theme.of(context)
+                                .textTheme
+                                .labelSmall
+                                ?.copyWith(fontSize: 24),
                           ),
                           icon: Align(
                               alignment: Alignment.topLeft,
-                              child: Icon(Icons.cancel, color: Colors.red,size: 48,)),
+                              child: Icon(
+                                Icons.cancel,
+                                color: Colors.red,
+                                size: 48,
+                              )),
                           actions: [
                             TextButton(
                                 onPressed: () async {
@@ -76,6 +90,7 @@ class DrawerWidget extends StatelessWidget {
                             TextButton(
                                 onPressed: () async {
                                   await FirebaseAuth.instance.signOut();
+                                  Navigator.pop(context);
                                 },
                                 child: Text(
                                   'Logout',
@@ -85,7 +100,7 @@ class DrawerWidget extends StatelessWidget {
                         ));
                 // log out from app
               },
-              child: const Text(
+              child: AutoSizeText(
                 'LogOut',
                 style: TextStyle(color: Colors.red),
               ),

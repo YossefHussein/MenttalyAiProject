@@ -26,14 +26,18 @@ class AuthCubit extends Cubit<AuthStates> {
     )
         .then((value) {
       emit(SignInEmailState());
+    }).catchError((error) {
+      sendMSG('Error: ${error.toString()}').then((value) {
+        emit(SignUpIsNotMatch());
+      });
     });
   }
 
   // go to sign up screen if user doesn't have account
-  void openSignUpScreen({required BuildContext context}) {
-    Navigator.pushReplacementNamed(context, 'singupScreen');
-    emit(OpenSignUpScreen());
-  }
+  // void openSignUpScreen({required BuildContext context}) {
+  //   Navigator.pushReplacementNamed(context, 'singupScreen');
+  //   emit(OpenSignUpScreen());
+  // }
 
   // signUp on app by firebase
   Future signUpByEmail(BuildContext context) async {
@@ -49,12 +53,14 @@ class AuthCubit extends Cubit<AuthStates> {
         password: passwordController.text.trim(),
       );
       // this for go to auth screen
-      Navigator.pushNamed(context, '/');
+      // Navigator.pushNamed(context, '/');
       emit(SignUpIsMatchState());
     } else {
       // this is password is not match
-      notPasswordMatch('password don\'t match').then((value) {
+      sendMSG('password don\'t match').then((value) {
         emit(SignUpIsNotMatch());
+      }).catchError((error){
+        sendMSG('${error.toString}');
       });
       return false;
     }
@@ -82,7 +88,7 @@ class AuthCubit extends Cubit<AuthStates> {
     } catch (error) {
       print(error.toString());
       emit(LoginWithGoogleError(error.toString()));
-      notPasswordMatch(error.toString());
+      sendMSG(error.toString());
     }
   }
 }

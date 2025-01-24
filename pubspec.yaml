@@ -35,6 +35,8 @@ dependencies:
   google_fonts: ^6.1.0
   # state management
   flutter_bloc: ^8.1.6
+  bloc: ^8.1.4
+  # beautiful progress bar
   audio_video_progress_bar: ^1.0.1
   # call http server
   http: ^1.1.0
@@ -48,21 +50,33 @@ dependencies:
   fluttertoast: ^8.2.2
   # for localization
   easy_localization: ^3.0.7
-  # image_picker: ^1.1.2
   # save small things
   shared_preferences: ^2.3.4
   auto_size_text: ^3.0.0
+  auto_size_text_field: ^2.2.4
   # firebase packages
   firebase_auth: ^5.4.0
   firebase_core: ^3.10.0
   # for login
   google_sign_in: ^6.2.2
   google_sign_in_web: ^0.12.4+3
+  # launch the url
   url_launcher: ^6.3.1
   # make id for user account
   uuid: ^4.5.1
+  # adding more icon
   icons_plus: ^5.0.0
+  # dont env
   flutter_dotenv: ^5.2.1
+  # for animation
+  lottie: ^3.2.0
+  # adding svg icon
+  flutter_svg: ^2.0.17
+  # pick image from device
+  image_picker: ^0.8.6
+  sqflite: ^2.4.1
+#  flutter_local_notifications: ^17.2.1+2
+
 
 
 
@@ -93,6 +107,7 @@ flutter:
   assets:
   #   - images/a_dot_burr.jpeg
   - assets/
+  - assets/animation/
   - .env
 
   # An image asset can refer to one or more resolution-specific "variants", see

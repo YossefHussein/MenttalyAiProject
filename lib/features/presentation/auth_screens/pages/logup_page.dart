@@ -1,9 +1,11 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:mental_health_app/core/theme.dart';
 import 'package:mental_health_app/features/presentation/auth_screens/cubit/auth_cubit.dart';
 import 'package:mental_health_app/features/presentation/auth_screens/cubit/auth_state.dart';
+import 'package:mental_health_app/features/presentation/auth_screens/pages/login_page.dart';
 
 class LogUpScreen extends StatelessWidget {
   const LogUpScreen({super.key});
@@ -27,6 +29,7 @@ class LogUpScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+                  // Email
                   Padding(
                     padding: const EdgeInsets.all(16),
                     child: TextFormField(
@@ -52,6 +55,7 @@ class LogUpScreen extends StatelessWidget {
                       ),
                     ),
                   ),
+                  // Password
                   Padding(
                     padding: const EdgeInsets.all(16),
                     child: TextFormField(
@@ -78,7 +82,34 @@ class LogUpScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  // login with email
+                  // Password Conferm
+                  Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: TextFormField(
+                      obscureText: true,
+                      style: TextStyle(color: Colors.white),
+                      controller: cubit.confirmPasswordController,
+                      decoration: InputDecoration(
+                        labelText: 'Password Confirm',
+                        labelStyle: TextStyle(color: Colors.white),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5),
+                          borderSide: BorderSide(
+                            color: Theme.of(context).focusColor,
+                            width: 1.0,
+                          ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30),
+                          borderSide: const BorderSide(
+                            color: DefaultColors.pink,
+                            width: 2.0,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  // log up with email
                   Align(
                     alignment: Alignment.bottomCenter,
                     child: SizedBox(
@@ -87,7 +118,7 @@ class LogUpScreen extends StatelessWidget {
                         padding: const EdgeInsets.all(16),
                         child: ElevatedButton.icon(
                           onPressed: () {
-                            cubit.signInByEmail();
+                            cubit.signUpByEmail(context);
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Theme.of(context).focusColor,
@@ -102,7 +133,7 @@ class LogUpScreen extends StatelessWidget {
                             size: 26,
                           ),
                           label: Text(
-                            'Login With Email',
+                            'LogUp With Email',
                             style: Theme.of(context)
                                 .textTheme
                                 .labelLarge
@@ -136,7 +167,7 @@ class LogUpScreen extends StatelessWidget {
                             size: 26,
                           ),
                           label: Text(
-                            'Login With Google',
+                            'LogUp With Google',
                             style: Theme.of(context)
                                 .textTheme
                                 .labelLarge
@@ -150,7 +181,7 @@ class LogUpScreen extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       const Text(
-                        'If You Dose Not Have?',
+                        'Are You have Account!',
                         style: TextStyle(
                           color: DefaultColors.white,
                         ),
@@ -163,15 +194,14 @@ class LogUpScreen extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => LogUpScreen(),
+                              builder: (context) => LogInScreen(),
                             ),
                           );
                         },
-                        child: Text(
-                          'You Can Make It Here',
+                        child: AutoSizeText(
+                          'LogIn Now',
                           style: TextStyle(
-                              color: DefaultColors.white,
-                              fontSize: FontSizes.standard),
+                              color: DefaultColors.white,),
                         ),
                       ),
                     ],

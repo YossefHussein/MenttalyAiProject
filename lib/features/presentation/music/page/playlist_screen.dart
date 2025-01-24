@@ -20,6 +20,8 @@ class PlaylistScreen extends StatelessWidget {
         break;
       case 'orange':
         color = DefaultColors.orange;
+      case 'green':
+        color = DefaultColors.task3;
         break;
     }
 
@@ -75,23 +77,25 @@ class PlaylistScreen extends StatelessWidget {
                           children: [
                             AutoSizeText(
                               state.songs[index].author,
-                              style: Theme.of(context).textTheme.labelSmall,
+                              style: Theme.of(context).textTheme.bodySmall?.copyWith(fontSize: FontSizes.extraSmall),
                             ),
                             SizedBox(
                               width: 10,
                             ),
-                            Chip(
-                              elevation: 0,
-                              shape: StadiumBorder(
-                                  side: BorderSide(color: Colors.transparent)),
-                              backgroundColor: choiceColor(
-                                  state.songs[index].colorTypeOfSong),
-                              label: Text(
-                                state.songs[index].typeSong,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .labelSmall
-                                    ?.copyWith(color: Colors.white),
+                            FittedBox(
+                              child: Chip(
+                                elevation: 0,
+                                shape: StadiumBorder(
+                                    side: BorderSide(color: Colors.transparent)),
+                                backgroundColor: choiceColor(
+                                    state.songs[index].colorTypeOfSong),
+                                label: Text(
+                                  state.songs[index].typeSong,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .labelSmall
+                                      ?.copyWith(color: Colors.white),
+                                ),
                               ),
                             ), //Text
                           ],
