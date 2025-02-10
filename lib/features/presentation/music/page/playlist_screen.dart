@@ -21,7 +21,7 @@ class PlaylistScreen extends StatelessWidget {
       case 'orange':
         color = DefaultColors.orange;
       case 'green':
-        color = DefaultColors.task3;
+        color = DefaultColors.lightTeal;
         break;
     }
 

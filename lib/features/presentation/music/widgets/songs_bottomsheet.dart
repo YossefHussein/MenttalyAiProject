@@ -1,6 +1,7 @@
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+// import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:mental_health_app/core/theme.dart';
 import 'package:mental_health_app/features/presentation/music/domain/entities/song.dart';
@@ -36,6 +37,7 @@ class SongsBottomSheet extends StatefulWidget {
 class _SongsBottomSheetState extends State<SongsBottomSheet> {
   late AudioPlayer _audioPlayer;
   bool isLooping = false;
+  // BannerAd? _bannerAd;
 
   @override
   void initState() {
@@ -45,17 +47,33 @@ class _SongsBottomSheetState extends State<SongsBottomSheet> {
     _audioPlayer.setUrl(widget.songs.songLink);
     // for auto start the music
     _audioPlayer.play();
+    // config of ads
+    // _bannerAd = BannerAd(
+    //   adUnitId: 'ca-app-pub-3541561665141480/1576506826',
+    //   request: AdRequest(),
+    //   size: AdSize.banner,
+    //   listener:  BannerAdListener(
+    //     onAdLoaded: (ad) => debugPrint('Ad Loaded'),
+    //     onAdFailedToLoad: (ad, error) {
+    //       ad.dispose();
+    //       debugPrint('Ad failed to load $error');
+    //     },
+    //     onAdClosed: (ad) => debugPrint('Ad closed'),
+    //   ),
+    // )..load();
     super.initState();
   }
 
   @override
   void dispose() {
     _audioPlayer.dispose();
+    // _bannerAd?.dispose();
+    // _bannerAd = null;
     super.dispose();
   }
 
   // play and close music
-  void togglePlayerPause() async {
+  Future<void> togglePlayerPause() async {
     if (_audioPlayer.playing) {
       await _audioPlayer.pause();
     } else {
@@ -64,7 +82,7 @@ class _SongsBottomSheetState extends State<SongsBottomSheet> {
   }
 
   // move to bake
-  void seekBackward() async {
+  Future<void> seekBackward() async {
     final currentPosition = _audioPlayer.position;
     final newPosition = currentPosition - const Duration(seconds: 5);
     _audioPlayer
@@ -72,7 +90,7 @@ class _SongsBottomSheetState extends State<SongsBottomSheet> {
   }
 
   //  move to forward
-  void seekForward() {
+  Future<void> seekForward() async {
     final currentPosition = _audioPlayer.position;
     final newPosition = currentPosition + const Duration(seconds: 5);
     _audioPlayer
@@ -80,7 +98,7 @@ class _SongsBottomSheetState extends State<SongsBottomSheet> {
   }
 
   // make looping to music
-  void toggleLoop() {
+ Future<void> toggleLoop() async {
     setState(() {
       isLooping = !isLooping;
       _audioPlayer.setLoopMode(isLooping ? LoopMode.one : LoopMode.off);
@@ -88,7 +106,7 @@ class _SongsBottomSheetState extends State<SongsBottomSheet> {
   }
 
   // to restart music from zero
-  void seekRestart() {
+  Future<void> seekRestart() async {
     _audioPlayer.seek(Duration.zero);
   }
 
@@ -127,7 +145,7 @@ class _SongsBottomSheetState extends State<SongsBottomSheet> {
                       ClipRRect(
                         borderRadius: BorderRadius.circular(15),
                         child: Image.network(
-                          '${widget.songs.thumbnail}',
+                          widget.songs.thumbnail,
                           width: double.infinity,
                           fit: BoxFit.cover,
                         ),
@@ -242,6 +260,12 @@ class _SongsBottomSheetState extends State<SongsBottomSheet> {
                           ),
                         ],
                       ),
+                      // Container(
+                      //   alignment: Alignment.center,
+                      //   width: _bannerAd?.size.width.toDouble(),
+                      //   height: 20,
+                      //   child: AdWidget(ad: _bannerAd!),
+                      // )
                     ],
                   ),
                 ],

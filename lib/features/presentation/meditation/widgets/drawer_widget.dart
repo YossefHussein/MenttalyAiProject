@@ -10,6 +10,10 @@ class DrawerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+            topRight: Radius.circular(0), bottomRight: Radius.circular(0)),
+      ),
       child: ListView(
         children: [
           DrawerHeader(
@@ -30,21 +34,22 @@ class DrawerWidget extends StatelessWidget {
                   child: AutoSizeText(
                     '${FirebaseAuth.instance.currentUser?.email}',
                     style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                          color: Colors.red,
+                          color: FirebaseAuth.instance.currentUser?.photoURL ==
+                                  null
+                              ? Colors.black
+                              : Colors.white,
                         ),
                   ),
                 ),
               ),
             ),
           ),
-           ListTile(
-            onTap: (){
+          ListTile(
+            onTap: () {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => AboutDeveloper()));
             },
-             title: GestureDetector(
-                child: AutoSizeText('About Developer')
-            ),
+            title: GestureDetector(child: AutoSizeText('About Developer')),
           ),
           ListTile(
             title: GestureDetector(

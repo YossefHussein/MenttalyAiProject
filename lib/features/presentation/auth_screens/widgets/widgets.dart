@@ -10,6 +10,5 @@ Future<bool?> sendMSG(message) async {
     backgroundColor: DefaultColors.orange,
     textColor: DefaultColors.white,
     fontSize: 16.0,
-
   );
 }

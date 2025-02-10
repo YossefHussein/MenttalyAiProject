@@ -1,22 +1,22 @@
-import 'dart:io';
-
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:mental_health_app/core/theme.dart';
 import 'package:mental_health_app/features/presentation/meditation/bloc/daily_quotes/daily_quotes_bloc.dart';
 import 'package:mental_health_app/features/presentation/meditation/bloc/daily_quotes/daily_quotes_state.dart';
 import 'package:mental_health_app/features/presentation/meditation/bloc/mode_message/mode_message_bloc.dart';
 import 'package:mental_health_app/features/presentation/meditation/bloc/mode_message/mode_message_event.dart';
 import 'package:mental_health_app/features/presentation/meditation/bloc/mode_message/mode_message_state.dart';
+import 'package:mental_health_app/features/presentation/meditation/widgets/custom_mood_bottomsheet.dart';
 import 'package:mental_health_app/features/presentation/meditation/widgets/drawer_widget.dart';
 import 'package:mental_health_app/features/presentation/meditation/widgets/feeling_button.dart';
 import 'package:mental_health_app/features/presentation/meditation/widgets/task_card.dart';
+import 'package:mental_health_app/translations/locale_keys.dart';
 
 class MeditationScreen extends StatefulWidget {
-  const MeditationScreen({Key? key}) : super(key: key);
+  const MeditationScreen({super.key});
 
   @override
   State<MeditationScreen> createState() => _MeditationScreenState();
@@ -25,14 +25,17 @@ class MeditationScreen extends StatefulWidget {
 class _MeditationScreenState extends State<MeditationScreen> {
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
-  late File _selectedImage;
-
-  Future _pickImageFromGallery() async {
-    final returnImage =
-        await ImagePicker().pickImage(source: ImageSource.gallery);
-    setState(() {
-      _selectedImage = File(returnImage!.path);
-    });
+  Widget profilePic() {
+    if (FirebaseAuth.instance.currentUser?.photoURL == null) {
+      return CircleAvatar(
+        child: Icon(Icons.account_circle),
+      );
+    } else {
+      return CircleAvatar(
+        backgroundImage:
+            NetworkImage(FirebaseAuth.instance.currentUser!.photoURL!),
+      );
+    }
   }
 
   @override
@@ -49,15 +52,7 @@ class _MeditationScreenState extends State<MeditationScreen> {
           child: Image.asset('assets/menu_burger.png'),
         ),
         actions: [
-          // GestureDetector(
-          //   onTap: (){
-          //     _pickImageFromGallery();
-          //   },
-          //   child: CircleAvatar(
-          //     backgroundImage: NetworkImage(
-          //         '${FirebaseAuth.instance.currentUser?.photoURL == null ? Image.file(_selectedImage) : FirebaseAuth.instance.currentUser?.photoURL}'),
-          //   ),
-          // ),
+          profilePic(),
           SizedBox(
             width: 16,
           )
@@ -73,13 +68,13 @@ class _MeditationScreenState extends State<MeditationScreen> {
             children: [
               AutoSizeText(
                   //
-                  'Welcome back ${FirebaseAuth.instance.currentUser?.displayName == null ? '' : FirebaseAuth.instance.currentUser?.displayName}',
+                  '${LocaleKeys.home_screen_welcome_back.tr()} ${FirebaseAuth.instance.currentUser?.displayName ?? ''}',
                   style: Theme.of(context).textTheme.titleLarge),
               SizedBox(
-                height: 32,
+                height: 25,
               ),
               AutoSizeText(
-                'How are you feeling today ?',
+                '${LocaleKeys.home_screen_how_are_you_feeling_today.tr()}',
                 style: Theme.of(context).textTheme.titleMedium,
               ),
               SizedBox(
@@ -88,9 +83,10 @@ class _MeditationScreenState extends State<MeditationScreen> {
               Wrap(
                 direction: Axis.horizontal,
                 alignment: WrapAlignment.spaceBetween,
+                crossAxisAlignment: WrapCrossAlignment.center,
                 children: [
                   FeelingButton(
-                      label: 'Happy',
+                      label: LocaleKeys.home_screen_happy_mood_button.tr(),
                       image: 'assets/happy.png',
                       color: DefaultColors.pink,
                       onTap: () {
@@ -99,7 +95,7 @@ class _MeditationScreenState extends State<MeditationScreen> {
                             .add(FetchMoodMessageEvent('Today i am happy'));
                       }),
                   FeelingButton(
-                      label: 'Calm',
+                      label: LocaleKeys.home_screen_calm_mood_button.tr(),
                       image: 'assets/calm.png',
                       color: DefaultColors.purple,
                       onTap: () {
@@ -108,7 +104,7 @@ class _MeditationScreenState extends State<MeditationScreen> {
                             .add(FetchMoodMessageEvent('Today i am calm'));
                       }),
                   FeelingButton(
-                      label: 'Relax',
+                      label: LocaleKeys.home_screen_relax_mood_button.tr(),
                       image: 'assets/relax.png',
                       color: DefaultColors.orange,
                       onTap: () {
@@ -117,20 +113,31 @@ class _MeditationScreenState extends State<MeditationScreen> {
                             .add(FetchMoodMessageEvent('Today i am relax'));
                       }),
                   FeelingButton(
-                      label: 'Focus',
+                      label: LocaleKeys.home_screen_focus_mood_button.tr(),
                       image: 'assets/focus.png',
                       color: DefaultColors.lightTeal,
                       onTap: () {
-                        context.read<MoodMessageBloc>().add(FetchMoodMessageEvent(
-                            'Today i need to be focus but feel like i am missing something'));
-                      })
+                        context.read<MoodMessageBloc>().add(
+                            FetchMoodMessageEvent('Today i need to be focus'));
+                      }),
+                  FeelingButton(
+                    label: LocaleKeys.home_screen_my_mood_button.tr(),
+                    image: 'assets/custom_mood3.png',
+                    color: DefaultColors.white,
+                    onTap: () {
+                      // context.read<MoodMessageBloc>().add(FetchMoodMessageEvent(
+                      //     'Today i need to be focus but feel like i am missing something'));
+                      bottomSheet(context);
+                    },
+                    borderColor: Colors.black,
+                  ),
                 ],
               ),
               SizedBox(
                 height: 24,
               ),
               AutoSizeText(
-                'Today\'s Task',
+                '${LocaleKeys.home_screen_today_task.tr()}',
                 style: Theme.of(context).textTheme.titleMedium,
               ),
               SizedBox(
@@ -140,14 +147,16 @@ class _MeditationScreenState extends State<MeditationScreen> {
                 builder: (context, state) {
                   if (state is DailyQuoteLoading) {
                     return Center(
-                      child: CircularProgressIndicator(),
+                      child: CircularProgressIndicator(
+                        color: DefaultColors.pink,
+                      ),
                     );
                   } else if (state is DailyQuoteLoadedState) {
                     return Column(
                       children: [
                         // tasks card
                         TaskCard(
-                          title: 'Morning',
+                          title: '${LocaleKeys.home_screen_morning.tr()}',
                           description: state.dailyQuote.morningQuote,
                           color: DefaultColors.task1,
                         ),
@@ -155,7 +164,7 @@ class _MeditationScreenState extends State<MeditationScreen> {
                           height: 16,
                         ),
                         TaskCard(
-                          title: 'Noon',
+                          title: '${LocaleKeys.home_screen_noon.tr()}',
                           description: state.dailyQuote.noonQuote,
                           color: DefaultColors.task2,
                         ),
@@ -163,7 +172,7 @@ class _MeditationScreenState extends State<MeditationScreen> {
                           height: 16,
                         ),
                         TaskCard(
-                          title: 'Evening',
+                          title: '${LocaleKeys.home_screen_evening.tr()}',
                           description: state.dailyQuote.eveningQuote,
                           color: DefaultColors.task3,
                         )
@@ -189,31 +198,33 @@ class _MeditationScreenState extends State<MeditationScreen> {
               BlocBuilder<MoodMessageBloc, MoodMessageState>(
                 builder: (context, state) {
                   if (state is MoodMessageLoadedState) {
-                    WidgetsBinding.instance.addPostFrameCallback((_) {
-                      showDialog(
+                    WidgetsBinding.instance.addPostFrameCallback(
+                      (_) {
+                        showDialog(
                           context: context,
                           builder: (context) => AlertDialog(
-                                title: Text(
-                                  'My advice for you',
-                                  style:
-                                      Theme.of(context).textTheme.labelMedium,
-                                ),
-                                content: Text(
-                                  state.moodMessage.text.trim(),
-                                  style: Theme.of(context).textTheme.labelSmall,
-                                ),
-                                actions: [
-                                  TextButton(
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                        context
-                                            .read<MoodMessageBloc>()
-                                            .add(ResetMoodMessage());
-                                      },
-                                      child: Text('ok'))
-                                ],
-                              ));
-                    });
+                            title: Text(
+                              'My advice for you',
+                              style: Theme.of(context).textTheme.labelMedium,
+                            ),
+                            content: Text(
+                              state.moodMessage.text,
+                              style: Theme.of(context).textTheme.bodySmall,
+                            ),
+                            actions: [
+                              TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                    context
+                                        .read<MoodMessageBloc>()
+                                        .add(ResetMoodMessage());
+                                  },
+                                  child: Text('okay'))
+                            ],
+                          ),
+                        );
+                      },
+                    );
                   }
                   return Container();
                 },

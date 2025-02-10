@@ -30,10 +30,7 @@ class AppTheme {
       focusColor: const Color(0xFF371B34),
       scaffoldBackgroundColor: DefaultColors.white,
       appBarTheme: const AppBarTheme(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        centerTitle: true
-      ),
+          backgroundColor: Colors.white, elevation: 0, centerTitle: true),
       textTheme: TextTheme(
         bodySmall: GoogleFonts.alegreyaSans(
           fontSize: FontSizes.small,

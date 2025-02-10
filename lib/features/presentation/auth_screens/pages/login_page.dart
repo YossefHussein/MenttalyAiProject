@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:auto_size_text_field/auto_size_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:icons_plus/icons_plus.dart';
@@ -16,12 +17,14 @@ class LogInScreen extends StatefulWidget {
 }
 
 class _LogInScreenState extends State<LogInScreen> {
+  var cubit = AuthCubit();
+  var obscureText = true;
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AuthCubit, AuthStates>(
       listener: (context, state) {},
       builder: (context, state) {
-        var cubit = AuthCubit();
         return Scaffold(
           body: Stack(
             children: [
@@ -45,8 +48,10 @@ class _LogInScreenState extends State<LogInScreen> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(16),
-                    child: TextFormField(
+                    child: AutoSizeTextField(
+                      maxLines: 1,
                       controller: cubit.emailController,
+                      keyboardType: TextInputType.emailAddress,
                       style: TextStyle(color: Colors.white),
                       decoration: InputDecoration(
                         labelText: 'Email',
@@ -70,13 +75,30 @@ class _LogInScreenState extends State<LogInScreen> {
                   ),
                   Padding(
                     padding: const EdgeInsets.all(16),
-                    child: TextFormField(
-                      obscureText: true,
-                      style: TextStyle(color: Colors.white),
+                    child: AutoSizeTextField(
+                      maxLines: 1,
                       controller: cubit.passwordController,
+                      obscureText: obscureText,
+                      style: TextStyle(color: Colors.white),
+                      keyboardType: TextInputType.visiblePassword,
                       decoration: InputDecoration(
                         labelText: 'Password',
                         labelStyle: TextStyle(color: Colors.white),
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            // Based on passwordVisible state choose the icon
+                            obscureText
+                                ? Icons.visibility
+                                : Icons.visibility_off,
+                            color: Theme.of(context).focusColor,
+                          ),
+                          onPressed: () {
+                            // Update the state i.e. toggle the state of passwordVisible variable
+                            setState(() {
+                              obscureText = !obscureText;
+                            });
+                          },
+                        ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(5),
                           borderSide: BorderSide(
@@ -118,7 +140,7 @@ class _LogInScreenState extends State<LogInScreen> {
                             size: 26,
                           ),
                           label: Text(
-                            'Login With Email',
+                            'LogIn With Email',
                             style: Theme.of(context)
                                 .textTheme
                                 .labelLarge
@@ -152,7 +174,7 @@ class _LogInScreenState extends State<LogInScreen> {
                             size: 26,
                           ),
                           label: Text(
-                            'Login With Google',
+                            'LogIn With Google',
                             style: Theme.of(context)
                                 .textTheme
                                 .labelLarge
@@ -165,7 +187,7 @@ class _LogInScreenState extends State<LogInScreen> {
                   Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                       AutoSizeText(
+                      AutoSizeText(
                         'If You Dose Not Have Account?',
                         style: TextStyle(
                           color: DefaultColors.white,
@@ -186,7 +208,7 @@ class _LogInScreenState extends State<LogInScreen> {
                         child: AutoSizeText(
                           'Make It Here',
                           style: TextStyle(
-                              color: DefaultColors.white,
+                            color: DefaultColors.white,
                           ),
                         ),
                       ),

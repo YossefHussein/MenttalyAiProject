@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mental_health_app/presentation/auth.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class OnboardingScreen extends StatelessWidget {
   const OnboardingScreen({super.key});
@@ -22,13 +23,15 @@ class OnboardingScreen extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(16),
                 child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => Auth(),
-                      ),
-                    );
+                  onPressed: () async {
+                    // Mark onboarding as completed
+                    final prefs = await SharedPreferences.getInstance();
+                    await prefs.setBool('onboarding_completed', true);
+
+                    // Navigate to the login screen
+                    // ignore: use_build_context_synchronously
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => const Auth()));
                   },
                   style: ElevatedButton.styleFrom(
                       backgroundColor: Theme.of(context).focusColor,

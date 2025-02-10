@@ -1,0 +1,31 @@
+{
+  "home_screen": {
+    "welcome_back": "اهلا بيك",
+    "how_are_you_feeling_today": "إزاي بتحس دلوقتي ",
+    "today_task": "مهام اليوم",
+    "morning": "صبح",
+    "noon": "عصر",
+    "evening": "بليل",
+    "happy_mood_button": "سعيد",
+    "calm_mood_button": "هدوء",
+    "relax_mood_button": "استرخاء",
+    "focus_mood_button": "مركز",
+    "my_mood_button": "مخصص"
+  },
+  "drawer_widget": {
+    "about_developer": "عن مطورين",
+    "tech_used_to_make_app": "التقنيات المستخدمة في تطبيق",
+    "logout": "تسجيل خروج",
+    "title_logout": "هل انت متأكد انك تخرج من تطبيق",
+    "my_sir": "سيدي",
+    "title_description": "هل انت متأكد انك عايز تخرج من بيئة للتأمل لي مسعادتك في انك تكوين وقت جميل للتأمل, ارجوك فكر من جديد وختر من اختيارين من موجودين تحت نص دة",
+    "title_login_button": "تسجيل جروج ",
+    "title_cancel_button": "كانسيل"
+  },
+  "song_playlist_screen": {
+    "song_mood_angary": "غاضب",
+    "song_mood_good": "كويس",
+    "song_mood_good_place": "مكان كويس",
+    "song_mood_sad": "حزين"
+  }
+}

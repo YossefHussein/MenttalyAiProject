@@ -1,9 +1,10 @@
 # mental_health_flutter
 
 this is frond-end part there another application for server developer with nodejs 
-[link of mental health app serve](https://github.com/YossefHussein/mental_health_nodejs)
+[link of mental health app server](https://github.com/YossefHussein/mental_health_nodejs)
 
-<br>
+make new file name `.env`
+and adding the ip of app server 
 ```
-flutter run -d chrome --web-hostname=127.0.0.1 --web-port=8200
+IpServer=<ip>
 ```

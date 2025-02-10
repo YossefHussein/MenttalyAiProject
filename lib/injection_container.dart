@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:mental_health_app/features/presentation/get_doctor/bloc/doctor_bloc.dart';
 import 'package:mental_health_app/features/presentation/meditation/bloc/daily_quotes/daily_quotes_bloc.dart';
 import 'package:mental_health_app/features/presentation/meditation/bloc/mode_message/mode_message_bloc.dart';
 import 'package:mental_health_app/features/presentation/meditation/data/datasource/meditation_remote_datasource.dart';
@@ -19,6 +20,7 @@ Future<void> init() async {
    // blocs
    sl.registerFactory(() => DailyQuotesBloc(getDailyQuote: sl()));
    sl.registerFactory(() => MoodMessageBloc(getMoodMessage: sl()));
+   sl.registerFactory(() => GetDoctorBloc(getAllDoctor: sl()));
    sl.registerFactory(() => SongBloc(getAllSongs: sl()));
 
    // Use cases
@@ -29,6 +31,8 @@ Future<void> init() async {
    // Repositories
    sl.registerLazySingleton<MeditationRepository>(
            () => MeditationRepositoryImpl(remoteDataSource: sl()));
+   sl.registerLazySingleton<SongRepository>(
+           () => SongRepositoryImpl(remoteDataSource: sl()));
    sl.registerLazySingleton<SongRepository>(
            () => SongRepositoryImpl(remoteDataSource: sl()));
 

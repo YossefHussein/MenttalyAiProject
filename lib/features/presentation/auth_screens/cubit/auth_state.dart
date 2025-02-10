@@ -8,7 +8,6 @@ class OpenSignUpScreen extends AuthStates{}
 
 class SignUpIsMatchState extends AuthStates {}
 
-class SignUpIsNotMatch extends AuthStates {}
 
 class LoginWithGoogleLoading extends AuthStates{}
 

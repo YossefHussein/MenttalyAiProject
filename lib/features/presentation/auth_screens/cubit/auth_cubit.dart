@@ -28,7 +28,7 @@ class AuthCubit extends Cubit<AuthStates> {
       emit(SignInEmailState());
     }).catchError((error) {
       sendMSG('Error: ${error.toString()}').then((value) {
-        emit(SignUpIsNotMatch());
+        emit(SignUpIsMatchState());
       });
     });
   }
@@ -58,7 +58,7 @@ class AuthCubit extends Cubit<AuthStates> {
     } else {
       // this is password is not match
       sendMSG('password don\'t match').then((value) {
-        emit(SignUpIsNotMatch());
+        emit(SignUpIsMatchState());
       }).catchError((error){
         sendMSG('${error.toString}');
       });

@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:auto_size_text_field/auto_size_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:icons_plus/icons_plus.dart';
@@ -7,8 +8,15 @@ import 'package:mental_health_app/features/presentation/auth_screens/cubit/auth_
 import 'package:mental_health_app/features/presentation/auth_screens/cubit/auth_state.dart';
 import 'package:mental_health_app/features/presentation/auth_screens/pages/login_page.dart';
 
-class LogUpScreen extends StatelessWidget {
+class LogUpScreen extends StatefulWidget {
   const LogUpScreen({super.key});
+
+  @override
+  State<LogUpScreen> createState() => _LogUpScreenState();
+}
+
+class _LogUpScreenState extends State<LogUpScreen> {
+  var obscureText = true;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +40,8 @@ class LogUpScreen extends StatelessWidget {
                   // Email
                   Padding(
                     padding: const EdgeInsets.all(16),
-                    child: TextFormField(
+                   child: AutoSizeTextField(
+                      maxLines: 1,
                       controller: cubit.emailController,
                       style: TextStyle(color: Colors.white),
                       decoration: InputDecoration(
@@ -58,8 +67,9 @@ class LogUpScreen extends StatelessWidget {
                   // Password
                   Padding(
                     padding: const EdgeInsets.all(16),
-                    child: TextFormField(
-                      obscureText: true,
+                    child: AutoSizeTextField(
+                      maxLines: 1,
+                      obscureText: obscureText,
                       style: TextStyle(color: Colors.white),
                       controller: cubit.passwordController,
                       decoration: InputDecoration(
@@ -72,6 +82,21 @@ class LogUpScreen extends StatelessWidget {
                             width: 1.0,
                           ),
                         ),
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            // Based on passwordVisible state choose the icon
+                            obscureText
+                                ? Icons.visibility
+                                : Icons.visibility_off,
+                            color: Theme.of(context).focusColor,
+                          ),
+                          onPressed: () {
+                            // Update the state i.e. toogle the state of passwordVisible variable
+                            setState(() {
+                              obscureText = !obscureText;
+                            });
+                          },
+                        ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(30),
                           borderSide: const BorderSide(
@@ -82,16 +107,32 @@ class LogUpScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  // Password Conferm
+                  // Password conform
                   Padding(
                     padding: const EdgeInsets.all(16),
-                    child: TextFormField(
-                      obscureText: true,
+                    child: AutoSizeTextField(
+                      maxLines: 1,
+                      obscureText: obscureText,
                       style: TextStyle(color: Colors.white),
                       controller: cubit.confirmPasswordController,
                       decoration: InputDecoration(
                         labelText: 'Password Confirm',
                         labelStyle: TextStyle(color: Colors.white),
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            // Based on passwordVisible state choose the icon
+                            obscureText
+                                ? Icons.visibility
+                                : Icons.visibility_off,
+                            color: Theme.of(context).focusColor,
+                          ),
+                          onPressed: () {
+                            // Update the state i.e. toogle the state of passwordVisible variable
+                            setState(() {
+                              obscureText = !obscureText;
+                            });
+                          },
+                        ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(5),
                           borderSide: BorderSide(
@@ -201,7 +242,8 @@ class LogUpScreen extends StatelessWidget {
                         child: AutoSizeText(
                           'LogIn Now',
                           style: TextStyle(
-                              color: DefaultColors.white,),
+                            color: DefaultColors.white,
+                          ),
                         ),
                       ),
                     ],

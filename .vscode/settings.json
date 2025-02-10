@@ -3,5 +3,8 @@
     "activityBar.background": "#086d31d4",
     "titleBar.activeBackground": "#086d31d4",
     "titleBar.activeForeground": "#fefefe"
-  }
+  },
+  "cSpell.words": [
+    "usecases"
+  ]
 }

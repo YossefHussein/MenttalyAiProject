@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mental_health_app/features/presentation/chat_gemini/chat_with_gemini.dart';
-import 'package:mental_health_app/features/presentation/get_doctor/get_doctor.dart';
+import 'package:mental_health_app/features/presentation/get_doctor/page/get_doctor.dart';
 import 'package:mental_health_app/features/presentation/meditation/page/meditation_screen.dart';
 import 'package:mental_health_app/features/presentation/music/page/playlist_screen.dart';
 import 'package:mental_health_app/presentation/bottom_nav_bar/bloc/navigation_bloc.dart';
@@ -17,8 +17,9 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+//  list to contain the pages
   final List<Widget> pages = [
-    const MeditationScreen(),
+     MeditationScreen(),
     const PlaylistScreen(),
     const ChatWithGemini(),
     const GetDoctor(),
@@ -50,6 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
               width: 30,
               // this to change color of icon when the user
               // click on button nav bar
+              // ignore: deprecated_member_use
               color: isActive
                   ? Theme.of(context).focusColor
                   : Theme.of(context).primaryColor,
@@ -121,9 +123,10 @@ class _HomeScreenState extends State<HomeScreen> {
               navTooltip: 'chat with me',
               isActive: currentIndex == 2,
               context: context,
-            ), createBottomNavigationBarItem(
+            ),
+            createBottomNavigationBarItem(
               assetName: 'assets/menu_teams.png',
-              navTooltip: 'chat with me',
+              navTooltip: 'get doctor',
               isActive: currentIndex == 3,
               context: context,
             ),
@@ -137,5 +140,3 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
-
-
