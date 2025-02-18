@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:auto_size_text_field/auto_size_text_field.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:icons_plus/icons_plus.dart';
@@ -7,6 +8,8 @@ import 'package:mental_health_app/core/theme.dart';
 import 'package:mental_health_app/features/presentation/auth_screens/cubit/auth_cubit.dart';
 import 'package:mental_health_app/features/presentation/auth_screens/cubit/auth_state.dart';
 import 'package:mental_health_app/features/presentation/auth_screens/pages/login_page.dart';
+import 'package:mental_health_app/presentation/auth.dart';
+import 'package:mental_health_app/translations/locale_keys.dart';
 
 class LogUpScreen extends StatefulWidget {
   const LogUpScreen({super.key});
@@ -25,6 +28,7 @@ class _LogUpScreenState extends State<LogUpScreen> {
       builder: (context, state) {
         var cubit = AuthCubit();
         return Scaffold(
+          backgroundColor: DefaultColors.purple,
           body: Stack(
             children: [
               Positioned.fill(
@@ -40,12 +44,14 @@ class _LogUpScreenState extends State<LogUpScreen> {
                   // Email
                   Padding(
                     padding: const EdgeInsets.all(16),
-                   child: AutoSizeTextField(
+                    child: AutoSizeTextField(
                       maxLines: 1,
                       controller: cubit.emailController,
                       style: TextStyle(color: Colors.white),
                       decoration: InputDecoration(
-                        labelText: 'Email',
+                        labelText: LocaleKeys
+                            .auth_screen_text_form_email_text_from
+                            .tr(),
                         labelStyle: TextStyle(color: Colors.white),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(5),
@@ -73,7 +79,9 @@ class _LogUpScreenState extends State<LogUpScreen> {
                       style: TextStyle(color: Colors.white),
                       controller: cubit.passwordController,
                       decoration: InputDecoration(
-                        labelText: 'Password',
+                        labelText: LocaleKeys
+                            .auth_screen_text_form_password_text_from
+                            .tr(),
                         labelStyle: TextStyle(color: Colors.white),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(5),
@@ -116,7 +124,9 @@ class _LogUpScreenState extends State<LogUpScreen> {
                       style: TextStyle(color: Colors.white),
                       controller: cubit.confirmPasswordController,
                       decoration: InputDecoration(
-                        labelText: 'Password Confirm',
+                        labelText: LocaleKeys
+                            .auth_screen_text_form_confirm_password_text_from
+                            .tr(),
                         labelStyle: TextStyle(color: Colors.white),
                         suffixIcon: IconButton(
                           icon: Icon(
@@ -160,6 +170,12 @@ class _LogUpScreenState extends State<LogUpScreen> {
                         child: ElevatedButton.icon(
                           onPressed: () {
                             cubit.signUpByEmail(context);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => Auth(),
+                              ),
+                            );
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Theme.of(context).focusColor,
@@ -173,8 +189,10 @@ class _LogUpScreenState extends State<LogUpScreen> {
                             color: Colors.white,
                             size: 26,
                           ),
-                          label: Text(
-                            'LogUp With Email',
+                          label: AutoSizeText(
+                            LocaleKeys
+                                .auth_screen_logup_title_logup_email_button
+                                .tr(),
                             style: Theme.of(context)
                                 .textTheme
                                 .labelLarge
@@ -194,6 +212,12 @@ class _LogUpScreenState extends State<LogUpScreen> {
                         child: ElevatedButton.icon(
                           onPressed: () {
                             cubit.signInWithGoogle();
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => Auth(),
+                              ),
+                            );
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Theme.of(context).focusColor,
@@ -207,8 +231,10 @@ class _LogUpScreenState extends State<LogUpScreen> {
                             color: Colors.white,
                             size: 26,
                           ),
-                          label: Text(
-                            'LogUp With Google',
+                          label: AutoSizeText(
+                            LocaleKeys
+                                .auth_screen_logup_title_logup_google_button
+                                .tr(),
                             style: Theme.of(context)
                                 .textTheme
                                 .labelLarge
@@ -221,8 +247,8 @@ class _LogUpScreenState extends State<LogUpScreen> {
                   Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      const Text(
-                        'Are You have Account!',
+                      AutoSizeText(
+                        LocaleKeys.auth_screen_logup_if_have_account.tr(),
                         style: TextStyle(
                           color: DefaultColors.white,
                         ),
@@ -240,7 +266,7 @@ class _LogUpScreenState extends State<LogUpScreen> {
                           );
                         },
                         child: AutoSizeText(
-                          'LogIn Now',
+                          LocaleKeys.auth_screen_logup_login_now.tr(),
                           style: TextStyle(
                             color: DefaultColors.white,
                           ),

@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
+import 'package:mental_health_app/core/routes.dart';
 import 'package:mental_health_app/features/presentation/chat_gemini/chat_with_gemini.dart';
 import 'package:mental_health_app/features/presentation/get_doctor/page/get_doctor.dart';
 import 'package:mental_health_app/features/presentation/meditation/page/meditation_screen.dart';
 import 'package:mental_health_app/features/presentation/music/page/playlist_screen.dart';
 import 'package:mental_health_app/presentation/bottom_nav_bar/bloc/navigation_bloc.dart';
+import 'package:mental_health_app/presentation/bottom_nav_bar/bloc/navigation_events.dart';
 import 'package:mental_health_app/presentation/bottom_nav_bar/bloc/navigation_states.dart';
 import 'package:mental_health_app/presentation/bottom_nav_bar/widget/bottom_nav_bar.dart';
 
@@ -21,8 +24,8 @@ class _HomeScreenState extends State<HomeScreen> {
   final List<Widget> pages = [
      MeditationScreen(),
     const PlaylistScreen(),
-    const ChatWithGemini(),
-    const GetDoctor(),
+    const ChatWithGeminiScreen(),
+    const GetDoctorScreen(),
   ];
 
   //  this to adding active color
@@ -60,13 +63,11 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  final _pageViewController = PageController();
-
+  // current screen
   int currentIndex = 0;
 
   @override
   void dispose() {
-    _pageViewController.dispose();
     super.dispose();
   }
 
@@ -77,21 +78,10 @@ class _HomeScreenState extends State<HomeScreen> {
         builder: (context, state) {
           // if state in [NavigationChanged]
           if (state is NavigationChanged) {
-            // this mean return page and change with change the index
-            return pages[state.index];
+            currentIndex = state.index;
+            return pages[currentIndex];
           }
-          // this to see what is state in
-          debugPrint("state $state");
-          // this is return the first screen [MeditationScreen]
-          return PageView(
-            controller: _pageViewController,
-            children: [pages[currentIndex]],
-            onPageChanged: (index) {
-              setState(() {
-                currentIndex = index;
-              });
-            },
-          );
+          return pages[currentIndex];
         },
       ),
       // adding bloc builder to
@@ -101,42 +91,64 @@ class _HomeScreenState extends State<HomeScreen> {
           if (state is NavigationChanged) {
             currentIndex = state.index;
           }
-          final List<BottomNavigationBarItem> bottomNavBarItem = [
-            createBottomNavigationBarItem(
-              assetName: 'assets/menu_home.png',
-              navTooltip: 'menu home',
-              // when use this trick you not assign
-              // int to bool but you like ask compiler if [currentIndex]
-              // equal zero  convert to true if not that change the color of song button [primaryColor]
-              isActive: currentIndex == 0,
-              context: context,
-            ),
-            createBottomNavigationBarItem(
-              assetName: 'assets/menu_songs.png',
-              navTooltip: 'menu songs',
-              isActive: currentIndex == 1,
-              context: context,
-            ),
-            createBottomNavigationBarItem(
-              isSvg: true,
-              assetSvgName: 'assets/google_gemini_icon.svg',
-              navTooltip: 'chat with me',
-              isActive: currentIndex == 2,
-              context: context,
-            ),
-            createBottomNavigationBarItem(
-              assetName: 'assets/menu_teams.png',
-              navTooltip: 'get doctor',
-              isActive: currentIndex == 3,
-              context: context,
-            ),
-          ];
+          List<BottomNavigationBarItem> bottomNavBarItem(context) {
+            return [
+              createBottomNavigationBarItem(
+                assetName: 'assets/menu_home.png',
+                navTooltip: 'menu home',
+                // when use this trick you not assign
+                // int to bool but you like ask compiler if [currentIndex]
+                // equal zero  convert to true if not that change the color of song button [primaryColor]
+                isActive: currentIndex == 0,
+                context: context,
+              ),
+              createBottomNavigationBarItem(
+                assetName: 'assets/menu_songs.png',
+                navTooltip: 'menu songs',
+                isActive: currentIndex == 1,
+                context: context,
+              ),
+              createBottomNavigationBarItem(
+                isSvg: true,
+                assetSvgName: 'assets/google_gemini_icon.svg',
+                navTooltip: 'chat with me',
+                isActive: currentIndex == 2,
+                context: context,
+              ),
+              createBottomNavigationBarItem(
+                assetName: 'assets/menu_teams.png',
+                navTooltip: 'get doctor',
+                isActive: currentIndex == 3,
+                context: context,
+              ),
+            ];
+          }
+
           return BottomNavBar(
-            items: bottomNavBarItem,
+            items: bottomNavBarItem(context),
             currentIndex: currentIndex,
+            onTap: (index) {
+              context.go(_getRouteName(index));
+              context.read<NavigationBloc>().add(NavigateToEvent(index: index));
+            },
           );
         },
       ),
     );
+  }
+
+  String _getRouteName(int index) {
+    switch (index) {
+      case 0:
+        return Routes.meditationScreenRoute;
+      case 1:
+        return Routes.playlistScreenRoute;
+      case 2:
+        return Routes.chatWithGeminiScreenRoute;
+      case 3:
+        return Routes.getDoctorScreenRoute;
+      default:
+        return Routes.meditationScreenRoute;
+    }
   }
 }

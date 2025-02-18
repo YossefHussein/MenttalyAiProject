@@ -48,7 +48,6 @@ class _CustomMoodBottomSheetState extends State<CustomMoodBottomSheet> {
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Spacer(),
                   TextButton(
                     onPressed: () {
                       context.read<MoodMessageBloc>().add(FetchMoodMessageEvent(

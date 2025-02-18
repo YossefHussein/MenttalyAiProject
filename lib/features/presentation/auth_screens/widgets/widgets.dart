@@ -5,7 +5,7 @@ Future<bool?> sendMSG(message) async {
   return await Fluttertoast.showToast(
     msg: message,
     toastLength: Toast.LENGTH_SHORT,
-    gravity: ToastGravity.CENTER,
+    gravity: ToastGravity.BOTTOM,
     timeInSecForIosWeb: 5,
     backgroundColor: DefaultColors.orange,
     textColor: DefaultColors.white,

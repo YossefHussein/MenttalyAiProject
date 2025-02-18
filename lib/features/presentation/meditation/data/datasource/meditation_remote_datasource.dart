@@ -16,26 +16,26 @@ class MeditationRemoteDataSourceImpl implements MeditationRemoteDataSource {
 
   @override
   Future<DailyQuoteModel> getDailyQuote() async {
-    final response = await client
-        .get(Uri.parse('http://${dotenv.env['IpServer']}:6000/meditation/dailyQuote'));
+    final response = await client.get(Uri.parse(
+        'http://${dotenv.env['IpServer']}:6000/meditation/dailyQuote'));
     if (response.statusCode == 200) {
       final jsonResponse = json.decode(response.body);
       return DailyQuoteModel.fromJson(jsonResponse);
     } else {
-      throw Exception('Failed to load daily quote');
+      throw Exception('Failed to load daily quote:${response.body}');
     }
   }
 
   @override
   Future<MoodMessageModel> getMoodMessage(String mood) async {
-    final response = await client
-        .get(Uri.parse('http://${dotenv.env['IpServer']}:6000/meditation/myMood/$mood'));
+    final response = await client.get(Uri.parse(
+        'http://${dotenv.env['IpServer']}:6000/meditation/myMood/$mood'));
 
     if (response.statusCode == 200) {
       final jsonResponse = json.decode(response.body);
       return MoodMessageModel.fromJson(jsonResponse);
     } else {
-      throw Exception('Failed to load mood quote');
+      throw Exception('Failed to load mood quote:${response.body}');
     }
   }
 }

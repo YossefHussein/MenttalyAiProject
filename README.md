@@ -8,3 +8,9 @@ and adding the ip of app server
 ```
 IpServer=<ip>
 ```
+
+```
+flutter pub run easy_localization:generate -S "assets/translations" -O "lib/translations"
+// and
+flutter pub run easy_localization:generate -S "assets/translations" -O "lib/translations" -o "locale_keys.dart" -f keys
+```

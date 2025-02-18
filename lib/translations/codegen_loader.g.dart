@@ -15,6 +15,28 @@ class CodegenLoader extends AssetLoader{
   }
 
   static const Map<String,dynamic> ar = {
+  "onboarding_screen": {
+    "title_onboarding_button": "هل تقدر تخليني اساعدك"
+  },
+  "auth_screen": {
+    "text_form": {
+      "email_text_from": "ايمال",
+      "password_text_from": "باسورد",
+      "confirm_password_text_from": "كونفيرم باسورد"
+    },
+    "login_screen": {
+      "title_login_email_button": "تسجيل دخول بالايمال",
+      "title_login_google_button": "تسجيل دخول بالجوجل",
+      "if_dont_have_account": "لو معندكش حساب؟",
+      "make_account_here": "اعمل حساب من هنا"
+    },
+    "logup": {
+      "title_logup_email_button": "حساب جديد بالايمال",
+      "title_logup_google_button": "حساب جديد بالجوجل",
+      "if_have_account": "لو عندك حساب؟",
+      "login_now": "سحل دلوقتي"
+    }
+  },
   "home_screen": {
     "welcome_back": "اهلا بيك",
     "how_are_you_feeling_today": "إزاي بتحس دلوقتي ",
@@ -26,7 +48,8 @@ class CodegenLoader extends AssetLoader{
     "calm_mood_button": "هدوء",
     "relax_mood_button": "استرخاء",
     "focus_mood_button": "مركز",
-    "my_mood_button": "مخصص"
+    "my_mood_button": "مخصص",
+    "okay_button": "حسنا"
   },
   "drawer_widget": {
     "about_developer": "عن مطورين",
@@ -43,9 +66,32 @@ class CodegenLoader extends AssetLoader{
     "song_mood_good": "كويس",
     "song_mood_good_place": "مكان كويس",
     "song_mood_sad": "حزين"
-  }
+  },
+  "no_data_found": "لا توجد بيانات الان"
 };
 static const Map<String,dynamic> en = {
+  "onboarding_screen": {
+    "title_onboarding_button": "Let us help you"
+  },
+  "auth_screen": {
+    "text_form": {
+      "email_text_from": "Email",
+      "password_text_from": "Password",
+      "confirm_password_text_from": "Confirm Password"
+    },
+    "login_screen": {
+      "title_login_email_button": "Login with email",
+      "title_login_google_button": "Login with google",
+      "if_dont_have_account": "If does not have account?",
+      "make_account_here": "Make here"
+    },
+    "logup_Screen": {
+      "title_logup_email_button": "Logup with email",
+      "title_logup_google_button": "Logup with google",
+      "if_have_account": "Are you have account",
+      "login_now": "Login now"
+    }
+  },
   "home_screen": {
     "welcome_back": "Welcome Back",
     "how_are_you_feeling_today": "How Are You Feeling Today",
@@ -57,7 +103,8 @@ static const Map<String,dynamic> en = {
     "calm_mood_button": "Calm",
     "relax_mood_button": "Relax",
     "focus_mood_button": "Focus",
-    "my_mood_button": "My Mood"
+    "my_mood_button": "My Mood",
+    "okay_button": "okay"
   },
   "drawer_widget": {
     "about_developer": "About Developer",
@@ -74,7 +121,8 @@ static const Map<String,dynamic> en = {
     "song_mood_good": "Good",
     "song_mood_good_place": "Good Place",
     "song_mood_sad": "Sad"
-  }
+  },
+  "no_data_found": "no data found"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ar": ar, "en": en};
 }

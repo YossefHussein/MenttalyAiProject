@@ -1,20 +1,23 @@
-// this is information of the song the [id,title,authors,songLink]
 class DoctorEntities {
   final int id;
   final String title;
-  final String author;
-  final String songLink;
-  final String typeSong;
-  final String colorTypeOfSong;
-  final String thumbnail;
+  final String doctorName;
+  final String medicalSpecialty;
+  final String place;
+  final String dateClass;
+  final String timeClass;
+  final String doctorPhoto;
+  final String colorDoctorSpecialty;
 
   DoctorEntities({
     required this.id,
     required this.title,
-    required this.author,
-    required this.songLink,
-    required this.typeSong,
-    required this.colorTypeOfSong,
-    required this.thumbnail,
+    required this.doctorName,
+    required this.medicalSpecialty,
+    required this.place,
+    required this.timeClass,
+    required this.doctorPhoto,
+    required this.dateClass,
+    required this.colorDoctorSpecialty,
   });
 }

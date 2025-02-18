@@ -46,7 +46,6 @@ dependencies:
   just_audio: ^0.9.18
   just_audio_windows: ^0.2.2
   just_audio_web: ^0.4.1
-
   # this for send for user message for example in auth screen
   fluttertoast: ^8.2.2
   # for localization
@@ -71,13 +70,19 @@ dependencies:
   lottie: ^3.2.0
   # adding svg icon
   flutter_svg: ^2.0.17
+  sign_in_button: ^3.2.0
+  # adding loading text
+  animated_text_kit: ^4.2.3
+  # for safe image in cache
+  cached_network_image: ^3.4.1
+  # routing
+  go_router: ^14.8.0
   # pick image from device
-  image_picker: ^0.8.6
-  sqflite: ^2.4.1
-  # flutter_local_notifications: ^17.2.1+2
-  # ads
-  google_mobile_ads: ^4.0.0
-  showcaseview: ^4.0.1
+  # sqflite: ^2.4.1
+  # # flutter_local_notifications: ^17.2.1+2
+  # # ads
+  # google_mobile_ads: ^4.0.0
+  # showcaseview: ^4.0.1
 
 
 

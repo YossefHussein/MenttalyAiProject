@@ -1,8 +1,13 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:mental_health_app/features/presentation/about_developer/page/about_developer.dart';
+import 'package:go_router/go_router.dart';
+import 'package:mental_health_app/core/routes.dart';
+import 'package:mental_health_app/presentation/about_developer.dart';
 import 'package:mental_health_app/presentation/tech_used.dart';
+import 'package:mental_health_app/translations/locale_keys.dart';
 
 class DrawerWidget extends StatelessWidget {
   const DrawerWidget({super.key});
@@ -22,8 +27,8 @@ class DrawerWidget extends StatelessWidget {
             child: Container(
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: NetworkImage(
-                      '${FirebaseAuth.instance.currentUser?.photoURL}'),
+                  image: CachedNetworkImageProvider(
+                      '${FirebaseAuth.instance.currentUser?.photoURL ?? ''}'),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -46,18 +51,20 @@ class DrawerWidget extends StatelessWidget {
           ),
           ListTile(
             onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => AboutDeveloper()));
+              context.go(Routes.aboutDeveloperScreenRoute);
             },
-            title: GestureDetector(child: AutoSizeText('About Developer')),
+            title: GestureDetector(
+                child: AutoSizeText(
+                    LocaleKeys.drawer_widget_about_developer.tr())),
           ),
           ListTile(
             title: GestureDetector(
               onTap: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => TechUsed()));
+                    MaterialPageRoute(builder: (context) => TechUsedScreen()));
               },
-              child: AutoSizeText('Tech Used To Make App'),
+              child: AutoSizeText(
+                  LocaleKeys.drawer_widget_tech_used_to_make_app.tr()),
             ),
           ),
           ListTile(
@@ -66,11 +73,12 @@ class DrawerWidget extends StatelessWidget {
                 showDialog(
                     context: context,
                     builder: (context) => AlertDialog(
-                          title: Text('Are You Sure Exit From Meditation',
+                          title: Text(
+                              LocaleKeys.drawer_widget_title_logout.tr(),
                               style: Theme.of(context).textTheme.labelMedium,
                               textAlign: TextAlign.start),
                           content: Text(
-                            'My sir ${FirebaseAuth.instance.currentUser?.displayName} You Exit From Meditation environment to help YOU for make good Meditation time, Pleas think again and take option from these option under this text section',
+                            '${LocaleKeys.drawer_widget_my_sir.tr()} ${FirebaseAuth.instance.currentUser?.displayName ?? ""} ${LocaleKeys.drawer_widget_title_description.tr()}',
                             style: Theme.of(context)
                                 .textTheme
                                 .labelSmall
@@ -84,30 +92,36 @@ class DrawerWidget extends StatelessWidget {
                                 size: 48,
                               )),
                           actions: [
+                            // dont log out
                             TextButton(
                                 onPressed: () async {
                                   Navigator.pop(context);
                                 },
                                 child: Text(
-                                  'cancel',
-                                  style: TextStyle(color: Colors.red),
+                                  LocaleKeys.drawer_widget_title_cancel_button
+                                      .tr(),
+                                  style: TextStyle(
+                                      color: Colors.red, fontSize: 20),
                                 )),
+                            // dont log out
                             TextButton(
                                 onPressed: () async {
                                   await FirebaseAuth.instance.signOut();
                                   Navigator.pop(context);
                                 },
                                 child: Text(
-                                  'Logout',
-                                  style: TextStyle(color: Colors.black),
+                                  LocaleKeys.drawer_widget_title_login_button
+                                      .tr(),
+                                  style: TextStyle(
+                                      color: Colors.black, fontSize: 20),
                                 ))
                           ],
                         ));
                 // log out from app
               },
               child: AutoSizeText(
-                'LogOut',
-                style: TextStyle(color: Colors.red),
+                '${LocaleKeys.drawer_widget_title_login_button.tr()}',
+                style: TextStyle(color: Colors.red, fontSize: 16),
               ),
             ),
           ),

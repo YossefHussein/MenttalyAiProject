@@ -1,5 +1,6 @@
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 // import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:just_audio/just_audio.dart';
@@ -98,7 +99,7 @@ class _SongsBottomSheetState extends State<SongsBottomSheet> {
   }
 
   // make looping to music
- Future<void> toggleLoop() async {
+  Future<void> toggleLoop() async {
     setState(() {
       isLooping = !isLooping;
       _audioPlayer.setLoopMode(isLooping ? LoopMode.one : LoopMode.off);
@@ -144,10 +145,16 @@ class _SongsBottomSheetState extends State<SongsBottomSheet> {
                       ),
                       ClipRRect(
                         borderRadius: BorderRadius.circular(15),
-                        child: Image.network(
-                          widget.songs.thumbnail,
+                        child: CachedNetworkImage(
+                          imageUrl: widget.songs.thumbnail,
                           width: double.infinity,
                           fit: BoxFit.cover,
+                          progressIndicatorBuilder:
+                              (context, url, downloadProgress) =>
+                                  CircularProgressIndicator(
+                                      value: downloadProgress.progress),
+                          errorWidget: (context, url, error) =>
+                              Icon(Icons.error),
                         ),
                       ),
                       const SizedBox(

@@ -1,34 +1,40 @@
-import 'package:mental_health_app/features/presentation/music/domain/entities/song.dart';
+import 'package:mental_health_app/features/presentation/get_doctor/domain/entities/doctor.dart';
 
-class SongModel extends Song {
+class DoctorModel extends DoctorEntities {
   // ignore: use_super_parameters
-  SongModel({
+  DoctorModel({
     required int id,
     required String title,
-    required String author,
-    required String songLink,
-    required String typeSong,
-    required String colorTypeOfSong,
-    required String thumbnail,
+    required String doctorName,
+    required String medicalSpecialty,
+    required String place,
+    required String dateClass,
+    required String timeClass,
+    required String doctorPhoto,
+    required String colorDoctorSpecialty,
   }) : super(
           id: id,
           title: title,
-          author: author,
-          songLink: songLink,
-          typeSong: typeSong,
-          colorTypeOfSong: colorTypeOfSong,
-          thumbnail: thumbnail,
+          doctorName: doctorName,
+          medicalSpecialty: medicalSpecialty,
+          place: place,
+          doctorPhoto: doctorPhoto,
+          timeClass: timeClass,
+          dateClass: dateClass,
+          colorDoctorSpecialty: colorDoctorSpecialty,
         );
 
-  factory SongModel.fromJson(Map<dynamic, dynamic> json) {
-    return SongModel(
+  factory DoctorModel.fromJson(Map<dynamic, dynamic> json) {
+    return DoctorModel(
       id: json['id'],
       title: json['title'],
-      author: json['author'],
-      songLink: json['songLink'],
-      typeSong: json['typeSong'],
-      colorTypeOfSong: json['colorTypeOfSong'],
-      thumbnail: json['thumbnail'],
+      doctorName: json['doctorName'],
+      medicalSpecialty: json['medicalSpecialty'],
+      place: json['place'],
+      dateClass: json['dateClass'],
+      timeClass: json['timeClass'],
+      doctorPhoto: json['doctorPhoto'],
+      colorDoctorSpecialty: json['colorDoctorSpecialty'],
     );
   }
 }

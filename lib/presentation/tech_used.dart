@@ -8,7 +8,7 @@ class TechInfo {
   TechInfo({required this.url, required this.nameOfTechnology});
 }
 
-class TechUsed extends StatelessWidget {
+class TechUsedScreen extends StatelessWidget {
 
   Future<void> openUrl(url) async {
     if (!await launchUrl(Uri.parse(url))) {
@@ -46,7 +46,7 @@ class TechUsed extends StatelessWidget {
     ),
   ];
 
-  TechUsed({super.key});
+  TechUsedScreen({super.key});
 
   techUsed(TechInfo model) {
     return GestureDetector(

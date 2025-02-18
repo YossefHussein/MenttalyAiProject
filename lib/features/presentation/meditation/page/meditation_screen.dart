@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -15,14 +16,9 @@ import 'package:mental_health_app/features/presentation/meditation/widgets/feeli
 import 'package:mental_health_app/features/presentation/meditation/widgets/task_card.dart';
 import 'package:mental_health_app/translations/locale_keys.dart';
 
-class MeditationScreen extends StatefulWidget {
-  const MeditationScreen({super.key});
+class MeditationScreen extends StatelessWidget {
+  MeditationScreen({super.key});
 
-  @override
-  State<MeditationScreen> createState() => _MeditationScreenState();
-}
-
-class _MeditationScreenState extends State<MeditationScreen> {
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   Widget profilePic() {
@@ -32,8 +28,8 @@ class _MeditationScreenState extends State<MeditationScreen> {
       );
     } else {
       return CircleAvatar(
-        backgroundImage:
-            NetworkImage(FirebaseAuth.instance.currentUser!.photoURL!),
+        backgroundImage: CachedNetworkImageProvider(
+            FirebaseAuth.instance.currentUser!.photoURL!),
       );
     }
   }
@@ -74,7 +70,7 @@ class _MeditationScreenState extends State<MeditationScreen> {
                 height: 25,
               ),
               AutoSizeText(
-                '${LocaleKeys.home_screen_how_are_you_feeling_today.tr()}',
+                LocaleKeys.home_screen_how_are_you_feeling_today.tr(),
                 style: Theme.of(context).textTheme.titleMedium,
               ),
               SizedBox(
@@ -137,7 +133,7 @@ class _MeditationScreenState extends State<MeditationScreen> {
                 height: 24,
               ),
               AutoSizeText(
-                '${LocaleKeys.home_screen_today_task.tr()}',
+                LocaleKeys.home_screen_today_task.tr(),
                 style: Theme.of(context).textTheme.titleMedium,
               ),
               SizedBox(
@@ -156,7 +152,7 @@ class _MeditationScreenState extends State<MeditationScreen> {
                       children: [
                         // tasks card
                         TaskCard(
-                          title: '${LocaleKeys.home_screen_morning.tr()}',
+                          title: LocaleKeys.home_screen_morning.tr(),
                           description: state.dailyQuote.morningQuote,
                           color: DefaultColors.task1,
                         ),
@@ -164,7 +160,7 @@ class _MeditationScreenState extends State<MeditationScreen> {
                           height: 16,
                         ),
                         TaskCard(
-                          title: '${LocaleKeys.home_screen_noon.tr()}',
+                          title: LocaleKeys.home_screen_noon.tr(),
                           description: state.dailyQuote.noonQuote,
                           color: DefaultColors.task2,
                         ),
@@ -172,7 +168,7 @@ class _MeditationScreenState extends State<MeditationScreen> {
                           height: 16,
                         ),
                         TaskCard(
-                          title: '${LocaleKeys.home_screen_evening.tr()}',
+                          title: LocaleKeys.home_screen_evening.tr(),
                           description: state.dailyQuote.eveningQuote,
                           color: DefaultColors.task3,
                         )
@@ -188,7 +184,7 @@ class _MeditationScreenState extends State<MeditationScreen> {
                   } else {
                     return Center(
                       child: AutoSizeText(
-                        'No data found',
+                        LocaleKeys.no_data_found.tr(),
                         style: Theme.of(context).textTheme.labelSmall,
                       ),
                     );
@@ -219,7 +215,8 @@ class _MeditationScreenState extends State<MeditationScreen> {
                                         .read<MoodMessageBloc>()
                                         .add(ResetMoodMessage());
                                   },
-                                  child: Text('okay'))
+                                  child: Text(
+                                      LocaleKeys.home_screen_okay_button.tr()))
                             ],
                           ),
                         );

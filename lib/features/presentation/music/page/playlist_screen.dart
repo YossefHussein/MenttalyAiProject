@@ -1,10 +1,13 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mental_health_app/core/theme.dart';
 import 'package:mental_health_app/features/presentation/music/bloc/song_bloc.dart';
 import 'package:mental_health_app/features/presentation/music/bloc/song_state.dart';
 import 'package:mental_health_app/features/presentation/music/widgets/songs_bottomsheet.dart';
+import 'package:mental_health_app/translations/locale_keys.dart';
 
 class PlaylistScreen extends StatelessWidget {
   const PlaylistScreen({super.key});
@@ -61,7 +64,7 @@ class PlaylistScreen extends StatelessWidget {
                         leading: CircleAvatar(
                           minRadius: 30,
                           maxRadius: 30,
-                          backgroundImage: NetworkImage(
+                          backgroundImage: CachedNetworkImageProvider(
                             scale: 1,
                             state.songs[index].thumbnail,
                           ),
@@ -123,7 +126,7 @@ class PlaylistScreen extends StatelessWidget {
           } else {
             return Center(
               child: AutoSizeText(
-                'No Songs Found',
+                LocaleKeys.no_data_found.tr(),
                 style: Theme.of(context).textTheme.labelSmall,
               ),
             );

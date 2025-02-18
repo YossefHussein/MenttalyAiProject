@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:auto_size_text_field/auto_size_text_field.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:icons_plus/icons_plus.dart';
@@ -8,6 +9,8 @@ import 'package:mental_health_app/core/theme.dart';
 import 'package:mental_health_app/features/presentation/auth_screens/cubit/auth_cubit.dart';
 import 'package:mental_health_app/features/presentation/auth_screens/cubit/auth_state.dart';
 import 'package:mental_health_app/features/presentation/auth_screens/pages/logup_page.dart';
+import 'package:mental_health_app/presentation/auth.dart';
+import 'package:mental_health_app/translations/locale_keys.dart';
 
 class LogInScreen extends StatefulWidget {
   const LogInScreen({super.key});
@@ -17,7 +20,6 @@ class LogInScreen extends StatefulWidget {
 }
 
 class _LogInScreenState extends State<LogInScreen> {
-  var cubit = AuthCubit();
   var obscureText = true;
 
   @override
@@ -25,7 +27,9 @@ class _LogInScreenState extends State<LogInScreen> {
     return BlocConsumer<AuthCubit, AuthStates>(
       listener: (context, state) {},
       builder: (context, state) {
+        var cubit = AuthCubit.get(context);
         return Scaffold(
+          backgroundColor: DefaultColors.purple,
           body: Stack(
             children: [
               Positioned.fill(
@@ -36,10 +40,10 @@ class _LogInScreenState extends State<LogInScreen> {
                           'assets/onboarding.png',
                           fit: BoxFit.fitWidth,
                         )
-                      : Image.network(
+                      : Image.asset(
                           width: MediaQuery.of(context).size.width,
                           height: MediaQuery.of(context).size.height,
-                          'https://images.pexels.com/photos/1051838/pexels-photo-1051838.jpeg',
+                          'assets/onboarding.png',
                           fit: BoxFit.fitWidth,
                         )),
               Column(
@@ -54,7 +58,9 @@ class _LogInScreenState extends State<LogInScreen> {
                       keyboardType: TextInputType.emailAddress,
                       style: TextStyle(color: Colors.white),
                       decoration: InputDecoration(
-                        labelText: 'Email',
+                        labelText: LocaleKeys
+                            .auth_screen_text_form_email_text_from
+                            .tr(),
                         labelStyle: TextStyle(color: Colors.white),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(5),
@@ -82,7 +88,9 @@ class _LogInScreenState extends State<LogInScreen> {
                       style: TextStyle(color: Colors.white),
                       keyboardType: TextInputType.visiblePassword,
                       decoration: InputDecoration(
-                        labelText: 'Password',
+                        labelText: LocaleKeys
+                            .auth_screen_text_form_password_text_from
+                            .tr(),
                         labelStyle: TextStyle(color: Colors.white),
                         suffixIcon: IconButton(
                           icon: Icon(
@@ -126,6 +134,12 @@ class _LogInScreenState extends State<LogInScreen> {
                         child: ElevatedButton.icon(
                           onPressed: () {
                             cubit.signInByEmail();
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => Auth(),
+                              ),
+                            );
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Theme.of(context).focusColor,
@@ -139,8 +153,10 @@ class _LogInScreenState extends State<LogInScreen> {
                             color: Colors.white,
                             size: 26,
                           ),
-                          label: Text(
-                            'LogIn With Email',
+                          label: AutoSizeText(
+                            LocaleKeys
+                                .auth_screen_login_screen_title_login_email_button
+                                .tr(),
                             style: Theme.of(context)
                                 .textTheme
                                 .labelLarge
@@ -160,6 +176,12 @@ class _LogInScreenState extends State<LogInScreen> {
                         child: ElevatedButton.icon(
                           onPressed: () {
                             cubit.signInWithGoogle();
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => Auth(),
+                              ),
+                            );
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Theme.of(context).focusColor,
@@ -173,8 +195,10 @@ class _LogInScreenState extends State<LogInScreen> {
                             color: Colors.white,
                             size: 26,
                           ),
-                          label: Text(
-                            'LogIn With Google',
+                          label: AutoSizeText(
+                            LocaleKeys
+                                .auth_screen_login_screen_title_login_google_button
+                                .tr(),
                             style: Theme.of(context)
                                 .textTheme
                                 .labelLarge
@@ -188,7 +212,8 @@ class _LogInScreenState extends State<LogInScreen> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       AutoSizeText(
-                        'If You Dose Not Have Account?',
+                        LocaleKeys.auth_screen_login_screen_if_dont_have_account
+                            .tr(),
                         style: TextStyle(
                           color: DefaultColors.white,
                         ),
@@ -206,7 +231,8 @@ class _LogInScreenState extends State<LogInScreen> {
                           );
                         },
                         child: AutoSizeText(
-                          'Make It Here',
+                          LocaleKeys.auth_screen_login_screen_make_account_here
+                              .tr(),
                           style: TextStyle(
                             color: DefaultColors.white,
                           ),

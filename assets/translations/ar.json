@@ -1,4 +1,26 @@
 {
+  "onboarding_screen": {
+    "title_onboarding_button":"هل تقدر تخليني اساعدك"
+  },
+  "auth_screen": {
+    "text_form": {
+      "email_text_from": "ايمال",
+      "password_text_from": "باسورد",
+      "confirm_password_text_from": "كونفيرم باسورد"
+    },
+    "login_screen": {
+      "title_login_email_button": "تسجيل دخول بالايمال",
+      "title_login_google_button": "تسجيل دخول بالجوجل",
+      "if_dont_have_account": "لو معندكش حساب؟",
+      "make_account_here": "اعمل حساب من هنا"
+    },
+    "logup": {
+      "title_logup_email_button": "حساب جديد بالايمال",
+      "title_logup_google_button": "حساب جديد بالجوجل",
+      "if_have_account": "لو عندك حساب؟",
+      "login_now": "سحل دلوقتي"
+    }
+  },
   "home_screen": {
     "welcome_back": "اهلا بيك",
     "how_are_you_feeling_today": "إزاي بتحس دلوقتي ",
@@ -10,7 +32,9 @@
     "calm_mood_button": "هدوء",
     "relax_mood_button": "استرخاء",
     "focus_mood_button": "مركز",
-    "my_mood_button": "مخصص"
+    "my_mood_button": "مخصص",
+    "okay_button":"حسنا"
+
   },
   "drawer_widget": {
     "about_developer": "عن مطورين",
@@ -27,5 +51,7 @@
     "song_mood_good": "كويس",
     "song_mood_good_place": "مكان كويس",
     "song_mood_sad": "حزين"
-  }
+  },
+  "no_data_found":"لا توجد بيانات الان"
+
 }

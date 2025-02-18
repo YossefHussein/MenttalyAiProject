@@ -1,5 +1,7 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:mental_health_app/core/theme.dart';
 import 'package:mental_health_app/features/presentation/auth_screens/pages/login_page.dart';
 import 'package:mental_health_app/presentation/home_screen/home_screen.dart';
 import 'package:mental_health_app/presentation/onboarding.dart';
@@ -10,7 +12,7 @@ class Auth extends StatelessWidget {
 
   Future<bool> _checkOnboardingCompleted() async {
     final prefs = await SharedPreferences.getInstance();
-    await Future.delayed(const Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 4));
     return prefs.getBool('onboarding_completed') ?? false;
   }
 
@@ -30,14 +32,31 @@ class Auth extends StatelessWidget {
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   // Show a loading indicator while checking onboarding status
-                  return const Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        CircularProgressIndicator(), // Loading indicator
-                        SizedBox(height: 16), // Add some spacing
-                        Text("Loading..."), // Optional: Add a loading message
-                      ],
+                  return Scaffold(
+                    backgroundColor: DefaultColors.white,
+                    body: Center(
+                      child: SafeArea(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            // Loading indicator
+                            LinearProgressIndicator(
+                              color: DefaultColors.pink,
+                            ),
+                            Spacer(
+                              flex: 3,
+                            ),
+                            // Add some spacing
+                            AnimatedTextKit(
+                              pause: Duration(milliseconds: 2000),
+                              animatedTexts: [
+                                WavyAnimatedText('Loading...'),
+                              ],
+                              isRepeatingAnimation: true,
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
                   );
                 } else {
