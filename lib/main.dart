@@ -27,6 +27,7 @@ import 'package:mental_health_app/presentation/home_screen/home_screen.dart';
 import 'package:mental_health_app/presentation/onboarding.dart';
 import 'package:mental_health_app/presentation/tech_used.dart';
 import 'package:mental_health_app/translations/codegen_loader.g.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'presentation/bottom_nav_bar/bloc/navigation_bloc.dart';
 import 'injection_container.dart' as di;
 import 'package:easy_localization/easy_localization.dart';
@@ -68,8 +69,8 @@ class MyApp extends StatelessWidget {
   MyApp({super.key});
 
   final _router = GoRouter(
-    navigatorKey: GlobalKey<NavigatorState>(),
     initialLocation: Routes.authScreenRoute,
+    navigatorKey: GlobalKey<NavigatorState>(),
     routes: [
       // for bottom nav bar
       StatefulShellRoute.indexedStack(
@@ -83,7 +84,7 @@ class MyApp extends StatelessWidget {
               GoRoute(
                 name: Routes.meditationScreenRoute,
                 path: Routes.meditationScreenRoute,
-                pageBuilder: (context, state) =>  NoTransitionPage(
+                pageBuilder: (context, state) => NoTransitionPage(
                   child: MeditationScreen(),
                 ),
               ),
@@ -228,27 +229,39 @@ class MyApp extends StatelessWidget {
           );
         },
       ),
-      // onboarding 
-      GoRoute(
-        name: Routes.onboardingScreenRoute,
-        path: Routes.onboardingScreenRoute,
-        pageBuilder: (context, state) {
-          return CustomTransitionPage(
-            key: state.pageKey,
-            child: OnboardingScreen(),
-            transitionsBuilder:
-                (context, animation, secondaryAnimation, child) {
-              // Change the opacity of the screen using a Curve based on the the animation's
-              // value
-              return FadeTransition(
-                opacity:
-                    CurveTween(curve: Curves.easeInOutCirc).animate(animation),
-                child: child,
-              );
-            },
-          );
-        },
-      ),
+      // onboarding
+      // GoRoute(
+      //   name: Routes.onboardingScreenRoute,
+      //   path: Routes.onboardingScreenRoute,
+      //   redirect: (context, state) async {
+      //     final prefs = await SharedPreferences.getInstance();
+      //     final bool isOnboardingCompleted =
+      //         prefs.getBool('onboarding_completed') ?? false;
+      //     if (!isOnboardingCompleted) return Routes.onboardingScreenRoute;
+
+      //     // final bool isAuthenticated =
+      //     //     prefs.getBool('is_authenticated') ?? false;
+      //     // if (!isAuthenticated) return Routes.authScreenRoute;
+
+      //     return Routes.authScreenRoute;
+      //   },
+      //   pageBuilder: (context, state) {
+      //     return CustomTransitionPage(
+      //       key: state.pageKey,
+      //       child: OnboardingScreen(),
+      //       transitionsBuilder:
+      //           (context, animation, secondaryAnimation, child) {
+      //         // Change the opacity of the screen using a Curve based on the the animation's
+      //         // value
+      //         return FadeTransition(
+      //           opacity:
+      //               CurveTween(curve: Curves.easeInOutCirc).animate(animation),
+      //           child: child,
+      //         );
+      //       },
+      //     );
+      //   },
+      // ),
     ],
   );
   @override

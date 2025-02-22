@@ -107,10 +107,11 @@ class DrawerWidget extends StatelessWidget {
                             TextButton(
                                 onPressed: () async {
                                   await FirebaseAuth.instance.signOut();
+                                  context.go(Routes.authScreenRoute);
                                   Navigator.pop(context);
                                 },
                                 child: Text(
-                                  LocaleKeys.drawer_widget_title_login_button
+                                  LocaleKeys.drawer_widget_title_logout_button
                                       .tr(),
                                   style: TextStyle(
                                       color: Colors.black, fontSize: 20),
@@ -120,7 +121,7 @@ class DrawerWidget extends StatelessWidget {
                 // log out from app
               },
               child: AutoSizeText(
-                '${LocaleKeys.drawer_widget_title_login_button.tr()}',
+                '${LocaleKeys.drawer_widget_title_logout_button.tr()}',
                 style: TextStyle(color: Colors.red, fontSize: 16),
               ),
             ),

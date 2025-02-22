@@ -78,8 +78,9 @@ class MeditationScreen extends StatelessWidget {
               ),
               Wrap(
                 direction: Axis.horizontal,
-                alignment: WrapAlignment.spaceBetween,
+                alignment: WrapAlignment.center,
                 crossAxisAlignment: WrapCrossAlignment.center,
+                spacing: 16,
                 children: [
                   FeelingButton(
                       label: LocaleKeys.home_screen_happy_mood_button.tr(),
@@ -182,6 +183,7 @@ class MeditationScreen extends StatelessWidget {
                       ),
                     );
                   } else {
+                    // if no data found
                     return Center(
                       child: AutoSizeText(
                         LocaleKeys.no_data_found.tr(),

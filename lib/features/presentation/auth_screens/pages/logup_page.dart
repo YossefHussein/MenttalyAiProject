@@ -191,7 +191,7 @@ class _LogUpScreenState extends State<LogUpScreen> {
                           ),
                           label: AutoSizeText(
                             LocaleKeys
-                                .auth_screen_logup_title_logup_email_button
+                                .auth_screen_logup_Screen_title_logup_email_button
                                 .tr(),
                             style: Theme.of(context)
                                 .textTheme
@@ -233,7 +233,7 @@ class _LogUpScreenState extends State<LogUpScreen> {
                           ),
                           label: AutoSizeText(
                             LocaleKeys
-                                .auth_screen_logup_title_logup_google_button
+                                .auth_screen_logup_Screen_title_logup_google_button
                                 .tr(),
                             style: Theme.of(context)
                                 .textTheme
@@ -248,7 +248,7 @@ class _LogUpScreenState extends State<LogUpScreen> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       AutoSizeText(
-                        LocaleKeys.auth_screen_logup_if_have_account.tr(),
+                        LocaleKeys.auth_screen_logup_Screen_if_have_account.tr(),
                         style: TextStyle(
                           color: DefaultColors.white,
                         ),
@@ -266,7 +266,7 @@ class _LogUpScreenState extends State<LogUpScreen> {
                           );
                         },
                         child: AutoSizeText(
-                          LocaleKeys.auth_screen_logup_login_now.tr(),
+                          LocaleKeys.auth_screen_logup_Screen_login_now.tr(),
                           style: TextStyle(
                             color: DefaultColors.white,
                           ),

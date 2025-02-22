@@ -13,4 +13,17 @@ IpServer=<ip>
 flutter pub run easy_localization:generate -S "assets/translations" -O "lib/translations"
 // and
 flutter pub run easy_localization:generate -S "assets/translations" -O "lib/translations" -o "locale_keys.dart" -f keys
+``` 
+<br>
+
+if the there problem in `gradle` in your device we use `Java JDK-21`
+
+```
+./gradlew clean build
+```
+
+to set or change the splash screen write this code
+
+```
+flutter pub run flutter_native_splash:create
 ```

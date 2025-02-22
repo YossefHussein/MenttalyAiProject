@@ -19,7 +19,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.4.3 <4.0.0'
+  sdk: ^3.6.1
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -77,6 +77,7 @@ dependencies:
   cached_network_image: ^3.4.1
   # routing
   go_router: ^14.8.0
+  flutter_native_splash: ^2.2.17
   # pick image from device
   # sqflite: ^2.4.1
   # # flutter_local_notifications: ^17.2.1+2
@@ -89,6 +90,13 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_lints: ^3.0.0   
+flutter_native_splash:
+  color: "#FFFFFFFF"  # Background color of the splash screen
+  image: assets/Icon_of_app.png  # Path to your splash screen image
+  android: true  # Enable for Android
+  ios: true  # Enable for iOS
+  web: true  # Enable for Web
 
 
   # The "flutter_lints" package below contains a set of recommended lints to
@@ -96,7 +104,7 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^3.0.0
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

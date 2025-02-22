@@ -1,10 +1,13 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mental_health_app/core/theme.dart';
 import 'package:mental_health_app/features/presentation/get_doctor/bloc/doctor_bloc.dart';
 import 'package:mental_health_app/features/presentation/get_doctor/bloc/doctor_state.dart';
+import 'package:mental_health_app/features/presentation/get_doctor/widget/get_doctor_bottom_sheet.dart';
+import 'package:mental_health_app/translations/locale_keys.dart';
 
 class GetDoctorScreen extends StatelessWidget {
   const GetDoctorScreen({super.key});
@@ -25,6 +28,7 @@ class GetDoctorScreen extends StatelessWidget {
 
     return color;
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,7 +41,7 @@ class GetDoctorScreen extends StatelessWidget {
         centerTitle: true,
         elevation: 0,
       ),
-       body: BlocBuilder<GetDoctorBloc, GetDoctorState>(
+      body: BlocBuilder<GetDoctorBloc, GetDoctorState>(
         builder: (context, state) {
           if (state is GetDoctorLoading) {
             // display a loader
@@ -46,8 +50,7 @@ class GetDoctorScreen extends StatelessWidget {
             );
           } else if (state is GetDoctorLoaded) {
             // display all the information
-            return 
-            ListView.builder(
+            return ListView.builder(
               itemCount: state.getDoctors.length,
               itemBuilder: (context, index) {
                 return Padding(
@@ -75,7 +78,10 @@ class GetDoctorScreen extends StatelessWidget {
                           children: [
                             AutoSizeText(
                               state.getDoctors[index].doctorName,
-                              style: Theme.of(context).textTheme.bodySmall?.copyWith(fontSize: FontSizes.extraSmall),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall
+                                  ?.copyWith(fontSize: FontSizes.extraSmall),
                             ),
                             SizedBox(
                               width: 10,
@@ -95,14 +101,14 @@ class GetDoctorScreen extends StatelessWidget {
                             //           ?.copyWith(color: Colors.white),
                             //     ),
                             //   ),
-                            // ), 
+                            // ),
                           ],
                         ),
                         onTap: () {
-                          // bottomSheet(
-                          //   context,
-                          //   songs: state.getDoctors[index],
-                          // );
+                          doctorBottomSheet(
+                            context,
+                            get_doctor: state.getDoctors[index],
+                          );
                         },
                       ),
                     ],
@@ -110,7 +116,6 @@ class GetDoctorScreen extends StatelessWidget {
                 );
               },
             );
-        
           } else if (state is GetDoctorError) {
             // display an error
             return Center(
@@ -122,14 +127,13 @@ class GetDoctorScreen extends StatelessWidget {
           } else {
             return Center(
               child: AutoSizeText(
-                'No Songs Found',
+                LocaleKeys.no_data_found.tr(),
                 style: Theme.of(context).textTheme.labelSmall,
               ),
             );
           }
         },
       ),
-  
     );
   }
 }

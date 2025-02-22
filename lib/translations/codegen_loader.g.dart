@@ -30,11 +30,11 @@ class CodegenLoader extends AssetLoader{
       "if_dont_have_account": "لو معندكش حساب؟",
       "make_account_here": "اعمل حساب من هنا"
     },
-    "logup": {
+    "logup_Screen": {
       "title_logup_email_button": "حساب جديد بالايمال",
       "title_logup_google_button": "حساب جديد بالجوجل",
       "if_have_account": "لو عندك حساب؟",
-      "login_now": "سحل دلوقتي"
+      "login_now": "سجل دلوقتي"
     }
   },
   "home_screen": {
@@ -58,7 +58,7 @@ class CodegenLoader extends AssetLoader{
     "title_logout": "هل انت متأكد انك تخرج من تطبيق",
     "my_sir": "سيدي",
     "title_description": "هل انت متأكد انك عايز تخرج من بيئة للتأمل لي مسعادتك في انك تكوين وقت جميل للتأمل, ارجوك فكر من جديد وختر من اختيارين من موجودين تحت نص دة",
-    "title_login_button": "تسجيل جروج ",
+    "title_logout_button": "تسجيل خروج ",
     "title_cancel_button": "كانسيل"
   },
   "song_playlist_screen": {
@@ -113,7 +113,7 @@ static const Map<String,dynamic> en = {
     "title_logout": "Are You Sure Exit From Meditation",
     "my_sir": "My Sir",
     "title_description": "You Exit From Meditation environment to help YOU for make good Meditation time, Pleas think again and take option from these option under this text section",
-    "title_login_button": "LogOut",
+    "title_logout_button": "LogOut",
     "title_cancel_button": "Cancel"
   },
   "song_playlist_screen": {

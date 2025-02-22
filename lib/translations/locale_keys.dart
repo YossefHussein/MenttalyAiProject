@@ -12,11 +12,11 @@ abstract class  LocaleKeys {
   static const auth_screen_login_screen_if_dont_have_account = 'auth_screen.login_screen.if_dont_have_account';
   static const auth_screen_login_screen_make_account_here = 'auth_screen.login_screen.make_account_here';
   static const auth_screen_login_screen = 'auth_screen.login_screen';
-  static const auth_screen_logup_title_logup_email_button = 'auth_screen.logup.title_logup_email_button';
-  static const auth_screen_logup_title_logup_google_button = 'auth_screen.logup.title_logup_google_button';
-  static const auth_screen_logup_if_have_account = 'auth_screen.logup.if_have_account';
-  static const auth_screen_logup_login_now = 'auth_screen.logup.login_now';
-  static const auth_screen_logup = 'auth_screen.logup';
+  static const auth_screen_logup_Screen_title_logup_email_button = 'auth_screen.logup_Screen.title_logup_email_button';
+  static const auth_screen_logup_Screen_title_logup_google_button = 'auth_screen.logup_Screen.title_logup_google_button';
+  static const auth_screen_logup_Screen_if_have_account = 'auth_screen.logup_Screen.if_have_account';
+  static const auth_screen_logup_Screen_login_now = 'auth_screen.logup_Screen.login_now';
+  static const auth_screen_logup_Screen = 'auth_screen.logup_Screen';
   static const auth_screen = 'auth_screen';
   static const home_screen_welcome_back = 'home_screen.welcome_back';
   static const home_screen_how_are_you_feeling_today = 'home_screen.how_are_you_feeling_today';
@@ -37,7 +37,7 @@ abstract class  LocaleKeys {
   static const drawer_widget_title_logout = 'drawer_widget.title_logout';
   static const drawer_widget_my_sir = 'drawer_widget.my_sir';
   static const drawer_widget_title_description = 'drawer_widget.title_description';
-  static const drawer_widget_title_login_button = 'drawer_widget.title_login_button';
+  static const drawer_widget_title_logout_button = 'drawer_widget.title_logout_button';
   static const drawer_widget_title_cancel_button = 'drawer_widget.title_cancel_button';
   static const drawer_widget = 'drawer_widget';
   static const song_playlist_screen_song_mood_angary = 'song_playlist_screen.song_mood_angary';
