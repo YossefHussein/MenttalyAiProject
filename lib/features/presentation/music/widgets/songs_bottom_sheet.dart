@@ -2,12 +2,13 @@ import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+
 // import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:mental_health_app/core/theme.dart';
 import 'package:mental_health_app/features/presentation/music/domain/entities/song.dart';
 
-void bottomSheet(BuildContext context, {required Song songs}) {
+void songBottomSheet(BuildContext context, {required Song songs}) {
   showModalBottomSheet(
     context: context,
     backgroundColor: Colors.transparent,
@@ -38,6 +39,7 @@ class SongsBottomSheet extends StatefulWidget {
 class _SongsBottomSheetState extends State<SongsBottomSheet> {
   late AudioPlayer _audioPlayer;
   bool isLooping = false;
+
   // BannerAd? _bannerAd;
 
   @override
@@ -151,8 +153,10 @@ class _SongsBottomSheetState extends State<SongsBottomSheet> {
                           fit: BoxFit.cover,
                           progressIndicatorBuilder:
                               (context, url, downloadProgress) =>
-                                  CircularProgressIndicator(
-                                      value: downloadProgress.progress),
+                                  LinearProgressIndicator(
+                            value: downloadProgress.progress,
+                            color: DefaultColors.pink,
+                          ),
                           errorWidget: (context, url, error) =>
                               Icon(Icons.error),
                         ),

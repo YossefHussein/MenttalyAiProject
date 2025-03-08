@@ -8,5 +8,6 @@
     "usecases",
     "اعمل",
     "حساب"
-  ]
+  ],
+  "cmake.sourceDirectory": "C:/.projects/flutter/mental_health_flutter/windows"
 }

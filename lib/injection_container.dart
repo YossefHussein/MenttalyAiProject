@@ -7,7 +7,7 @@ import 'package:mental_health_app/features/presentation/get_doctor/domain/usecas
 import 'package:mental_health_app/features/presentation/meditation/bloc/daily_quotes/daily_quotes_bloc.dart';
 import 'package:mental_health_app/features/presentation/meditation/bloc/mode_message/mode_message_bloc.dart';
 import 'package:mental_health_app/features/presentation/meditation/data/datasource/meditation_remote_datasource.dart';
-import 'package:mental_health_app/features/presentation/meditation/data/reposiroty/meditation_repository_impl.dart';
+import 'package:mental_health_app/features/presentation/meditation/data/repository/meditation_repository_impl.dart';
 import 'package:mental_health_app/features/presentation/meditation/domain/repository/meditation_repository.dart';
 import 'package:mental_health_app/features/presentation/meditation/domain/usecase/get_daily_quote.dart';
 import 'package:mental_health_app/features/presentation/meditation/domain/usecase/get_mood_message.dart';

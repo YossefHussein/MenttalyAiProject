@@ -33,23 +33,25 @@ class _LogInScreenState extends State<LogInScreen> {
           body: Stack(
             children: [
               Positioned.fill(
-                  child: Platform.isAndroid || Platform.isIOS
-                      ? Image.asset(
-                          width: MediaQuery.of(context).size.width,
-                          height: MediaQuery.of(context).size.height,
-                          'assets/onboarding.png',
-                          fit: BoxFit.fitWidth,
-                        )
-                      : Image.asset(
-                          width: MediaQuery.of(context).size.width,
-                          height: MediaQuery.of(context).size.height,
-                          'assets/onboarding.png',
-                          fit: BoxFit.fitWidth,
-                        )),
+                child: Platform.isAndroid || Platform.isIOS
+                    ? Image.asset(
+                        width: MediaQuery.of(context).size.width,
+                        height: MediaQuery.of(context).size.height,
+                        'assets/onboarding.png',
+                        fit: BoxFit.fitWidth,
+                      )
+                    : Image.asset(
+                        width: MediaQuery.of(context).size.width,
+                        height: MediaQuery.of(context).size.height,
+                        'assets/onboarding.png',
+                        fit: BoxFit.fitWidth,
+                      ),
+              ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+                  // email
                   Padding(
                     padding: const EdgeInsets.all(16),
                     child: AutoSizeTextField(
@@ -79,6 +81,7 @@ class _LogInScreenState extends State<LogInScreen> {
                       ),
                     ),
                   ),
+                  // password
                   Padding(
                     padding: const EdgeInsets.all(16),
                     child: AutoSizeTextField(
@@ -208,6 +211,7 @@ class _LogInScreenState extends State<LogInScreen> {
                       ),
                     ),
                   ),
+                  // button if user dose not have account
                   Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [

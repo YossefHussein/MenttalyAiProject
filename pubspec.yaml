@@ -49,7 +49,7 @@ dependencies:
   # this for send for user message for example in auth screen
   fluttertoast: ^8.2.2
   # for localization
-  easy_localization: ^3.0.7
+  easy_localization: ^3.0.0
   # save small things
   shared_preferences: ^2.3.4
   auto_size_text: ^3.0.0
@@ -70,20 +70,23 @@ dependencies:
   lottie: ^3.2.0
   # adding svg icon
   flutter_svg: ^2.0.17
-  sign_in_button: ^3.2.0
+  # sign_in_button: ^3.2.0
   # adding loading text
-  animated_text_kit: ^4.2.3
+  # animated_text_kit: ^4.2.3
   # for safe image in cache
   cached_network_image: ^3.4.1
   # routing
   go_router: ^14.8.0
+  # splash screen
   flutter_native_splash: ^2.2.17
-  # pick image from device
-  # sqflite: ^2.4.1
-  # # flutter_local_notifications: ^17.2.1+2
-  # # ads
-  # google_mobile_ads: ^4.0.0
-  # showcaseview: ^4.0.1
+  # To process with the Syncfusion charts.
+  syncfusion_flutter_charts: ^28.2.9
+  # To process with the sqlite db.
+  sqflite: ^2.0.0+3
+  # To provide the path to store the data in the device.
+  path_provider: ^2.0.1
+  path: ^1.9.0
+  intl: ^0.19.0
 
 
 

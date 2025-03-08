@@ -10,15 +10,23 @@ import 'package:mental_health_app/features/presentation/meditation/bloc/daily_qu
 import 'package:mental_health_app/features/presentation/meditation/bloc/mode_message/mode_message_bloc.dart';
 import 'package:mental_health_app/features/presentation/meditation/bloc/mode_message/mode_message_event.dart';
 import 'package:mental_health_app/features/presentation/meditation/bloc/mode_message/mode_message_state.dart';
+import 'package:mental_health_app/features/presentation/meditation/data/chart_mode/data_helper.dart';
+import 'package:mental_health_app/features/presentation/meditation/data/model/chart_mode_data_model.dart';
 import 'package:mental_health_app/features/presentation/meditation/widgets/custom_mood_bottomsheet.dart';
 import 'package:mental_health_app/features/presentation/meditation/widgets/drawer_widget.dart';
 import 'package:mental_health_app/features/presentation/meditation/widgets/feeling_button.dart';
 import 'package:mental_health_app/features/presentation/meditation/widgets/task_card.dart';
 import 'package:mental_health_app/translations/locale_keys.dart';
+import 'dart:math';
 
-class MeditationScreen extends StatelessWidget {
+class MeditationScreen extends StatefulWidget {
   MeditationScreen({super.key});
 
+  @override
+  State<MeditationScreen> createState() => _MeditationScreenState();
+}
+
+class _MeditationScreenState extends State<MeditationScreen> {
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   Widget profilePic() {
@@ -34,6 +42,29 @@ class MeditationScreen extends StatelessWidget {
     }
   }
 
+  late DataBaseHelper dbHelper;
+
+  late int count;
+
+  late ChartModeDataModel data;
+
+  @override
+  void initState() {
+    super.initState();
+    count = 1;
+    dbHelper = DataBaseHelper.instance;
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  int getRandomInt(int min, int max) {
+    final Random random = Random();
+    return min + random.nextInt(max - min);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,6 +72,7 @@ class MeditationScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: DefaultColors.white,
         elevation: 0,
+        title: Text('Meditation'),
         leading: GestureDetector(
           onTap: () {
             scaffoldKey.currentState!.openDrawer();
@@ -76,59 +108,62 @@ class MeditationScreen extends StatelessWidget {
               SizedBox(
                 height: 16,
               ),
-              Wrap(
-                direction: Axis.horizontal,
-                alignment: WrapAlignment.center,
-                crossAxisAlignment: WrapCrossAlignment.center,
-                spacing: 16,
-                children: [
-                  FeelingButton(
-                      label: LocaleKeys.home_screen_happy_mood_button.tr(),
-                      image: 'assets/happy.png',
-                      color: DefaultColors.pink,
+              SingleChildScrollView(
+                child: Wrap(
+                  direction: Axis.horizontal,
+                  alignment: WrapAlignment.spaceBetween,
+                  crossAxisAlignment: WrapCrossAlignment.start,
+                  // spacing: 16,
+                  children: [
+                    FeelingButton(
+                        label: LocaleKeys.home_screen_happy_mood_button.tr(),
+                        image: 'assets/happy.png',
+                        color: DefaultColors.pink,
+                        onTap: () {
+                          context
+                              .read<MoodMessageBloc>()
+                              .add(FetchMoodMessageEvent('Today i am happy'));
+                        }),
+                    FeelingButton(
+                        label: LocaleKeys.home_screen_calm_mood_button.tr(),
+                        image: 'assets/calm.png',
+                        color: DefaultColors.purple,
+                        onTap: () {
+                          context
+                              .read<MoodMessageBloc>()
+                              .add(FetchMoodMessageEvent('Today i am calm'));
+                        }),
+                    FeelingButton(
+                        label: LocaleKeys.home_screen_relax_mood_button.tr(),
+                        image: 'assets/relax.png',
+                        color: DefaultColors.orange,
+                        onTap: () {
+                          context
+                              .read<MoodMessageBloc>()
+                              .add(FetchMoodMessageEvent('Today i am relax'));
+                        }),
+                    FeelingButton(
+                        label: LocaleKeys.home_screen_focus_mood_button.tr(),
+                        image: 'assets/focus.png',
+                        color: DefaultColors.lightTeal,
+                        onTap: () async {
+                          context.read<MoodMessageBloc>().add(
+                                FetchMoodMessageEvent(
+                                    'Today i need to be focus'),
+                              );
+                        }),
+                    FeelingButton(
+                      label: LocaleKeys.home_screen_my_mood_button.tr(),
+                      image: 'assets/custom_mood3.png',
+                      color: DefaultColors.white,
                       onTap: () {
-                        context
-                            .read<MoodMessageBloc>()
-                            .add(FetchMoodMessageEvent('Today i am happy'));
-                      }),
-                  FeelingButton(
-                      label: LocaleKeys.home_screen_calm_mood_button.tr(),
-                      image: 'assets/calm.png',
-                      color: DefaultColors.purple,
-                      onTap: () {
-                        context
-                            .read<MoodMessageBloc>()
-                            .add(FetchMoodMessageEvent('Today i am calm'));
-                      }),
-                  FeelingButton(
-                      label: LocaleKeys.home_screen_relax_mood_button.tr(),
-                      image: 'assets/relax.png',
-                      color: DefaultColors.orange,
-                      onTap: () {
-                        context
-                            .read<MoodMessageBloc>()
-                            .add(FetchMoodMessageEvent('Today i am relax'));
-                      }),
-                  FeelingButton(
-                      label: LocaleKeys.home_screen_focus_mood_button.tr(),
-                      image: 'assets/focus.png',
-                      color: DefaultColors.lightTeal,
-                      onTap: () {
-                        context.read<MoodMessageBloc>().add(
-                            FetchMoodMessageEvent('Today i need to be focus'));
-                      }),
-                  FeelingButton(
-                    label: LocaleKeys.home_screen_my_mood_button.tr(),
-                    image: 'assets/custom_mood3.png',
-                    color: DefaultColors.white,
-                    onTap: () {
-                      // context.read<MoodMessageBloc>().add(FetchMoodMessageEvent(
-                      //     'Today i need to be focus but feel like i am missing something'));
-                      bottomSheet(context);
-                    },
-                    borderColor: Colors.black,
-                  ),
-                ],
+                        // open chart mode bottom sheet
+                        customMoodBottomSheet(context);
+                      },
+                      borderColor: Colors.black,
+                    ),
+                  ],
+                ),
               ),
               SizedBox(
                 height: 24,

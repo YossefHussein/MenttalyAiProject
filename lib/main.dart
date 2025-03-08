@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:mental_health_app/core/routes.dart';
-// import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:mental_health_app/core/theme.dart';
 import 'package:mental_health_app/features/presentation/auth_screens/cubit/auth_cubit.dart';
 import 'package:mental_health_app/features/presentation/auth_screens/pages/login_page.dart';
@@ -12,9 +11,11 @@ import 'package:mental_health_app/features/presentation/chat_gemini/chat_with_ge
 import 'package:mental_health_app/features/presentation/get_doctor/bloc/doctor_bloc.dart';
 import 'package:mental_health_app/features/presentation/get_doctor/bloc/doctor_event.dart';
 import 'package:mental_health_app/features/presentation/get_doctor/page/get_doctor.dart';
+import 'package:mental_health_app/features/presentation/meditation/bloc/chart_database/chart_database.dart';
 import 'package:mental_health_app/features/presentation/meditation/bloc/daily_quotes/daily_quotes_bloc.dart';
 import 'package:mental_health_app/features/presentation/meditation/bloc/daily_quotes/daily_quotes_event.dart';
 import 'package:mental_health_app/features/presentation/meditation/bloc/mode_message/mode_message_bloc.dart';
+import 'package:mental_health_app/features/presentation/meditation/data/chart_mode/data_helper.dart';
 import 'package:mental_health_app/features/presentation/meditation/page/meditation_screen.dart';
 import 'package:mental_health_app/features/presentation/music/bloc/song_bloc.dart';
 import 'package:mental_health_app/features/presentation/music/bloc/song_event.dart';
@@ -24,10 +25,8 @@ import 'package:mental_health_app/observer.dart';
 import 'package:mental_health_app/presentation/about_developer.dart';
 import 'package:mental_health_app/presentation/auth.dart';
 import 'package:mental_health_app/presentation/home_screen/home_screen.dart';
-import 'package:mental_health_app/presentation/onboarding.dart';
 import 'package:mental_health_app/presentation/tech_used.dart';
 import 'package:mental_health_app/translations/codegen_loader.g.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'presentation/bottom_nav_bar/bloc/navigation_bloc.dart';
 import 'injection_container.dart' as di;
 import 'package:easy_localization/easy_localization.dart';
@@ -48,6 +47,8 @@ Future<void> main() async {
   await di.init();
   // adding ads
   // await MobileAds.instance.initialize();
+  // initialized database
+  await DataBaseHelper.initDataBase();
 
   runApp(
     EasyLocalization(
@@ -68,6 +69,7 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   MyApp({super.key});
 
+  // app routing
   final _router = GoRouter(
     initialLocation: Routes.authScreenRoute,
     navigatorKey: GlobalKey<NavigatorState>(),
@@ -264,10 +266,16 @@ class MyApp extends StatelessWidget {
       // ),
     ],
   );
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider(create: (_) => AuthCubit()),
+        // initialized data base
+        BlocProvider(create: (context) => ChartDatabaseCubit()
+            // ..initDataBase()
+            ),
         BlocProvider(
           create: (_) => NavigationBloc(),
         ),
@@ -279,7 +287,6 @@ class MyApp extends StatelessWidget {
             create: (context) =>
                 di.sl<DailyQuotesBloc>()..add(FetchDailyQuoteEvent())),
         BlocProvider(create: (context) => di.sl<MoodMessageBloc>()),
-        BlocProvider(create: (context) => AuthCubit()),
       ],
       child: MaterialApp.router(
         debugShowCheckedModeBanner: true,
@@ -288,7 +295,6 @@ class MyApp extends StatelessWidget {
         localizationsDelegates: context.localizationDelegates,
         supportedLocales: context.supportedLocales,
         locale: context.locale,
-        // home: Auth(),
         routerConfig: _router,
       ),
     );

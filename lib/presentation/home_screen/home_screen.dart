@@ -12,14 +12,9 @@ import 'package:mental_health_app/presentation/bottom_nav_bar/bloc/navigation_ev
 import 'package:mental_health_app/presentation/bottom_nav_bar/bloc/navigation_states.dart';
 import 'package:mental_health_app/presentation/bottom_nav_bar/widget/bottom_nav_bar.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class HomeScreen extends StatelessWidget {
+   HomeScreen({super.key});
 
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
 //  list to contain the pages
   final List<Widget> pages = [
      MeditationScreen(),
@@ -65,11 +60,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   // current screen
   int currentIndex = 0;
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {

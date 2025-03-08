@@ -48,7 +48,7 @@ class CodegenLoader extends AssetLoader{
     "calm_mood_button": "هدوء",
     "relax_mood_button": "استرخاء",
     "focus_mood_button": "مركز",
-    "my_mood_button": "مخصص",
+    "my_mood_button": "مسجل \n REC",
     "okay_button": "حسنا"
   },
   "drawer_widget": {
@@ -103,7 +103,7 @@ static const Map<String,dynamic> en = {
     "calm_mood_button": "Calm",
     "relax_mood_button": "Relax",
     "focus_mood_button": "Focus",
-    "my_mood_button": "My Mood",
+    "my_mood_button": "My Mood \n REC",
     "okay_button": "okay"
   },
   "drawer_widget": {

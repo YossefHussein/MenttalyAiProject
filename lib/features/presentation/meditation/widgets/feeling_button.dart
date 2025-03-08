@@ -7,7 +7,7 @@ class FeelingButton extends StatelessWidget {
   final String label;
   final String image;
   final Color color;
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
   Color? borderColor;
 
   FeelingButton({
@@ -16,7 +16,7 @@ class FeelingButton extends StatelessWidget {
     required this.image,
     required this.color,
     required this.onTap,
-     this.borderColor,
+    this.borderColor,
   });
 
   @override
@@ -42,6 +42,7 @@ class FeelingButton extends StatelessWidget {
           AutoSizeText(
             label,
             style: Theme.of(context).textTheme.labelSmall,
+            textAlign: TextAlign.center,
           )
         ],
       ),

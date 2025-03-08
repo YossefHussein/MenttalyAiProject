@@ -12,30 +12,12 @@ import 'package:mental_health_app/translations/locale_keys.dart';
 class GetDoctorScreen extends StatelessWidget {
   const GetDoctorScreen({super.key});
 
-  Color? choiceColor(String typeColor) {
-    Color? color;
-    switch (typeColor) {
-      case 'red':
-        color = DefaultColors.pink;
-        break;
-      case 'blue':
-        color = DefaultColors.purple;
-        break;
-      case 'orange':
-        color = DefaultColors.orange;
-        break;
-    }
-
-    return color;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: AutoSizeText(
           'Get Doctor',
-          style: Theme.of(context).textTheme.titleMedium,
         ),
         backgroundColor: DefaultColors.white,
         centerTitle: true,
@@ -107,7 +89,7 @@ class GetDoctorScreen extends StatelessWidget {
                         onTap: () {
                           doctorBottomSheet(
                             context,
-                            get_doctor: state.getDoctors[index],
+                            getDoctor: state.getDoctors[index],
                           );
                         },
                       ),

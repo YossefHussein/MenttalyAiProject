@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mental_health_app/core/routes.dart';
-import 'package:mental_health_app/presentation/about_developer.dart';
 import 'package:mental_health_app/presentation/tech_used.dart';
 import 'package:mental_health_app/translations/locale_keys.dart';
 
@@ -28,7 +27,7 @@ class DrawerWidget extends StatelessWidget {
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: CachedNetworkImageProvider(
-                      '${FirebaseAuth.instance.currentUser?.photoURL ?? ''}'),
+                      FirebaseAuth.instance.currentUser?.photoURL ?? ''),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -49,6 +48,7 @@ class DrawerWidget extends StatelessWidget {
               ),
             ),
           ),
+          // about screen
           ListTile(
             onTap: () {
               context.go(Routes.aboutDeveloperScreenRoute);
@@ -57,6 +57,7 @@ class DrawerWidget extends StatelessWidget {
                 child: AutoSizeText(
                     LocaleKeys.drawer_widget_about_developer.tr())),
           ),
+          // tech used
           ListTile(
             title: GestureDetector(
               onTap: () {
@@ -73,6 +74,7 @@ class DrawerWidget extends StatelessWidget {
                 showDialog(
                     context: context,
                     builder: (context) => AlertDialog(
+                          // title  
                           title: Text(
                               LocaleKeys.drawer_widget_title_logout.tr(),
                               style: Theme.of(context).textTheme.labelMedium,
@@ -103,7 +105,7 @@ class DrawerWidget extends StatelessWidget {
                                   style: TextStyle(
                                       color: Colors.red, fontSize: 20),
                                 )),
-                            // dont log out
+                            // log out
                             TextButton(
                                 onPressed: () async {
                                   await FirebaseAuth.instance.signOut();
@@ -118,10 +120,10 @@ class DrawerWidget extends StatelessWidget {
                                 ))
                           ],
                         ));
-                // log out from app
               },
+              // log out from app
               child: AutoSizeText(
-                '${LocaleKeys.drawer_widget_title_logout_button.tr()}',
+                LocaleKeys.drawer_widget_title_logout_button.tr(),
                 style: TextStyle(color: Colors.red, fontSize: 16),
               ),
             ),

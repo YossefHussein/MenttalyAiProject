@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:auto_size_text_field/auto_size_text_field.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -32,10 +34,19 @@ class _LogUpScreenState extends State<LogUpScreen> {
           body: Stack(
             children: [
               Positioned.fill(
-                child: Image.asset(
-                  'assets/onboarding.png',
-                  fit: BoxFit.fitWidth,
-                ),
+                child: Platform.isAndroid || Platform.isIOS
+                    ? Image.asset(
+                        width: MediaQuery.of(context).size.width,
+                        height: MediaQuery.of(context).size.height,
+                        'assets/onboarding.png',
+                        fit: BoxFit.fitWidth,
+                      )
+                    : Image.asset(
+                        width: MediaQuery.of(context).size.width,
+                        height: MediaQuery.of(context).size.height,
+                        'assets/onboarding.png',
+                        fit: BoxFit.fitWidth,
+                      ),
               ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -244,11 +255,13 @@ class _LogUpScreenState extends State<LogUpScreen> {
                       ),
                     ),
                   ),
+                  // if user have account
                   Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       AutoSizeText(
-                        LocaleKeys.auth_screen_logup_Screen_if_have_account.tr(),
+                        LocaleKeys.auth_screen_logup_Screen_if_have_account
+                            .tr(),
                         style: TextStyle(
                           color: DefaultColors.white,
                         ),

@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mental_health_app/core/theme.dart';
 import 'package:mental_health_app/features/presentation/music/bloc/song_bloc.dart';
 import 'package:mental_health_app/features/presentation/music/bloc/song_state.dart';
-import 'package:mental_health_app/features/presentation/music/widgets/songs_bottomsheet.dart';
+import 'package:mental_health_app/features/presentation/music/widgets/songs_bottom_sheet.dart';
 import 'package:mental_health_app/translations/locale_keys.dart';
 
 class PlaylistScreen extends StatelessWidget {
@@ -37,7 +37,6 @@ class PlaylistScreen extends StatelessWidget {
       appBar: AppBar(
         title: AutoSizeText(
           'Songs PlayList',
-          style: Theme.of(context).textTheme.titleMedium,
         ),
         backgroundColor: DefaultColors.white,
         centerTitle: true,
@@ -80,7 +79,10 @@ class PlaylistScreen extends StatelessWidget {
                           children: [
                             AutoSizeText(
                               state.songs[index].author,
-                              style: Theme.of(context).textTheme.bodySmall?.copyWith(fontSize: FontSizes.extraSmall),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall
+                                  ?.copyWith(fontSize: FontSizes.extraSmall),
                             ),
                             SizedBox(
                               width: 10,
@@ -89,7 +91,8 @@ class PlaylistScreen extends StatelessWidget {
                               child: Chip(
                                 elevation: 0,
                                 shape: StadiumBorder(
-                                    side: BorderSide(color: Colors.transparent)),
+                                    side:
+                                        BorderSide(color: Colors.transparent)),
                                 backgroundColor: choiceColor(
                                     state.songs[index].colorTypeOfSong),
                                 label: Text(
@@ -104,7 +107,7 @@ class PlaylistScreen extends StatelessWidget {
                           ],
                         ),
                         onTap: () {
-                          bottomSheet(
+                          songBottomSheet(
                             context,
                             songs: state.songs[index],
                           );
