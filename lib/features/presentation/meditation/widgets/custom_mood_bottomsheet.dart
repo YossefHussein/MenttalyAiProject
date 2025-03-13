@@ -3,7 +3,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:mental_health_app/core/routes.dart';
 import 'package:mental_health_app/core/theme.dart';
+import 'package:mental_health_app/features/presentation/auth_screens/widgets/widgets.dart';
 import 'package:mental_health_app/features/presentation/meditation/bloc/mode_message/mode_message_bloc.dart';
 import 'package:mental_health_app/features/presentation/meditation/bloc/mode_message/mode_message_state.dart';
 import 'package:mental_health_app/features/presentation/meditation/data/chart_mode/data_helper.dart';
@@ -35,8 +38,8 @@ void customMoodBottomSheet(BuildContext context) {
   );
 }
 
-final chartKey = GlobalKey<ChartState>();
-List<ChartModeDataModel> salesData = <ChartModeDataModel>[];
+final GlobalKey<ChartState> chartKey = GlobalKey<ChartState>();
+List<ChartModeDataModel> chartModeData = <ChartModeDataModel>[];
 
 class CustomBottomSheet extends StatefulWidget {
   const CustomBottomSheet({super.key});
@@ -84,107 +87,27 @@ class _SongsBottomSheetState extends State<CustomBottomSheet> {
                       key: chartKey,
                     ),
                   ),
-                  // ElevatedButton(
-                  //   onPressed: () async {
-                  //     dbHelper.add(
-                  //         SalesData(xValue: count, yValue: getRandomInt(10, 20)));
-                  //     salesData = await dbHelper.getSales();
-                  //     chartKey.currentState!.setState(
-                  //       () {},
-                  //     );
-                  //     count++;
-                  //   },
-                  //   child: Text('Add'),
-                  // ),
-                  Wrap(
-                    direction: Axis.horizontal,
-                    alignment: WrapAlignment.spaceBetween,
-                    crossAxisAlignment: WrapCrossAlignment.start,
-                    // spacing: 16,
-                    children: [
-                      FeelingButton(
-                          label: LocaleKeys.home_screen_happy_mood_button.tr(),
-                          image: 'assets/happy.png',
-                          color: DefaultColors.pink,
-                          onTap: () async {
-                            dbHelper.add(
-                              ChartModeDataModel(
-                                happyXValueNum: count,
-                                happyYValueNum: getRandomInt(10, 20),
-                              ),
-                            );
-                            salesData = await dbHelper.getDatabase();
-                            chartKey.currentState!.setState(
-                              () {},
-                            );
-                            count++;
-                          }),
-                      FeelingButton(
-                          label: LocaleKeys.home_screen_calm_mood_button.tr(),
-                          image: 'assets/calm.png',
-                          color: DefaultColors.purple,
-                          onTap: () async {
-                            dbHelper.add(
-                              ChartModeDataModel(
-                                calmXValueNum: count,
-                                clamYValueNum: getRandomInt(10, 20),
-                              ),
-                            );
-                            salesData = await dbHelper.getDatabase();
-                            chartKey.currentState!.setState(
-                              () {},
-                            );
-                            count++;
-                          }),
-                      FeelingButton(
-                          label: LocaleKeys.home_screen_relax_mood_button.tr(),
-                          image: 'assets/relax.png',
-                          color: DefaultColors.orange,
-                          onTap: () async {
-                            dbHelper.add(
-                              ChartModeDataModel(
-                                relaxXValueNum: count,
-                                relaxYValueNum: getRandomInt(10, 20),
-                              ),
-                            );
-                            salesData = await dbHelper.getDatabase();
-                            chartKey.currentState!.setState(
-                              () {},
-                            );
-                            count++;
-                          }),
-                      FeelingButton(
-                          label: LocaleKeys.home_screen_focus_mood_button.tr(),
-                          image: 'assets/focus.png',
-                          color: DefaultColors.lightTeal,
-                          onTap: () async {
-                            dbHelper.add(
-                              ChartModeDataModel(
-                                focusXValueNum: count,
-                                focusYValueNum: getRandomInt(10, 20),
-                              ),
-                            );
-                            salesData = await dbHelper.getDatabase();
-                            chartKey.currentState!.setState(
-                              () {},
-                            );
-                            count++;
-                          }),
-                    ],
+                  Container(
+                    height: 400,
+                    child: ChartBubble(
+                      key: chartKey,
+                    ),
                   ),
                   SizedBox(height: 15),
                   ElevatedButton(
                     onPressed: () async {
-                      salesData = await dbHelper.getDatabase();
-                      if (salesData.isNotEmpty) {
-                        data = salesData.last;
+                      chartModeData = await dbHelper.getDatabase();
+                      if (chartModeData.isNotEmpty) {
+                        data = chartModeData.last;
                         dbHelper.delete();
-                        salesData = await dbHelper.getDatabase();
-                        chartKey.currentState!.setState(
+                        chartModeData = await dbHelper.getDatabase();
+                        chartKey.currentState?.setState(
                           () {},
                         );
                         count--;
                       }
+                      context.pop();
+                      sendMSG('Clear process is done');
                     },
                     child: Text('Clear'),
                   ),

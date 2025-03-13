@@ -43,21 +43,14 @@ class _MeditationScreenState extends State<MeditationScreen> {
   }
 
   late DataBaseHelper dbHelper;
-
   late int count;
-
-  late ChartModeDataModel data;
+  // late ChartModeDataModel data;
 
   @override
   void initState() {
     super.initState();
     count = 1;
     dbHelper = DataBaseHelper.instance;
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
   }
 
   int getRandomInt(int min, int max) {
@@ -119,28 +112,63 @@ class _MeditationScreenState extends State<MeditationScreen> {
                         label: LocaleKeys.home_screen_happy_mood_button.tr(),
                         image: 'assets/happy.png',
                         color: DefaultColors.pink,
-                        onTap: () {
+                        onTap: () async {
                           context
                               .read<MoodMessageBloc>()
                               .add(FetchMoodMessageEvent('Today i am happy'));
+                          dbHelper.add(
+                            ChartModeDataModel(
+                              happyXValueNum: count,
+                              happyYValueNum: getRandomInt(10, 20),
+                            ),
+                          );
+                          chartModeData = await dbHelper.getDatabase();
+                          // Check if currentState is not null before calling setState
+
+                          chartKey.currentState?.setState(() {});
+
+                          count++;
                         }),
                     FeelingButton(
                         label: LocaleKeys.home_screen_calm_mood_button.tr(),
                         image: 'assets/calm.png',
                         color: DefaultColors.purple,
-                        onTap: () {
+                        onTap: () async {
                           context
                               .read<MoodMessageBloc>()
                               .add(FetchMoodMessageEvent('Today i am calm'));
+                          dbHelper.add(
+                            ChartModeDataModel(
+                              calmXValueNum: count,
+                              clamYValueNum: getRandomInt(10, 20),
+                            ),
+                          );
+                          chartModeData = await dbHelper.getDatabase();
+                          chartKey.currentState?.setState(
+                                () {},
+                          );
+                          count++;
                         }),
                     FeelingButton(
                         label: LocaleKeys.home_screen_relax_mood_button.tr(),
                         image: 'assets/relax.png',
                         color: DefaultColors.orange,
-                        onTap: () {
+                        onTap: () async{
                           context
                               .read<MoodMessageBloc>()
                               .add(FetchMoodMessageEvent('Today i am relax'));
+
+                          dbHelper.add(
+                            ChartModeDataModel(
+                              relaxXValueNum: count,
+                              relaxYValueNum: getRandomInt(10, 20),
+                            ),
+                          );
+                          chartModeData = await dbHelper.getDatabase();
+                          chartKey.currentState?.setState(
+                                () {},
+                          );
+                          count++;
                         }),
                     FeelingButton(
                         label: LocaleKeys.home_screen_focus_mood_button.tr(),
@@ -151,6 +179,17 @@ class _MeditationScreenState extends State<MeditationScreen> {
                                 FetchMoodMessageEvent(
                                     'Today i need to be focus'),
                               );
+                          dbHelper.add(
+                            ChartModeDataModel(
+                              focusXValueNum: count,
+                              focusYValueNum: getRandomInt(10, 20),
+                            ),
+                          );
+                          chartModeData = await dbHelper.getDatabase();
+                          chartKey.currentState?.setState(
+                                () {},
+                          );
+                          count++;
                         }),
                     FeelingButton(
                       label: LocaleKeys.home_screen_my_mood_button.tr(),

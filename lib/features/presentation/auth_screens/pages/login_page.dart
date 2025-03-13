@@ -29,23 +29,14 @@ class _LogInScreenState extends State<LogInScreen> {
       builder: (context, state) {
         var cubit = AuthCubit.get(context);
         return Scaffold(
-          backgroundColor: DefaultColors.purple,
+          backgroundColor: Color.fromARGB(255, 174, 175, 247),
           body: Stack(
             children: [
               Positioned.fill(
-                child: Platform.isAndroid || Platform.isIOS
-                    ? Image.asset(
-                        width: MediaQuery.of(context).size.width,
-                        height: MediaQuery.of(context).size.height,
-                        'assets/onboarding.png',
-                        fit: BoxFit.fitWidth,
-                      )
-                    : Image.asset(
-                        width: MediaQuery.of(context).size.width,
-                        height: MediaQuery.of(context).size.height,
-                        'assets/onboarding.png',
-                        fit: BoxFit.fitWidth,
-                      ),
+                child: Image.asset(
+                  'assets/onboarding.png',
+                  fit: BoxFit.fill,
+                ),
               ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.end,

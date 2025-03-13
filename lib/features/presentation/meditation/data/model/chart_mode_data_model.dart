@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class ChartModeDataModel {
   //SQLite table name.
   static const tblMode = 'chartModeTable';
@@ -6,12 +8,15 @@ class ChartModeDataModel {
   // happy
   static const happyXValue = 'happyXValue';
   static const happyYValue = 'happyYValue';
+
   // calm
   static const calmXValue = 'clamXValue';
   static const clamYValue = 'clamYValue';
+
   // relax
   static const relaxXValue = 'relaxXValue';
   static const relaxYValue = 'relaxYValue';
+
   // focus
   static const focusXValue = 'focusXValue';
   static const focusYValue = 'focusYValue';
@@ -26,6 +31,12 @@ class ChartModeDataModel {
     this.focusXValueNum,
     this.focusYValueNum,
   });
+
+  // for make color in pie chart
+  static const Color pink = Color(0xFFEA2B83);
+  static const Color purple = Color(0xFF8E8FF8);
+  static const Color orange = Color(0xFFF18F3B);
+  static const Color lightTeal = Color(0xFF58D5D4);
 
   // data
   num? happyXValueNum;

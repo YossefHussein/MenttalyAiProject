@@ -11,7 +11,6 @@ import 'package:mental_health_app/features/presentation/chat_gemini/chat_with_ge
 import 'package:mental_health_app/features/presentation/get_doctor/bloc/doctor_bloc.dart';
 import 'package:mental_health_app/features/presentation/get_doctor/bloc/doctor_event.dart';
 import 'package:mental_health_app/features/presentation/get_doctor/page/get_doctor.dart';
-import 'package:mental_health_app/features/presentation/meditation/bloc/chart_database/chart_database.dart';
 import 'package:mental_health_app/features/presentation/meditation/bloc/daily_quotes/daily_quotes_bloc.dart';
 import 'package:mental_health_app/features/presentation/meditation/bloc/daily_quotes/daily_quotes_event.dart';
 import 'package:mental_health_app/features/presentation/meditation/bloc/mode_message/mode_message_bloc.dart';
@@ -272,10 +271,6 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => AuthCubit()),
-        // initialized data base
-        BlocProvider(create: (context) => ChartDatabaseCubit()
-            // ..initDataBase()
-            ),
         BlocProvider(
           create: (_) => NavigationBloc(),
         ),
@@ -290,7 +285,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp.router(
         debugShowCheckedModeBanner: true,
-        title: 'Mental Health App',
+        title: 'Mentally project',
         theme: AppTheme.lightTheme,
         localizationsDelegates: context.localizationDelegates,
         supportedLocales: context.supportedLocales,

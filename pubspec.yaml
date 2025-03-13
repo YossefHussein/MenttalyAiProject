@@ -86,7 +86,7 @@ dependencies:
   # To provide the path to store the data in the device.
   path_provider: ^2.0.1
   path: ^1.9.0
-  intl: ^0.19.0
+  # intl: ^0.19.0f
 
 
 

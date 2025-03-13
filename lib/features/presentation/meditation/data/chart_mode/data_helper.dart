@@ -9,17 +9,17 @@ class DataBaseHelper {
   DataBaseHelper._();
   static final DataBaseHelper instance = DataBaseHelper._();
 
-  static const _databaseName = 'chartTable.db';
-  static const _databaseVersion = 1;
-
-  Database? _database;
-
   /// Define the database name, database version and declare a final property instance of the type DataBaseHelper.
   /// Also declare a public property named _database, which returns the DataBase instance.
   /// If _database is not initialized _initDataBase function will be called.
   /// Define the _initDataBase method as like the below in which the data directory is initialized with getApplicationDocumentsDirectory function,
   /// which is from path_provider package. This function returns the location where the database is stored,
   /// which is handled by the path_provider package. To connect and return the database reference openDataBase function is called.
+
+  static const _databaseName = 'chartTable.db';
+  static const _databaseVersion = 1;
+
+  Database? _database;
   static initDataBase() async {
     Directory dataDirectory = await getApplicationDocumentsDirectory();
     String dbPath = join(dataDirectory.path, _databaseName);
