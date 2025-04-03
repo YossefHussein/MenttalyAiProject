@@ -38,17 +38,17 @@ void customMoodBottomSheet(BuildContext context) {
   );
 }
 
-final GlobalKey<ChartState> chartKey = GlobalKey<ChartState>();
 List<ChartModeDataModel> chartModeData = <ChartModeDataModel>[];
+final chartKey = GlobalKey<ChartState>();
 
 class CustomBottomSheet extends StatefulWidget {
   const CustomBottomSheet({super.key});
 
   @override
-  State<CustomBottomSheet> createState() => _SongsBottomSheetState();
+  State<CustomBottomSheet> createState() => _CustomBottomSheetState();
 }
 
-class _SongsBottomSheetState extends State<CustomBottomSheet> {
+class _CustomBottomSheetState extends State<CustomBottomSheet> {
   late DataBaseHelper dbHelper;
   late int count;
   late ChartModeDataModel data;
@@ -58,6 +58,7 @@ class _SongsBottomSheetState extends State<CustomBottomSheet> {
     super.initState();
     count = 1;
     dbHelper = DataBaseHelper.instance;
+    dbHelper.getDatabase();
   }
 
   @override
@@ -94,6 +95,7 @@ class _SongsBottomSheetState extends State<CustomBottomSheet> {
                     ),
                   ),
                   SizedBox(height: 15),
+                  // clear database
                   ElevatedButton(
                     onPressed: () async {
                       chartModeData = await dbHelper.getDatabase();
@@ -106,8 +108,9 @@ class _SongsBottomSheetState extends State<CustomBottomSheet> {
                         );
                         count--;
                       }
-                      context.pop();
-                      sendMSG('Clear process is done');
+                      sendMSG('Clear process is done').then((_) {
+                        Navigator.pop(context);
+                      });
                     },
                     child: Text('Clear'),
                   ),

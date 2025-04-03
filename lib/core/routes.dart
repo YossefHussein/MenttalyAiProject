@@ -6,7 +6,7 @@ class Routes {
   static const logUpScreenRoute = '/logUp';
   static const meditationScreenRoute = '/meditation';
   static const playlistScreenRoute = '/playList';
-  static const chatWithGeminiScreenRoute = '/chatWithGemini';
+  // static const chatWithGeminiScreenRoute = '/chatWithGemini';
   static const getDoctorScreenRoute = '/getDoctor';
   static const aboutDeveloperScreenRoute = '/aboutDeveloper';
   static const techUsedScreenRoute = '/TechUsed';

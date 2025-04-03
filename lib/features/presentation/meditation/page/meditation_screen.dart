@@ -12,6 +12,7 @@ import 'package:mental_health_app/features/presentation/meditation/bloc/mode_mes
 import 'package:mental_health_app/features/presentation/meditation/bloc/mode_message/mode_message_state.dart';
 import 'package:mental_health_app/features/presentation/meditation/data/chart_mode/data_helper.dart';
 import 'package:mental_health_app/features/presentation/meditation/data/model/chart_mode_data_model.dart';
+import 'package:mental_health_app/features/presentation/meditation/widgets/chart_widget.dart';
 import 'package:mental_health_app/features/presentation/meditation/widgets/custom_mood_bottomsheet.dart';
 import 'package:mental_health_app/features/presentation/meditation/widgets/drawer_widget.dart';
 import 'package:mental_health_app/features/presentation/meditation/widgets/feeling_button.dart';
@@ -29,6 +30,8 @@ class MeditationScreen extends StatefulWidget {
 class _MeditationScreenState extends State<MeditationScreen> {
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
+  // if user login with email make icon in circle avatar
+  // if login with google set profile photo of google email in circle avatar
   Widget profilePic() {
     if (FirebaseAuth.instance.currentUser?.photoURL == null) {
       return CircleAvatar(
@@ -44,7 +47,6 @@ class _MeditationScreenState extends State<MeditationScreen> {
 
   late DataBaseHelper dbHelper;
   late int count;
-  // late ChartModeDataModel data;
 
   @override
   void initState() {
@@ -102,9 +104,11 @@ class _MeditationScreenState extends State<MeditationScreen> {
                 height: 16,
               ),
               SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
                 child: Wrap(
                   direction: Axis.horizontal,
                   alignment: WrapAlignment.spaceBetween,
+                  runSpacing: 16,
                   crossAxisAlignment: WrapCrossAlignment.start,
                   // spacing: 16,
                   children: [
@@ -129,6 +133,7 @@ class _MeditationScreenState extends State<MeditationScreen> {
 
                           count++;
                         }),
+                    SizedBox(width: 10),
                     FeelingButton(
                         label: LocaleKeys.home_screen_calm_mood_button.tr(),
                         image: 'assets/calm.png',
@@ -145,15 +150,16 @@ class _MeditationScreenState extends State<MeditationScreen> {
                           );
                           chartModeData = await dbHelper.getDatabase();
                           chartKey.currentState?.setState(
-                                () {},
+                            () {},
                           );
                           count++;
                         }),
+                    SizedBox(width: 10),
                     FeelingButton(
                         label: LocaleKeys.home_screen_relax_mood_button.tr(),
                         image: 'assets/relax.png',
                         color: DefaultColors.orange,
-                        onTap: () async{
+                        onTap: () async {
                           context
                               .read<MoodMessageBloc>()
                               .add(FetchMoodMessageEvent('Today i am relax'));
@@ -166,10 +172,11 @@ class _MeditationScreenState extends State<MeditationScreen> {
                           );
                           chartModeData = await dbHelper.getDatabase();
                           chartKey.currentState?.setState(
-                                () {},
+                            () {},
                           );
                           count++;
                         }),
+                    SizedBox(width: 10),
                     FeelingButton(
                         label: LocaleKeys.home_screen_focus_mood_button.tr(),
                         image: 'assets/focus.png',
@@ -187,10 +194,11 @@ class _MeditationScreenState extends State<MeditationScreen> {
                           );
                           chartModeData = await dbHelper.getDatabase();
                           chartKey.currentState?.setState(
-                                () {},
+                            () {},
                           );
                           count++;
                         }),
+                    SizedBox(width: 10),
                     FeelingButton(
                       label: LocaleKeys.home_screen_my_mood_button.tr(),
                       image: 'assets/custom_mood3.png',

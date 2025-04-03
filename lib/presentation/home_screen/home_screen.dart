@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mental_health_app/core/routes.dart';
-import 'package:mental_health_app/features/presentation/chat_gemini/chat_with_gemini.dart';
+// import 'package:mental_health_app/features/presentation/chat_gemini/chat_with_gemini.dart';
 import 'package:mental_health_app/features/presentation/get_doctor/page/get_doctor.dart';
 import 'package:mental_health_app/features/presentation/meditation/page/meditation_screen.dart';
 import 'package:mental_health_app/features/presentation/music/page/playlist_screen.dart';
@@ -19,7 +19,7 @@ class HomeScreen extends StatelessWidget {
   final List<Widget> pages = [
      MeditationScreen(),
     const PlaylistScreen(),
-    const ChatWithGeminiScreen(),
+    // const ChatWithGeminiScreen(),
     const GetDoctorScreen(),
   ];
 
@@ -98,13 +98,13 @@ class HomeScreen extends StatelessWidget {
                 isActive: currentIndex == 1,
                 context: context,
               ),
-              createBottomNavigationBarItem(
-                isSvg: true,
-                assetSvgName: 'assets/google_gemini_icon.svg',
-                navTooltip: 'chat with me',
-                isActive: currentIndex == 2,
-                context: context,
-              ),
+              // createBottomNavigationBarItem(
+              //   isSvg: true,
+              //   assetSvgName: 'assets/google_gemini_icon.svg',
+              //   navTooltip: 'chat with me',
+              //   isActive: currentIndex == 2,
+              //   context: context,
+              // ),
               createBottomNavigationBarItem(
                 assetName: 'assets/menu_teams.png',
                 navTooltip: 'get doctor',
@@ -133,9 +133,9 @@ class HomeScreen extends StatelessWidget {
         return Routes.meditationScreenRoute;
       case 1:
         return Routes.playlistScreenRoute;
+      // case 2:
+      //   return Routes.chatWithGeminiScreenRoute;
       case 2:
-        return Routes.chatWithGeminiScreenRoute;
-      case 3:
         return Routes.getDoctorScreenRoute;
       default:
         return Routes.meditationScreenRoute;

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mental_health_app/core/routes.dart';
+import 'package:mental_health_app/presentation/about_developer.dart';
 import 'package:mental_health_app/presentation/tech_used.dart';
 import 'package:mental_health_app/translations/locale_keys.dart';
 
@@ -51,7 +52,8 @@ class DrawerWidget extends StatelessWidget {
           // about screen
           ListTile(
             onTap: () {
-              context.go(Routes.aboutDeveloperScreenRoute);
+              Navigator.push(context, 
+                    MaterialPageRoute(builder: (context) => AboutDeveloper()));
             },
             title: GestureDetector(
                 child: AutoSizeText(

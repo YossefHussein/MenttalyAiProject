@@ -2,12 +2,13 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:mental_health_app/core/routes.dart';
 import 'package:mental_health_app/core/theme.dart';
 import 'package:mental_health_app/features/presentation/auth_screens/cubit/auth_cubit.dart';
 import 'package:mental_health_app/features/presentation/auth_screens/pages/login_page.dart';
 import 'package:mental_health_app/features/presentation/auth_screens/pages/logup_page.dart';
-import 'package:mental_health_app/features/presentation/chat_gemini/chat_with_gemini.dart';
+// import 'package:mental_health_app/features/presentation/chat_gemini/chat_with_gemini.dart';
 import 'package:mental_health_app/features/presentation/get_doctor/bloc/doctor_bloc.dart';
 import 'package:mental_health_app/features/presentation/get_doctor/bloc/doctor_event.dart';
 import 'package:mental_health_app/features/presentation/get_doctor/page/get_doctor.dart';
@@ -45,7 +46,7 @@ Future<void> main() async {
   // dependency injection
   await di.init();
   // adding ads
-  // await MobileAds.instance.initialize();
+  await MobileAds.instance.initialize();
   // initialized database
   await DataBaseHelper.initDataBase();
 
@@ -102,17 +103,17 @@ class MyApp extends StatelessWidget {
               ),
             ],
           ),
-          StatefulShellBranch(
-            routes: [
-              GoRoute(
-                name: Routes.chatWithGeminiScreenRoute,
-                path: Routes.chatWithGeminiScreenRoute,
-                pageBuilder: (context, state) => const NoTransitionPage(
-                  child: ChatWithGeminiScreen(),
-                ),
-              ),
-            ],
-          ),
+          // StatefulShellBranch(
+          //   routes: [
+              // GoRoute(
+              //   name: Routes.chatWithGeminiScreenRoute,
+              //   path: Routes.chatWithGeminiScreenRoute,
+              //   pageBuilder: (context, state) => const NoTransitionPage(
+              //     child: ChatWithGeminiScreen(),
+              //   ),
+              // ),
+          //   ],
+          // ),
           StatefulShellBranch(
             routes: [
               GoRoute(
@@ -284,7 +285,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => di.sl<MoodMessageBloc>()),
       ],
       child: MaterialApp.router(
-        debugShowCheckedModeBanner: true,
+        // debugShowCheckedModeBanner: true,
         title: 'Mentally project',
         theme: AppTheme.lightTheme,
         localizationsDelegates: context.localizationDelegates,

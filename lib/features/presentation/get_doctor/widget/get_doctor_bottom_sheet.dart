@@ -1,9 +1,11 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:mental_health_app/core/ads_helper.dart';
 import 'package:mental_health_app/core/theme.dart';
 import 'package:mental_health_app/features/presentation/get_doctor/domain/entities/doctor.dart';
-// import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 
 void doctorBottomSheet(BuildContext context,
     {required DoctorEntities getDoctor}) {
@@ -24,11 +26,37 @@ void doctorBottomSheet(BuildContext context,
       });
 }
 
-class GetDoctorBottomSheet extends StatelessWidget {
+class GetDoctorBottomSheet extends StatefulWidget {
   final DoctorEntities doctor;
 
   const GetDoctorBottomSheet({super.key, required this.doctor});
 
+  @override
+  State<GetDoctorBottomSheet> createState() => _GetDoctorBottomSheetState();
+}
+
+class _GetDoctorBottomSheetState extends State<GetDoctorBottomSheet> {
+  // for make banner
+  BannerAd? _banner;
+
+  // this method to adding setting
+  void _createBannerAd() {
+    _banner = BannerAd(
+      size: AdSize.fullBanner,
+      adUnitId: AdHelper.bannerAdUnitId!,
+      listener: AdHelper.bannerListener,
+      request: const AdRequest(),
+    )
+      ..load();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _createBannerAd();
+  }
+
+  // this for choice the color
   Color? choiceColor(String typeColor) {
     Color? color;
     switch (typeColor) {
@@ -76,7 +104,7 @@ class GetDoctorBottomSheet extends StatelessWidget {
                       ClipRRect(
                         borderRadius: BorderRadius.circular(15),
                         child: CachedNetworkImage(
-                          imageUrl: doctor.doctorPhoto,
+                          imageUrl: widget.doctor.doctorPhoto,
                           width: double.infinity,
                           fit: BoxFit.cover,
                           progressIndicatorBuilder:
@@ -94,7 +122,7 @@ class GetDoctorBottomSheet extends StatelessWidget {
                       ),
                       // title for section
                       AutoSizeText(
-                        doctor.title,
+                        widget.doctor.title,
                         style: Theme.of(context).textTheme.labelLarge,
                       ),
                       Column(
@@ -108,7 +136,7 @@ class GetDoctorBottomSheet extends StatelessWidget {
                             children: [
                               Icon(Icons.account_circle),
                               AutoSizeText(
-                                'In name : ${doctor.doctorName}',
+                                'In name : ${widget.doctor.doctorName}',
                                 style: Theme.of(context).textTheme.labelSmall,
                               ),
                             ],
@@ -120,7 +148,7 @@ class GetDoctorBottomSheet extends StatelessWidget {
                             children: [
                               Icon(Icons.access_time),
                               AutoSizeText(
-                                'Time : ${doctor.timeClass}',
+                                'Time : ${widget.doctor.timeClass}',
                                 style: Theme.of(context).textTheme.labelSmall,
                               ),
                             ],
@@ -132,7 +160,7 @@ class GetDoctorBottomSheet extends StatelessWidget {
                             children: [
                               Icon(Icons.date_range),
                               AutoSizeText(
-                                'In date : ${doctor.dateClass}',
+                                'In date : ${widget.doctor.dateClass}',
                                 style: Theme.of(context).textTheme.labelSmall,
                               ),
                             ],
@@ -144,7 +172,7 @@ class GetDoctorBottomSheet extends StatelessWidget {
                             children: [
                               Icon(Icons.map),
                               AutoSizeText(
-                                'Place : ${doctor.place}',
+                                'Place : ${widget.doctor.place}',
                                 style: Theme.of(context).textTheme.labelSmall,
                               ),
                             ],
@@ -156,16 +184,27 @@ class GetDoctorBottomSheet extends StatelessWidget {
                               shape: StadiumBorder(
                                   side: BorderSide(color: Colors.transparent)),
                               backgroundColor:
-                                  choiceColor(doctor.colorDoctorSpecialty),
+                                  choiceColor(widget.doctor.colorDoctorSpecialty),
                               label: Text(
-                                doctor.medicalSpecialty,
+                                widget.doctor.medicalSpecialty,
                                 style: Theme.of(context)
                                     .textTheme
                                     .labelSmall
                                     ?.copyWith(color: Colors.white),
                               ),
                             ),
-                          ), //Text
+                          ),
+
+                          // ConditionalBuilder(
+                          //   condition: _banner == null,
+                          //   builder: (context) => Container(),
+                          //   fallback: (context) =>
+                          //       Container(
+                          //         margin: const EdgeInsets.only(bottom: 12),
+                          //         height: 52,
+                          //         child: AdWidget(ad: _banner!),
+                          //       ),
+                          // ),
                         ],
                       )
                     ],

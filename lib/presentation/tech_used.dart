@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+// class for set settings of tech info list
 class TechInfo {
   String nameOfTechnology;
   String url;
@@ -9,7 +10,6 @@ class TechInfo {
 }
 
 class TechUsedScreen extends StatelessWidget {
-
   Future<void> openUrl(url) async {
     if (!await launchUrl(Uri.parse(url))) {
       throw Exception('Could not launch $url');
@@ -18,11 +18,11 @@ class TechUsedScreen extends StatelessWidget {
 
   List<TechInfo> techInfoList = [
     TechInfo(
-      nameOfTechnology: 'NodeJS',
+      nameOfTechnology: 'nodeJS',
       url: 'https://nodejs.org/en',
     ),
     TechInfo(
-      nameOfTechnology: 'Express',
+      nameOfTechnology: 'express',
       url: 'https://expressjs.com/',
     ),
     TechInfo(
@@ -40,9 +40,130 @@ class TechUsedScreen extends StatelessWidget {
     TechInfo(
       nameOfTechnology: 'dotenv',
       url: 'https://www.npmjs.com/package/dotenv',
-    ), TechInfo(
+    ),
+    TechInfo(
       nameOfTechnology: 'nodemon',
       url: 'https://www.npmjs.com/package/nodemon',
+    ),
+    TechInfo(
+      nameOfTechnology: 'google_fonts',
+      url: 'https://pub.dev/packages/google_fonts',
+    ),
+    TechInfo(
+      nameOfTechnology: 'flutter_bloc',
+      url: 'https://pub.dev/packages/flutter_bloc',
+    ),
+    TechInfo(
+      nameOfTechnology: 'bloc',
+      url: 'https://pub.dev/packages/bloc',
+    ),
+    TechInfo(
+      nameOfTechnology: 'audio_video_progress_bar',
+      url: 'https://pub.dev/packages/audio_video_progress_bar',
+    ),
+    TechInfo(
+      nameOfTechnology: 'http',
+      url: 'https://pub.dev/packages/http',
+    ),
+    TechInfo(
+      nameOfTechnology: 'get_it',
+      url: 'https://pub.dev/packages/get_it',
+    ),
+    TechInfo(
+      nameOfTechnology: 'just_audio',
+      url: 'https://pub.dev/packages/just_audio',
+    ),
+    TechInfo(
+      nameOfTechnology: 'fluttertoast',
+      url: 'https://pub.dev/packages/fluttertoast',
+    ),
+    TechInfo(
+      nameOfTechnology: 'easy_localization',
+      url: 'https://pub.dev/packages/easy_localization',
+    ),
+    TechInfo(
+      nameOfTechnology: 'auto_size_text',
+      url: 'https://pub.dev/packages/auto_size_text',
+    ),
+    TechInfo(
+      nameOfTechnology: 'auto_size_text_field',
+      url: 'https://pub.dev/packages/auto_size_text_field',
+    ),
+    TechInfo(
+      nameOfTechnology: 'firebase_auth',
+      url: 'https://pub.dev/packages/firebase_auth',
+    ),
+    TechInfo(
+      nameOfTechnology: 'firebase_core',
+      url: 'https://pub.dev/packages/firebase_core',
+    ),
+    TechInfo(
+      nameOfTechnology: 'google_sign_in',
+      url: 'https://pub.dev/packages/google_sign_in',
+    ),
+    TechInfo(
+      nameOfTechnology: 'url_launcher',
+      url: 'https://pub.dev/packages/google_sign_in',
+    ),
+    TechInfo(
+      nameOfTechnology: 'icons_plus',
+      url: 'https://pub.dev/packages/icons_plus',
+    ),
+    TechInfo(
+      nameOfTechnology: 'flutter_dotenv',
+      url: 'https://pub.dev/packages/icons_plus',
+    ),
+    TechInfo(
+      nameOfTechnology: 'lottie',
+      url: 'https://pub.dev/packages/lottie',
+    ),
+    TechInfo(
+      nameOfTechnology: 'cached_network_image',
+      url: 'https://pub.dev/packages/cached_network_image',
+    ),
+    TechInfo(
+      nameOfTechnology: 'go_router',
+      url: 'https://pub.dev/packages/go_router',
+    ),
+    TechInfo(
+      nameOfTechnology: 'flutter_native_splash',
+      url: 'https://pub.dev/packages/flutter_native_splash',
+    ),
+    TechInfo(
+      nameOfTechnology: 'syncfusion_flutter_charts',
+      url: 'https://pub.dev/packages/syncfusion_flutter_charts',
+    ),
+    TechInfo(
+      nameOfTechnology: 'sqflite',
+      url: 'https://pub.dev/packages/sqflite',
+    ),
+    TechInfo(
+      nameOfTechnology: 'path_provider',
+      url: 'https://pub.dev/packages/path_provider',
+    ),
+    TechInfo(
+      nameOfTechnology: 'path',
+      url: 'https://pub.dev/packages/path',
+    ),
+    TechInfo(
+      nameOfTechnology: 'google_mobile_ads',
+      url: 'https://pub.dev/packages/google_mobile_ads',
+    ),
+    TechInfo(
+      nameOfTechnology: 'intl',
+      url: 'https://pub.dev/packages/intl',
+    ),
+    TechInfo(
+      nameOfTechnology: 'conditional_builder_null_safety',
+      url: 'https://pub.dev/packages/conditional_builder_null_safety',
+    ),
+    TechInfo(
+      nameOfTechnology: 'sign_in_button',
+      url: 'https://pub.dev/packages/sign_in_button',
+    ),
+    TechInfo(
+      nameOfTechnology: 'flutter_lints',
+      url: 'https://pub.dev/packages/flutter_lints',
     ),
   ];
 
@@ -53,19 +174,29 @@ class TechUsedScreen extends StatelessWidget {
       onTap: () {
         openUrl(model.url);
       },
-      child: Text(model.nameOfTechnology,style: TextStyle(color: Colors.blue.shade800),),
+      child: Text(
+        model.nameOfTechnology,
+        style: TextStyle(color: Colors.blue.shade800),
+      ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text('Tech Used'),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: ListView.builder(
-          itemCount: techInfoList.length,
-          itemBuilder: (context, index) => techUsed(techInfoList[index]),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: ListView.builder(
+            scrollDirection: Axis.vertical,
+            shrinkWrap: true,
+            itemCount: techInfoList.length,
+            itemBuilder: (context, index) => techUsed(techInfoList[index]),
+          ),
         ),
       ),
     );

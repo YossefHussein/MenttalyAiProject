@@ -55,7 +55,7 @@ class DataBaseHelper {
     var dbClient = await database;
     // Insert query to insert data into the database
     await dbClient.insert(ChartModeDataModel.tblMode, mode.toMap());
-    print(dbClient);
+    print(dbClient.toString());
   }
 
   // the table is created from the above,
@@ -89,10 +89,9 @@ class DataBaseHelper {
     return students;
   }
 
-  // To delete data from the database table which is in the given id.
+  // To delete data from the database
   void delete() async {
     var dbClient = await database;
-    // where xValue = $id
     await dbClient.delete(ChartModeDataModel.tblMode);
   }
 }

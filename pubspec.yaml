@@ -44,14 +44,13 @@ dependencies:
   get_it: ^7.2.0
   # run audio
   just_audio: ^0.9.18
-  just_audio_windows: ^0.2.2
-  just_audio_web: ^0.4.1
   # this for send for user message for example in auth screen
   fluttertoast: ^8.2.2
   # for localization
   easy_localization: ^3.0.0
   # save small things
   shared_preferences: ^2.3.4
+  # response section
   auto_size_text: ^3.0.0
   auto_size_text_field: ^2.2.4
   # firebase packages
@@ -59,7 +58,6 @@ dependencies:
   firebase_core: ^3.10.0
   # for login
   google_sign_in: ^6.2.2
-  google_sign_in_web: ^0.12.4+3
   # launch the url
   url_launcher: ^6.3.1
   # adding more icon
@@ -70,7 +68,6 @@ dependencies:
   lottie: ^3.2.0
   # adding svg icon
   flutter_svg: ^2.0.17
-  # sign_in_button: ^3.2.0
   # adding loading text
   # animated_text_kit: ^4.2.3
   # for safe image in cache
@@ -85,9 +82,15 @@ dependencies:
   sqflite: ^2.0.0+3
   # To provide the path to store the data in the device.
   path_provider: ^2.0.1
+  # adding for join function
   path: ^1.9.0
-  # intl: ^0.19.0f
-
+  # for adding ads
+  google_mobile_ads: ^5.3.1
+  intl: ^0.19.0
+  # for condition
+  conditional_builder_null_safety: ^0.0.6
+  # used in about developer screen
+  sign_in_button: ^3.2.0
 
 
 dev_dependencies:
