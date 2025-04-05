@@ -1,11 +1,7 @@
 // ignore_for_file: slash_for_doc_comments
 
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
-import 'package:mental_health_app/core/routes.dart';
-import 'package:mental_health_app/core/theme.dart';
 import 'package:mental_health_app/features/presentation/auth_screens/widgets/widgets.dart';
 import 'package:mental_health_app/features/presentation/meditation/bloc/mode_message/mode_message_bloc.dart';
 import 'package:mental_health_app/features/presentation/meditation/bloc/mode_message/mode_message_state.dart';
@@ -13,8 +9,6 @@ import 'package:mental_health_app/features/presentation/meditation/data/chart_mo
 import 'package:mental_health_app/features/presentation/meditation/data/model/chart_mode_data_model.dart';
 import 'package:mental_health_app/features/presentation/meditation/widgets/chart_widget.dart';
 import 'dart:math';
-import 'package:mental_health_app/features/presentation/meditation/widgets/feeling_button.dart';
-import 'package:mental_health_app/translations/locale_keys.dart';
 
 /**
  * recording the mode of user

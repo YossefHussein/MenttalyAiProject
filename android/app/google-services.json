@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "584316511993",
-    "project_id": "mental-health-app-85a6e",
-    "storage_bucket": "mental-health-app-85a6e.firebasestorage.app"
+    "project_number": "1079684114432",
+    "project_id": "metally-project",
+    "storage_bucket": "metally-project.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:584316511993:android:70128f6d853abda234a428",
+        "mobilesdk_app_id": "1:1079684114432:android:1d729fcc3ff62c0dcf90e5",
         "android_client_info": {
-          "package_name": "com.example.mental_health_app"
+          "package_name": "com.futureitway.mentally"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyAOMWcnCslSwEhw7455W61spp3PnSLL2W0"
+          "current_key": "AIzaSyBqJw5dz6yj-bUnKwb5bhzqP656cklVgeg"
         }
       ],
       "services": {

@@ -1,10 +1,13 @@
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 // import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:mental_health_app/core/ads_helper.dart';
 import 'package:mental_health_app/core/theme.dart';
 import 'package:mental_health_app/features/presentation/music/domain/entities/song.dart';
 
@@ -37,13 +40,17 @@ class SongsBottomSheet extends StatefulWidget {
 }
 
 class _SongsBottomSheetState extends State<SongsBottomSheet> {
+  // music
   late AudioPlayer _audioPlayer;
   bool isLooping = false;
 
-  // BannerAd? _bannerAd;
+  // ads
+  late BannerAd _bannerAd;
+  bool _isAdloaded = false;
 
   @override
   void initState() {
+    super.initState();
     // for initializing the music
     _audioPlayer = AudioPlayer();
     // to set urk of music
@@ -51,27 +58,38 @@ class _SongsBottomSheetState extends State<SongsBottomSheet> {
     // for auto start the music
     _audioPlayer.play();
     // config of ads
-    // _bannerAd = BannerAd(
-    //   adUnitId: 'ca-app-pub-3541561665141480/1576506826',
-    //   request: AdRequest(),
-    //   size: AdSize.banner,
-    //   listener:  BannerAdListener(
-    //     onAdLoaded: (ad) => debugPrint('Ad Loaded'),
-    //     onAdFailedToLoad: (ad, error) {
-    //       ad.dispose();
-    //       debugPrint('Ad failed to load $error');
-    //     },
-    //     onAdClosed: (ad) => debugPrint('Ad closed'),
-    //   ),
-    // )..load();
-    super.initState();
+    _initBannerAd();
+  }
+
+  void _initBannerAd() async {
+    _bannerAd = BannerAd(
+        adUnitId: AdHelper.bannerAdUnitId,
+        request: AdRequest(),
+        size: AdSize.fullBanner,
+        listener: BannerAdListener(
+          onAdLoaded: (ad) {
+            if (!mounted) {
+              ad.dispose();
+              return;
+            }
+            setState(() {
+              _bannerAd = ad as BannerAd;
+            });
+            debugPrint('Ad Loaded');
+          },
+          onAdFailedToLoad: (ad, error) {
+            ad.dispose();
+            debugPrint('Ad failed to load ${error.toString()}');
+          },
+          onAdClosed: (ad) => debugPrint('Ad closed'),
+        ));
+    _bannerAd.load();
   }
 
   @override
   void dispose() {
     _audioPlayer.dispose();
-    // _bannerAd?.dispose();
-    // _bannerAd = null;
+    _bannerAd.dispose();
     super.dispose();
   }
 
@@ -152,11 +170,18 @@ class _SongsBottomSheetState extends State<SongsBottomSheet> {
                           width: double.infinity,
                           fit: BoxFit.cover,
                           progressIndicatorBuilder:
-                              (context, url, downloadProgress) =>
-                                  LinearProgressIndicator(
-                            value: downloadProgress.progress,
-                            color: DefaultColors.pink,
-                          ),
+                              (context, url, downloadProgress) {
+                            return SizedBox(
+                              height: 200.0,
+                              width: 200.0,
+                              child: Center(
+                                child: CircularProgressIndicator(
+                                  value: downloadProgress.progress,
+                                  color: DefaultColors.pink,
+                                ),
+                              ),
+                            );
+                          },
                           errorWidget: (context, url, error) =>
                               Icon(Icons.error),
                         ),
@@ -172,6 +197,17 @@ class _SongsBottomSheetState extends State<SongsBottomSheet> {
                         'By : ${widget.songs.author}',
                         style: Theme.of(context).textTheme.labelSmall,
                       ),
+                      // ads
+                      ConditionalBuilder(
+                        condition: _isAdloaded,
+                        builder: (context) => Container(
+                          width: _bannerAd.size.width.toDouble(),
+                          height: _bannerAd.size.height.toDouble(),
+                          child: AdWidget(ad: _bannerAd),
+                        ),
+                        fallback: (context) => Container(),
+                      ),
+                      // progressbar
                       StreamBuilder(
                           stream: _audioPlayer.positionStream,
                           builder: (context, snapshot) {
@@ -271,12 +307,6 @@ class _SongsBottomSheetState extends State<SongsBottomSheet> {
                           ),
                         ],
                       ),
-                      // Container(
-                      //   alignment: Alignment.center,
-                      //   width: _bannerAd?.size.width.toDouble(),
-                      //   height: 20,
-                      //   child: AdWidget(ad: _bannerAd!),
-                      // )
                     ],
                   ),
                 ],

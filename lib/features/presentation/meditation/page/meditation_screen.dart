@@ -1,9 +1,12 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:mental_health_app/core/ads_helper.dart';
 import 'package:mental_health_app/core/theme.dart';
 import 'package:mental_health_app/features/presentation/meditation/bloc/daily_quotes/daily_quotes_bloc.dart';
 import 'package:mental_health_app/features/presentation/meditation/bloc/daily_quotes/daily_quotes_state.dart';
@@ -12,7 +15,6 @@ import 'package:mental_health_app/features/presentation/meditation/bloc/mode_mes
 import 'package:mental_health_app/features/presentation/meditation/bloc/mode_message/mode_message_state.dart';
 import 'package:mental_health_app/features/presentation/meditation/data/chart_mode/data_helper.dart';
 import 'package:mental_health_app/features/presentation/meditation/data/model/chart_mode_data_model.dart';
-import 'package:mental_health_app/features/presentation/meditation/widgets/chart_widget.dart';
 import 'package:mental_health_app/features/presentation/meditation/widgets/custom_mood_bottomsheet.dart';
 import 'package:mental_health_app/features/presentation/meditation/widgets/drawer_widget.dart';
 import 'package:mental_health_app/features/presentation/meditation/widgets/feeling_button.dart';
@@ -53,11 +55,37 @@ class _MeditationScreenState extends State<MeditationScreen> {
     super.initState();
     count = 1;
     dbHelper = DataBaseHelper.instance;
+    // config of ads
+    _initBannerAd();
   }
 
   int getRandomInt(int min, int max) {
     final Random random = Random();
     return min + random.nextInt(max - min);
+  }
+
+  // ads
+  late BannerAd _bannerAd;
+  bool _isAdloaded = false;
+
+// ads initalazation
+  void _initBannerAd() async {
+    _bannerAd = BannerAd(
+        adUnitId: AdHelper.bannerAdUnitId,
+        request: AdRequest(),
+        size: AdSize.fullBanner,
+        listener: BannerAdListener(
+          onAdLoaded: (ad) => debugPrint('Ad Loaded'),
+          onAdFailedToLoad: (ad, error) {
+            setState(() {
+              _isAdloaded = true;
+            });
+            // ad.dispose();
+            debugPrint('Ad failed to load $error');
+          },
+          onAdClosed: (ad) => debugPrint('Ad closed'),
+        ));
+    _bannerAd.load();
   }
 
   @override
@@ -218,6 +246,16 @@ class _MeditationScreenState extends State<MeditationScreen> {
               AutoSizeText(
                 LocaleKeys.home_screen_today_task.tr(),
                 style: Theme.of(context).textTheme.titleMedium,
+              ),
+              // ads
+              ConditionalBuilder(
+                condition: _isAdloaded,
+                builder: (context) => Container(
+                  width: _bannerAd.size.width.toDouble(),
+                  height: _bannerAd.size.height.toDouble(),
+                  child: AdWidget(ad: _bannerAd),
+                ),
+                fallback: (context) => Container(),
               ),
               SizedBox(
                 height: 16,

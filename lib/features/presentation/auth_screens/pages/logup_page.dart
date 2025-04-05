@@ -21,14 +21,14 @@ class LogUpScreen extends StatefulWidget {
 }
 
 class _LogUpScreenState extends State<LogUpScreen> {
-  var obscureText = true;
+  
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AuthCubit, AuthStates>(
       listener: (context, state) {},
       builder: (context, state) {
-        var cubit = AuthCubit();
+        var cubit =  AuthCubit.get(context);
         return Scaffold(
           backgroundColor: Color.fromARGB(255, 174, 175, 247),
           body: Stack(
@@ -78,7 +78,7 @@ class _LogUpScreenState extends State<LogUpScreen> {
                     padding: const EdgeInsets.all(16),
                     child: AutoSizeTextField(
                       maxLines: 1,
-                      obscureText: obscureText,
+                      obscureText: cubit.obscureText,
                       style: TextStyle(color: Colors.white),
                       controller: cubit.passwordController,
                       decoration: InputDecoration(
@@ -96,7 +96,7 @@ class _LogUpScreenState extends State<LogUpScreen> {
                         suffixIcon: IconButton(
                           icon: Icon(
                             // Based on passwordVisible state choose the icon
-                            obscureText
+                            cubit.obscureText
                                 ? Icons.visibility
                                 : Icons.visibility_off,
                             color: Theme.of(context).focusColor,
@@ -104,7 +104,7 @@ class _LogUpScreenState extends State<LogUpScreen> {
                           onPressed: () {
                             // Update the state i.e. toogle the state of passwordVisible variable
                             setState(() {
-                              obscureText = !obscureText;
+                              cubit.obscureText = !cubit.obscureText;
                             });
                           },
                         ),
@@ -123,7 +123,7 @@ class _LogUpScreenState extends State<LogUpScreen> {
                     padding: const EdgeInsets.all(16),
                     child: AutoSizeTextField(
                       maxLines: 1,
-                      obscureText: obscureText,
+                      obscureText: cubit.obscureText,
                       style: TextStyle(color: Colors.white),
                       controller: cubit.confirmPasswordController,
                       decoration: InputDecoration(
@@ -134,7 +134,7 @@ class _LogUpScreenState extends State<LogUpScreen> {
                         suffixIcon: IconButton(
                           icon: Icon(
                             // Based on passwordVisible state choose the icon
-                            obscureText
+                            cubit.obscureText
                                 ? Icons.visibility
                                 : Icons.visibility_off,
                             color: Theme.of(context).focusColor,
@@ -142,7 +142,7 @@ class _LogUpScreenState extends State<LogUpScreen> {
                           onPressed: () {
                             // Update the state i.e. toogle the state of passwordVisible variable
                             setState(() {
-                              obscureText = !obscureText;
+                              cubit.obscureText = !cubit.obscureText;
                             });
                           },
                         ),

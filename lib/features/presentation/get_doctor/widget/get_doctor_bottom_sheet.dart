@@ -36,24 +36,10 @@ class GetDoctorBottomSheet extends StatefulWidget {
 }
 
 class _GetDoctorBottomSheetState extends State<GetDoctorBottomSheet> {
-  // for make banner
-  BannerAd? _banner;
-
-  // this method to adding setting
-  void _createBannerAd() {
-    _banner = BannerAd(
-      size: AdSize.fullBanner,
-      adUnitId: AdHelper.bannerAdUnitId!,
-      listener: AdHelper.bannerListener,
-      request: const AdRequest(),
-    )
-      ..load();
-  }
 
   @override
   void initState() {
     super.initState();
-    _createBannerAd();
   }
 
   // this for choice the color
@@ -109,10 +95,16 @@ class _GetDoctorBottomSheetState extends State<GetDoctorBottomSheet> {
                           fit: BoxFit.cover,
                           progressIndicatorBuilder:
                               (context, url, downloadProgress) =>
-                                  LinearProgressIndicator(
-                            value: downloadProgress.progress,
-                            color: DefaultColors.pink,
-                          ),
+                                  SizedBox(
+                              height: 200.0,
+                              width: 200.0,
+                              child: Center(
+                                child: CircularProgressIndicator(
+                                  value: downloadProgress.progress,
+                                  color: DefaultColors.pink,
+                                ),
+                              ),
+                            ),
                           errorWidget: (context, url, error) =>
                               Icon(Icons.error),
                         ),
@@ -194,17 +186,6 @@ class _GetDoctorBottomSheetState extends State<GetDoctorBottomSheet> {
                               ),
                             ),
                           ),
-
-                          // ConditionalBuilder(
-                          //   condition: _banner == null,
-                          //   builder: (context) => Container(),
-                          //   fallback: (context) =>
-                          //       Container(
-                          //         margin: const EdgeInsets.only(bottom: 12),
-                          //         height: 52,
-                          //         child: AdWidget(ad: _banner!),
-                          //       ),
-                          // ),
                         ],
                       )
                     ],

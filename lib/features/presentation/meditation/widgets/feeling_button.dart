@@ -3,6 +3,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 
 // this is feeling button is used by the user
 // to know the feeling
+// ignore: must_be_immutable
 class FeelingButton extends StatelessWidget {
   final String label;
   final String image;

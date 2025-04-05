@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>584316511993-2av7ntna5s7vit1qvlupiq21i4p9i0gt.apps.googleusercontent.com</string>
+	<string>1079684114432-njkukpvl35i0li5q85264hlqe24k3k5b.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.584316511993-2av7ntna5s7vit1qvlupiq21i4p9i0gt</string>
+	<string>com.googleusercontent.apps.1079684114432-njkukpvl35i0li5q85264hlqe24k3k5b</string>
 	<key>API_KEY</key>
-	<string>AIzaSyDPGgmuamwItDIMkJCImuG0f-XHjLztSds</string>
+	<string>AIzaSyDFuejF75AhTCaFzSiWHihcIvEOayZv8xc</string>
 	<key>GCM_SENDER_ID</key>
-	<string>584316511993</string>
+	<string>1079684114432</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.example.mentalHealthApp</string>
+	<string>com.futureitway.mentally</string>
 	<key>PROJECT_ID</key>
-	<string>mental-health-app-85a6e</string>
+	<string>metally-project</string>
 	<key>STORAGE_BUCKET</key>
-	<string>mental-health-app-85a6e.firebasestorage.app</string>
+	<string>metally-project.firebasestorage.app</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:584316511993:ios:990933a40670334334a428</string>
+	<string>1:1079684114432:ios:92334582bdb751d0cf90e5</string>
 </dict>
 </plist>

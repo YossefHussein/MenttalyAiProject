@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -24,13 +27,14 @@ import 'package:mental_health_app/firebase_options.dart';
 import 'package:mental_health_app/observer.dart';
 import 'package:mental_health_app/presentation/about_developer.dart';
 import 'package:mental_health_app/presentation/auth.dart';
+import 'package:mental_health_app/presentation/bottom_nav_bar/bloc/navigation_bloc.dart';
 import 'package:mental_health_app/presentation/home_screen/home_screen.dart';
 import 'package:mental_health_app/presentation/tech_used.dart';
 import 'package:mental_health_app/translations/codegen_loader.g.dart';
-import 'presentation/bottom_nav_bar/bloc/navigation_bloc.dart';
 import 'injection_container.dart' as di;
 import 'package:easy_localization/easy_localization.dart';
 import 'package:go_router/go_router.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 
 Future<void> main() async {
   // to fix problem when make async main function
@@ -46,9 +50,30 @@ Future<void> main() async {
   // dependency injection
   await di.init();
   // adding ads
-  await MobileAds.instance.initialize();
+  unawaited(MobileAds.instance.initialize());
   // initialized database
   await DataBaseHelper.initDataBase();
+
+  const fatalError = true;
+  // if user happend crashes in has device
+  FlutterError.onError = (errorDetails) {
+    if (fatalError) {
+      FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
+    // ignore: dead_code
+    } else {
+      FirebaseCrashlytics.instance.recordFlutterError(errorDetails);
+    }
+  };
+  // Pass all uncaught asynchronous errors that aren't handled by the Flutter framework to Crashlytics
+  PlatformDispatcher.instance.onError = (error, stack) {
+    if (fatalError) {
+      FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+    // ignore: dead_code
+    } else {
+      FirebaseCrashlytics.instance.recordError(error, stack);
+    }
+    return true;
+  };
 
   runApp(
     EasyLocalization(
@@ -105,13 +130,13 @@ class MyApp extends StatelessWidget {
           ),
           // StatefulShellBranch(
           //   routes: [
-              // GoRoute(
-              //   name: Routes.chatWithGeminiScreenRoute,
-              //   path: Routes.chatWithGeminiScreenRoute,
-              //   pageBuilder: (context, state) => const NoTransitionPage(
-              //     child: ChatWithGeminiScreen(),
-              //   ),
-              // ),
+          // GoRoute(
+          //   name: Routes.chatWithGeminiScreenRoute,
+          //   path: Routes.chatWithGeminiScreenRoute,
+          //   pageBuilder: (context, state) => const NoTransitionPage(
+          //     child: ChatWithGeminiScreen(),
+          //   ),
+          // ),
           //   ],
           // ),
           StatefulShellBranch(

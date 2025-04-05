@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -9,6 +10,7 @@ class TechInfo {
   TechInfo({required this.url, required this.nameOfTechnology});
 }
 
+// ignore: must_be_immutable
 class TechUsedScreen extends StatelessWidget {
   Future<void> openUrl(url) async {
     if (!await launchUrl(Uri.parse(url))) {
@@ -165,6 +167,14 @@ class TechUsedScreen extends StatelessWidget {
       nameOfTechnology: 'flutter_lints',
       url: 'https://pub.dev/packages/flutter_lints',
     ),
+    TechInfo(
+      nameOfTechnology: 'change_app_package_name',
+      url: 'https://pub.dev/packages/change_app_package_name',
+    ),
+    TechInfo(
+      nameOfTechnology: 'firebase_crashlytics',
+      url: 'https://pub.dev/packages/firebase_crashlytics',
+    ),
   ];
 
   TechUsedScreen({super.key});
@@ -174,7 +184,7 @@ class TechUsedScreen extends StatelessWidget {
       onTap: () {
         openUrl(model.url);
       },
-      child: Text(
+      child: AutoSizeText(
         model.nameOfTechnology,
         style: TextStyle(color: Colors.blue.shade800),
       ),

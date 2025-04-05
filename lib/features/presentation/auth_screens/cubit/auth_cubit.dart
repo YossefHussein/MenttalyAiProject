@@ -9,11 +9,14 @@ class AuthCubit extends Cubit<AuthStates> {
   AuthCubit() : super(AuthInitialState());
 
   static AuthCubit get(BuildContext context) => BlocProvider.of(context);
-
+  
+  // text from contorller
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmPasswordController =
       TextEditingController();
+  // hide the text from  
+  var obscureText = true;
 
   // login on app by firebase but that by email
   Future signInByEmail() async {

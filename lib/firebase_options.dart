@@ -17,17 +17,26 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      return web;
+      throw UnsupportedError(
+        'DefaultFirebaseOptions have not been configured for web - '
+        'you can reconfigure this by running the FlutterFire CLI again.',
+      );
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
         return android;
       case TargetPlatform.iOS:
         return ios;
-      // case TargetPlatform.macOS:
-      //   return macos;
+      case TargetPlatform.macOS:
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for macos - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.windows:
-        return windows;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for windows - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.linux:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for linux - '
@@ -40,49 +49,21 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyBQADCANXRqHiIF3z_wdix6K7g_wcUi49M',
-    appId: '1:584316511993:web:ada1e849e805248d34a428',
-    messagingSenderId: '584316511993',
-    projectId: 'mental-health-app-85a6e',
-    authDomain: 'mental-health-app-85a6e.firebaseapp.com',
-    storageBucket: 'mental-health-app-85a6e.firebasestorage.app',
-    measurementId: 'G-SBDSGMDXFV',
-  );
-
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyAOMWcnCslSwEhw7455W61spp3PnSLL2W0',
-    appId: '1:584316511993:android:70128f6d853abda234a428',
-    messagingSenderId: '584316511993',
-    projectId: 'mental-health-app-85a6e',
-    storageBucket: 'mental-health-app-85a6e.firebasestorage.app',
+    apiKey: 'AIzaSyBqJw5dz6yj-bUnKwb5bhzqP656cklVgeg',
+    appId: '1:1079684114432:android:1d729fcc3ff62c0dcf90e5',
+    messagingSenderId: '1079684114432',
+    projectId: 'metally-project',
+    storageBucket: 'metally-project.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDPGgmuamwItDIMkJCImuG0f-XHjLztSds',
-    appId: '1:584316511993:ios:990933a40670334334a428',
-    messagingSenderId: '584316511993',
-    projectId: 'mental-health-app-85a6e',
-    storageBucket: 'mental-health-app-85a6e.firebasestorage.app',
-    iosBundleId: 'com.example.mentalHealthApp',
+    apiKey: 'AIzaSyDFuejF75AhTCaFzSiWHihcIvEOayZv8xc',
+    appId: '1:1079684114432:ios:92334582bdb751d0cf90e5',
+    messagingSenderId: '1079684114432',
+    projectId: 'metally-project',
+    storageBucket: 'metally-project.firebasestorage.app',
+    iosBundleId: 'com.futureitway.mentally',
   );
 
-  // static const FirebaseOptions macos = FirebaseOptions(
-  //   apiKey: 'AIzaSyDPGgmuamwItDIMkJCImuG0f-XHjLztSds',
-  //   appId: '1:584316511993:ios:990933a40670334334a428',
-  //   messagingSenderId: '584316511993',
-  //   projectId: 'mental-health-app-85a6e',
-  //   storageBucket: 'mental-health-app-85a6e.firebasestorage.app',
-  //   iosBundleId: 'com.example.mentalHealthApp',
-  // );
-
-  static const FirebaseOptions windows = FirebaseOptions(
-    apiKey: 'AIzaSyBQADCANXRqHiIF3z_wdix6K7g_wcUi49M',
-    appId: '1:584316511993:web:36be69c617b90c3934a428',
-    messagingSenderId: '584316511993',
-    projectId: 'mental-health-app-85a6e',
-    authDomain: 'mental-health-app-85a6e.firebaseapp.com',
-    storageBucket: 'mental-health-app-85a6e.firebasestorage.app',
-    measurementId: 'G-XQ49J36EMT',
-  );
 }
