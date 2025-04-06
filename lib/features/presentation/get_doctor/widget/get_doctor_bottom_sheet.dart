@@ -36,7 +36,6 @@ class GetDoctorBottomSheet extends StatefulWidget {
 }
 
 class _GetDoctorBottomSheetState extends State<GetDoctorBottomSheet> {
-
   @override
   void initState() {
     super.initState();
@@ -94,17 +93,16 @@ class _GetDoctorBottomSheetState extends State<GetDoctorBottomSheet> {
                           width: double.infinity,
                           fit: BoxFit.cover,
                           progressIndicatorBuilder:
-                              (context, url, downloadProgress) =>
-                                  SizedBox(
-                              height: 200.0,
-                              width: 200.0,
-                              child: Center(
-                                child: CircularProgressIndicator(
-                                  value: downloadProgress.progress,
-                                  color: DefaultColors.pink,
-                                ),
+                              (context, url, downloadProgress) => SizedBox(
+                            height: 200.0,
+                            width: 200.0,
+                            child: Center(
+                              child: CircularProgressIndicator(
+                                value: downloadProgress.progress,
+                                color: DefaultColors.pink,
                               ),
                             ),
+                          ),
                           errorWidget: (context, url, error) =>
                               Icon(Icons.error),
                         ),
@@ -175,8 +173,8 @@ class _GetDoctorBottomSheetState extends State<GetDoctorBottomSheet> {
                               elevation: 0,
                               shape: StadiumBorder(
                                   side: BorderSide(color: Colors.transparent)),
-                              backgroundColor:
-                                  choiceColor(widget.doctor.colorDoctorSpecialty),
+                              backgroundColor: choiceColor(
+                                  widget.doctor.colorDoctorSpecialty),
                               label: Text(
                                 widget.doctor.medicalSpecialty,
                                 style: Theme.of(context)

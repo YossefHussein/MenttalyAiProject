@@ -11,13 +11,13 @@ class AboutDeveloper extends StatefulWidget {
   State<AboutDeveloper> createState() => _AboutDeveloperState();
 }
 
-class _AboutDeveloperState extends State<AboutDeveloper> {
-  Future<void> openUrl(url) async {
-    if (!await launchUrl(Uri.parse(url))) {
-      throw Exception('Could not launch $url');
-    }
+Future<void> openUrl(url) async {
+  if (!await launchUrl(Uri.parse(url))) {
+    throw Exception('Could not launch $url');
   }
+}
 
+class _AboutDeveloperState extends State<AboutDeveloper> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

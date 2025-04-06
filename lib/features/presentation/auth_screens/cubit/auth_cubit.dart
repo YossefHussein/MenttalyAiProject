@@ -36,12 +36,6 @@ class AuthCubit extends Cubit<AuthStates> {
     });
   }
 
-  // go to sign up screen if user doesn't have account
-  // void openSignUpScreen({required BuildContext context}) {
-  //   Navigator.pushReplacementNamed(context, 'singupScreen');
-  //   emit(OpenSignUpScreen());
-  // }
-
   // signUp on app by firebase
   Future signUpByEmail(BuildContext context) async {
     // if password is not match give for user message the
@@ -89,7 +83,7 @@ class AuthCubit extends Cubit<AuthStates> {
       emit(LoginWithGoogleComplete());
       return await FirebaseAuth.instance.signInWithCredential(credential);
     } catch (error) {
-      print(error.toString());
+      debugPrint(error.toString());
       emit(LoginWithGoogleError(error.toString()));
       sendMSG(error.toString());
     }

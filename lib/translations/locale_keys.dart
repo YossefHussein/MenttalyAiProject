@@ -32,6 +32,7 @@ abstract class  LocaleKeys {
   static const home_screen_okay_button = 'home_screen.okay_button';
   static const home_screen = 'home_screen';
   static const drawer_widget_about_developer = 'drawer_widget.about_developer';
+  static const drawer_widget_support_developer = 'drawer_widget.support_developer';
   static const drawer_widget_tech_used_to_make_app = 'drawer_widget.tech_used_to_make_app';
   static const drawer_widget_logout = 'drawer_widget.logout';
   static const drawer_widget_title_logout = 'drawer_widget.title_logout';

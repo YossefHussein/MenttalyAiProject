@@ -45,8 +45,8 @@ class _SongsBottomSheetState extends State<SongsBottomSheet> {
   bool isLooping = false;
 
   // ads
-  late BannerAd _bannerAd;
-  bool _isAdloaded = false;
+  // late BannerAd _bannerAd;
+  // bool _isAdloaded = false;
 
   @override
   void initState() {
@@ -58,40 +58,40 @@ class _SongsBottomSheetState extends State<SongsBottomSheet> {
     // for auto start the music
     _audioPlayer.play();
     // config of ads
-    _initBannerAd();
+    // _initBannerAd();
   }
 
-  void _initBannerAd() async {
-    _bannerAd = BannerAd(
-        adUnitId: AdHelper.bannerAdUnitId,
-        request: AdRequest(),
-        size: AdSize.fullBanner,
-        listener: BannerAdListener(
-          onAdLoaded: (ad) {
-            if (!mounted) {
-              ad.dispose();
-              return;
-            }
-            setState(() {
-              _bannerAd = ad as BannerAd;
-            });
-            debugPrint('Ad Loaded');
-          },
-          onAdFailedToLoad: (ad, error) {
-            ad.dispose();
-            debugPrint('Ad failed to load ${error.toString()}');
-          },
-          onAdClosed: (ad) => debugPrint('Ad closed'),
-        ));
-    _bannerAd.load();
-  }
+  // void _initBannerAd() async {
+  //   _bannerAd = BannerAd(
+  //       adUnitId: AdHelper.bannerAdUnitId,
+  //       request: AdRequest(),
+  //       size: AdSize.banner,
+  //       listener: BannerAdListener(
+  //         onAdLoaded: (ad) {
+  //           if (!mounted) {
+  //             ad.dispose();
+  //             return;
+  //           }
+  //           setState(() {
+  //             _bannerAd = ad as BannerAd;
+  //           });
+  //           debugPrint('Ad Loaded');
+  //         },
+  //         onAdFailedToLoad: (ad, error) {
+  //           ad.dispose();
+  //           debugPrint('Ad failed to load ${error.toString()}');
+  //         },
+  //         onAdClosed: (ad) => debugPrint('Ad closed'),
+  //       ));
+  //   _bannerAd.load();
+  // }
 
-  @override
-  void dispose() {
-    _audioPlayer.dispose();
-    _bannerAd.dispose();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   _audioPlayer.dispose();
+  //   _bannerAd.dispose();
+  //   super.dispose();
+  // }
 
   // play and close music
   Future<void> togglePlayerPause() async {
@@ -198,15 +198,15 @@ class _SongsBottomSheetState extends State<SongsBottomSheet> {
                         style: Theme.of(context).textTheme.labelSmall,
                       ),
                       // ads
-                      ConditionalBuilder(
-                        condition: _isAdloaded,
-                        builder: (context) => Container(
-                          width: _bannerAd.size.width.toDouble(),
-                          height: _bannerAd.size.height.toDouble(),
-                          child: AdWidget(ad: _bannerAd),
-                        ),
-                        fallback: (context) => Container(),
-                      ),
+                      // ConditionalBuilder(
+                      //   condition: _isAdloaded,
+                      //   builder: (context) => Container(
+                      //     width: _bannerAd.size.width.toDouble(),
+                      //     height: _bannerAd.size.height.toDouble(),
+                      //     child: AdWidget(ad: _bannerAd),
+                      //   ),
+                      //   fallback: (context) => Container(),
+                      // ),
                       // progressbar
                       StreamBuilder(
                           stream: _audioPlayer.positionStream,

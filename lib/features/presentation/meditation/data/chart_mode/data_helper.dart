@@ -20,6 +20,7 @@ class DataBaseHelper {
   static const _databaseVersion = 1;
 
   Database? _database;
+  
   static initDataBase() async {
     Directory dataDirectory = await getApplicationDocumentsDirectory();
     String dbPath = join(dataDirectory.path, _databaseName);

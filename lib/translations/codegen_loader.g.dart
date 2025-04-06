@@ -52,9 +52,10 @@ class CodegenLoader extends AssetLoader{
     "okay_button": "حسنا"
   },
   "drawer_widget": {
-    "about_developer": "عن مطورين",
+    "about_developer": "عن المطورين",
+    "support_developer": "دعم المطورين",
     "tech_used_to_make_app": "التقنيات المستخدمة في تطبيق",
-    "logout": "تسجيل خروج",
+    "logout": "تسجيل الخروج",
     "title_logout": "هل انت متأكد انك تخرج من تطبيق",
     "my_sir": "سيدي",
     "title_description": "هل انت متأكد انك عايز تخرج من بيئة للتأمل لي مسعادتك في انك تكوين وقت جميل للتأمل, ارجوك فكر من جديد وختر من اختيارين من موجودين تحت نص دة",
@@ -108,6 +109,7 @@ static const Map<String,dynamic> en = {
   },
   "drawer_widget": {
     "about_developer": "About Developer",
+    "support_developer": "Support Developer",
     "tech_used_to_make_app": "Tech Used To Make App",
     "logout": "LogOut",
     "title_logout": "Are You Sure Exit From Meditation",

@@ -37,6 +37,7 @@
   },
   "drawer_widget": {
     "about_developer": "About Developer",
+    "support_developer": "Support Developer",
     "tech_used_to_make_app": "Tech Used To Make App",
     "logout": "LogOut",
     "title_logout": "Are You Sure Exit From Meditation",

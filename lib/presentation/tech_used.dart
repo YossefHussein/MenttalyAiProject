@@ -175,6 +175,10 @@ class TechUsedScreen extends StatelessWidget {
       nameOfTechnology: 'firebase_crashlytics',
       url: 'https://pub.dev/packages/firebase_crashlytics',
     ),
+    TechInfo(
+      nameOfTechnology: 'clipboard',
+      url: 'https://pub.dev/packages/clipboard',
+    ),
   ];
 
   TechUsedScreen({super.key});

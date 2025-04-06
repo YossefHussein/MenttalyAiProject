@@ -9,5 +9,6 @@ class Routes {
   // static const chatWithGeminiScreenRoute = '/chatWithGemini';
   static const getDoctorScreenRoute = '/getDoctor';
   static const aboutDeveloperScreenRoute = '/aboutDeveloper';
-  static const techUsedScreenRoute = '/TechUsed';
+  static const techUsedScreenRoute = '/techUsed';
+  static const supportDeveloperScreenRoute = '/supportDeveloper';
 }

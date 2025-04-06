@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:mental_health_app/core/ads_helper.dart';
 import 'package:mental_health_app/core/theme.dart';
+import 'package:mental_health_app/features/presentation/auth_screens/widgets/widgets.dart';
 import 'package:mental_health_app/features/presentation/meditation/bloc/daily_quotes/daily_quotes_bloc.dart';
 import 'package:mental_health_app/features/presentation/meditation/bloc/daily_quotes/daily_quotes_state.dart';
 import 'package:mental_health_app/features/presentation/meditation/bloc/mode_message/mode_message_bloc.dart';
@@ -50,42 +51,42 @@ class _MeditationScreenState extends State<MeditationScreen> {
   late DataBaseHelper dbHelper;
   late int count;
 
-  @override
-  void initState() {
-    super.initState();
-    count = 1;
-    dbHelper = DataBaseHelper.instance;
-    // config of ads
-    _initBannerAd();
-  }
+  // for make banner
+  // BannerAd? _banner;
+  // bool _isAdloaded = false;
+
+  // this method to adding setting
+  // void _initBannerAd() {
+  //   _banner = BannerAd(
+  //     size: AdSize.banner,
+  //     adUnitId: AdHelper.bannerAdUnitId,
+  //     listener: BannerAdListener(
+  //       onAdLoaded: (ad) => debugPrint('Ad Loaded'),
+  //       onAdFailedToLoad: (ad, error) {
+  //         setState(() {
+  //           _isAdloaded = true;
+  //         });
+  //         ad.dispose();
+  //         debugPrint('Ad failed to load $error');
+  //       },
+  //       onAdClosed: (ad) => debugPrint('Ad closed'),
+  //     ),
+  //     request: const AdRequest(),
+  //   )..load();
+  // }
 
   int getRandomInt(int min, int max) {
     final Random random = Random();
     return min + random.nextInt(max - min);
   }
 
-  // ads
-  late BannerAd _bannerAd;
-  bool _isAdloaded = false;
-
-// ads initalazation
-  void _initBannerAd() async {
-    _bannerAd = BannerAd(
-        adUnitId: AdHelper.bannerAdUnitId,
-        request: AdRequest(),
-        size: AdSize.fullBanner,
-        listener: BannerAdListener(
-          onAdLoaded: (ad) => debugPrint('Ad Loaded'),
-          onAdFailedToLoad: (ad, error) {
-            setState(() {
-              _isAdloaded = true;
-            });
-            // ad.dispose();
-            debugPrint('Ad failed to load $error');
-          },
-          onAdClosed: (ad) => debugPrint('Ad closed'),
-        ));
-    _bannerAd.load();
+  @override
+  void initState() {
+    count = 1;
+    dbHelper = DataBaseHelper.instance;
+    // config of ads
+    // _initBannerAd();
+    super.initState();
   }
 
   @override
@@ -131,6 +132,7 @@ class _MeditationScreenState extends State<MeditationScreen> {
               SizedBox(
                 height: 16,
               ),
+              // mode button
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Wrap(
@@ -138,7 +140,6 @@ class _MeditationScreenState extends State<MeditationScreen> {
                   alignment: WrapAlignment.spaceBetween,
                   runSpacing: 16,
                   crossAxisAlignment: WrapCrossAlignment.start,
-                  // spacing: 16,
                   children: [
                     FeelingButton(
                         label: LocaleKeys.home_screen_happy_mood_button.tr(),
@@ -156,10 +157,12 @@ class _MeditationScreenState extends State<MeditationScreen> {
                           );
                           chartModeData = await dbHelper.getDatabase();
                           // Check if currentState is not null before calling setState
-
                           chartKey.currentState?.setState(() {});
 
                           count++;
+                          sendMSG(
+                            'Loadding message \n mode will be adding to database',
+                          );
                         }),
                     SizedBox(width: 10),
                     FeelingButton(
@@ -177,10 +180,11 @@ class _MeditationScreenState extends State<MeditationScreen> {
                             ),
                           );
                           chartModeData = await dbHelper.getDatabase();
-                          chartKey.currentState?.setState(
-                            () {},
-                          );
+                          chartKey.currentState?.setState(() {});
                           count++;
+                          sendMSG(
+                            'Loadding message \n mode will be adding to database',
+                          );
                         }),
                     SizedBox(width: 10),
                     FeelingButton(
@@ -199,10 +203,11 @@ class _MeditationScreenState extends State<MeditationScreen> {
                             ),
                           );
                           chartModeData = await dbHelper.getDatabase();
-                          chartKey.currentState?.setState(
-                            () {},
-                          );
+                          chartKey.currentState?.setState(() {});
                           count++;
+                          sendMSG(
+                            'Loadding message \n mode will be adding to database',
+                          );
                         }),
                     SizedBox(width: 10),
                     FeelingButton(
@@ -221,10 +226,11 @@ class _MeditationScreenState extends State<MeditationScreen> {
                             ),
                           );
                           chartModeData = await dbHelper.getDatabase();
-                          chartKey.currentState?.setState(
-                            () {},
-                          );
+                          chartKey.currentState?.setState(() {});
                           count++;
+                          sendMSG(
+                            'Loadding message \n mode will be adding to database',
+                          );
                         }),
                     SizedBox(width: 10),
                     FeelingButton(
@@ -240,22 +246,19 @@ class _MeditationScreenState extends State<MeditationScreen> {
                   ],
                 ),
               ),
-              SizedBox(
-                height: 24,
-              ),
+              // // ads
+              // ConditionalBuilder(
+              //   condition: _banner == null,
+              //   builder: (context) => Container(),
+              //   fallback: (context) => Container(
+              //     width: _banner?.size.width.toDouble(),
+              //     height: _banner?.size.height.toDouble(),
+              //     child: AdWidget(ad: _banner!),
+              //   ),
+              // ),
               AutoSizeText(
                 LocaleKeys.home_screen_today_task.tr(),
                 style: Theme.of(context).textTheme.titleMedium,
-              ),
-              // ads
-              ConditionalBuilder(
-                condition: _isAdloaded,
-                builder: (context) => Container(
-                  width: _bannerAd.size.width.toDouble(),
-                  height: _bannerAd.size.height.toDouble(),
-                  child: AdWidget(ad: _bannerAd),
-                ),
-                fallback: (context) => Container(),
               ),
               SizedBox(
                 height: 16,

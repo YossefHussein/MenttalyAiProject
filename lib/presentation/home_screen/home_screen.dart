@@ -13,11 +13,11 @@ import 'package:mental_health_app/presentation/bottom_nav_bar/bloc/navigation_st
 import 'package:mental_health_app/presentation/bottom_nav_bar/widget/bottom_nav_bar.dart';
 
 class HomeScreen extends StatelessWidget {
-   HomeScreen({super.key});
+  HomeScreen({super.key});
 
 //  list to contain the pages
   final List<Widget> pages = [
-     MeditationScreen(),
+    MeditationScreen(),
     const PlaylistScreen(),
     // const ChatWithGeminiScreen(),
     const GetDoctorScreen(),

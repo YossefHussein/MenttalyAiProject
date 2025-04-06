@@ -6,6 +6,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mental_health_app/core/routes.dart';
 import 'package:mental_health_app/presentation/about_developer.dart';
+import 'package:mental_health_app/presentation/support_developer.dart';
 import 'package:mental_health_app/presentation/tech_used.dart';
 import 'package:mental_health_app/translations/locale_keys.dart';
 
@@ -52,14 +53,26 @@ class DrawerWidget extends StatelessWidget {
           // about screen
           ListTile(
             onTap: () {
-              Navigator.push(context, 
-                    MaterialPageRoute(builder: (context) => AboutDeveloper()));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => AboutDeveloper()));
             },
             title: GestureDetector(
                 child: AutoSizeText(
                     LocaleKeys.drawer_widget_about_developer.tr())),
           ),
           // tech used
+          ListTile(
+            title: GestureDetector(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => SupportDeveloper()));
+              },
+              child: AutoSizeText(
+                  LocaleKeys.drawer_widget_support_developer.tr()),
+            ),
+          ),
           ListTile(
             title: GestureDetector(
               onTap: () {
@@ -70,13 +83,14 @@ class DrawerWidget extends StatelessWidget {
                   LocaleKeys.drawer_widget_tech_used_to_make_app.tr()),
             ),
           ),
+
           ListTile(
             title: GestureDetector(
               onTap: () async {
                 showDialog(
                     context: context,
                     builder: (context) => AlertDialog(
-                          // title  
+                          // title
                           title: Text(
                               LocaleKeys.drawer_widget_title_logout.tr(),
                               style: Theme.of(context).textTheme.labelMedium,
