@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:mental_health_app/features/presentation/get_doctor/domain/entities/doctor.dart';
 
 class DoctorModel extends DoctorEntities {
@@ -12,6 +14,7 @@ class DoctorModel extends DoctorEntities {
     required String timeClass,
     required String doctorPhoto,
     required String colorDoctorSpecialty,
+    required dynamic percentSimilarity,
   }) : super(
           id: id,
           title: title,
@@ -22,6 +25,7 @@ class DoctorModel extends DoctorEntities {
           timeClass: timeClass,
           dateClass: dateClass,
           colorDoctorSpecialty: colorDoctorSpecialty,
+          percentSimilarity: percentSimilarity,
         );
 
   factory DoctorModel.fromJson(Map<dynamic, dynamic> json) {
@@ -35,6 +39,7 @@ class DoctorModel extends DoctorEntities {
       timeClass: json['timeClass'],
       doctorPhoto: json['doctorPhoto'],
       colorDoctorSpecialty: json['colorDoctorSpecialty'],
+      percentSimilarity: json['percentSimilarity'],
     );
   }
 }

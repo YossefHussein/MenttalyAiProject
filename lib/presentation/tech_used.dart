@@ -179,6 +179,13 @@ class TechUsedScreen extends StatelessWidget {
       nameOfTechnology: 'clipboard',
       url: 'https://pub.dev/packages/clipboard',
     ),
+    TechInfo(
+      nameOfTechnology: 'flutter_local_notifications',
+      url: 'https://pub.dev/packages/flutter_local_notifications',
+    ), TechInfo(
+      nameOfTechnology: 'share_plus',
+      url: 'https://pub.dev/packages/share_plus',
+    ),
   ];
 
   TechUsedScreen({super.key});

@@ -77,7 +77,7 @@ class _GetDoctorBottomSheetState extends State<GetDoctorBottomSheet> {
               AppBar(
                 leading: IconButton(
                   onPressed: () => Navigator.pop(context),
-                  icon: Image.asset('assets/down_arrow.png'),
+                  icon: Image.asset('assets/images/down_arrow.png'),
                 ),
               ),
               Column(
@@ -86,26 +86,49 @@ class _GetDoctorBottomSheetState extends State<GetDoctorBottomSheet> {
                   Wrap(
                     children: [
                       // photo
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(15),
-                        child: CachedNetworkImage(
-                          imageUrl: widget.doctor.doctorPhoto,
-                          width: double.infinity,
-                          fit: BoxFit.cover,
-                          progressIndicatorBuilder:
-                              (context, url, downloadProgress) => SizedBox(
-                            height: 200.0,
-                            width: 200.0,
-                            child: Center(
-                              child: CircularProgressIndicator(
-                                value: downloadProgress.progress,
-                                color: DefaultColors.pink,
+                      Stack(
+                        alignment: AlignmentDirectional.bottomEnd,
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(15),
+                            child: CachedNetworkImage(
+                              imageUrl: widget.doctor.doctorPhoto,
+                              width: double.infinity,
+                              fit: BoxFit.cover,
+                              progressIndicatorBuilder:
+                                  (context, url, downloadProgress) {
+                                return SizedBox(
+                                  height: 200.0,
+                                  width: 200.0,
+                                  child: Center(
+                                    child: CircularProgressIndicator(
+                                      value: downloadProgress.progress,
+                                      color: DefaultColors.pink,
+                                    ),
+                                  ),
+                                );
+                              },
+                              errorWidget: (context, url, error) =>
+                                  Icon(Icons.error),
+                            ),
+                          ),
+                          Container(
+                            margin: EdgeInsets.fromLTRB(25, 20, 0, 0),
+                            child: CircleAvatar(
+                              radius: 32,
+                              backgroundColor: DefaultColors.purple,
+                              child: CircleAvatar(
+                                radius: 30,
+                                child: Text(
+                                  '${widget.doctor.percentSimilarity}',
+                                  style: TextStyle(
+                                    color: DefaultColors.purple,
+                                  ),
+                                ),
                               ),
                             ),
                           ),
-                          errorWidget: (context, url, error) =>
-                              Icon(Icons.error),
-                        ),
+                        ],
                       ),
                       const SizedBox(
                         height: 16,

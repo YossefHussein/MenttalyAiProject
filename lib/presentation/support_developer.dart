@@ -18,12 +18,12 @@ class SupportDeveloper extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text('QR CODE'),
-              Image.asset('assets/bitcoin_qr_code.jpg'),
+              Image.asset('assets/images/bitcoin_qr_code.jpg'),
               GestureDetector(
                 child: Icon(Icons.copy),
                 onTap: () {
                   FlutterClipboard.copy(
-                          'bc1qm9m7x43sq3hfe5yc8pct3ud9g9ruesjwyn3r8z')
+                      'bc1qm9m7x43sq3hfe5yc8pct3ud9g9ruesjwyn3r8z')
                       .then((value) => sendMSG('copied'));
                 },
               ),
@@ -31,7 +31,7 @@ class SupportDeveloper extends StatelessWidget {
                 height: 16,
               ),
               Image.asset(
-                'assets/bmc_qr_code.png',
+                'assets/images/bmc_qr_code.png',
                 scale: 4,
               ),
               GestureDetector(
@@ -55,7 +55,10 @@ class SupportDeveloper extends StatelessWidget {
                     child: Brand(Brands.patreon),
                   ),
                 ],
-              )
+              ),
+              SizedBox(
+                height: 16,
+              ),
             ],
           ),
         ),

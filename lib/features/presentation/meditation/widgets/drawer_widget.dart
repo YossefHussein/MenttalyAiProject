@@ -140,7 +140,7 @@ class DrawerWidget extends StatelessWidget {
               // log out from app
               child: AutoSizeText(
                 LocaleKeys.drawer_widget_title_logout_button.tr(),
-                style: TextStyle(color: Colors.red, fontSize: 16),
+                style: TextStyle(color: Colors.red, fontSize: 20),
               ),
             ),
           ),

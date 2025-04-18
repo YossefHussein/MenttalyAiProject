@@ -86,12 +86,12 @@ class _SongsBottomSheetState extends State<SongsBottomSheet> {
   //   _bannerAd.load();
   // }
 
-  // @override
-  // void dispose() {
-  //   _audioPlayer.dispose();
-  //   _bannerAd.dispose();
-  //   super.dispose();
-  // }
+  @override
+  void dispose() {
+    _audioPlayer.dispose();
+    // _bannerAd.dispose();
+    super.dispose();
+  }
 
   // play and close music
   Future<void> togglePlayerPause() async {
@@ -130,7 +130,17 @@ class _SongsBottomSheetState extends State<SongsBottomSheet> {
   Future<void> seekRestart() async {
     _audioPlayer.seek(Duration.zero);
   }
-
+  /// Notification
+//   const AndroidNotificationDetails androidNotificationDetails =
+//     AndroidNotificationDetails(
+//   'audio_channel', // Ignored on Android < 8.0
+//   'Audio Notifications', // Ignored on Android < 8.0
+//   channelDescription: 'Channel for audio notifications', // Ignored on Android < 8.0
+//   importance: Importance.high,
+//   priority: Priority.high,
+//   playSound: true,
+//   sound: RawResourceAndroidNotificationSound('notification_sound'), // Works on all versions
+// );
   @override
   Widget build(BuildContext context) {
     return DraggableScrollableSheet(
@@ -154,12 +164,12 @@ class _SongsBottomSheetState extends State<SongsBottomSheet> {
                       AppBar(
                         leading: IconButton(
                           onPressed: () => Navigator.pop(context),
-                          icon: Image.asset('assets/down_arrow.png'),
+                          icon: Image.asset('assets/images/down_arrow.png'),
                         ),
                         actions: [
                           IconButton(
                             onPressed: () => Navigator.pop(context),
-                            icon: Image.asset('assets/transcript_icon.png'),
+                            icon: Image.asset('assets/images/transcript_icon.png'),
                           ),
                         ],
                       ),

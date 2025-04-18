@@ -1,5 +1,8 @@
+import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:mental_health_app/features/presentation/auth_screens/widgets/widgets.dart';
+import 'package:share_plus/share_plus.dart';
 
 class TaskCard extends StatelessWidget {
   final String title;
@@ -42,19 +45,48 @@ class TaskCard extends StatelessWidget {
                   children: [
                     // this for don't make responded screen error
                     Flexible(
-                      child: Text(
+                      child: SelectableText(
                         description,
                         style: Theme.of(context).textTheme.labelSmall,
                       ),
                     ),
-                    const SizedBox(height: 3),
-                    // Container(
-                    //   padding: const EdgeInsets.all(3),
-                    //   decoration: BoxDecoration(
-                    //       color: Colors.grey.shade200,
-                    //       borderRadius: BorderRadius.circular(50)),
-                    //   child: const Icon(Icons.arrow_forward_ios),
-                    // ),
+
+                  ],
+                ), Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    const SizedBox(height: 1),
+                    // copy the advice
+                    Container(
+                      padding: const EdgeInsets.all(1),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(50)),
+                      child: IconButton(
+                        icon: Icon(Icons.copy),
+                        onPressed: () {
+                          FlutterClipboard.copy(description)
+                              .then((value) => sendMSG('copied the advice: $description\.'));
+                        },
+                      ),
+                    ),
+                    // share the advice
+                    Container(
+                      padding: const EdgeInsets.all(1),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(50)),
+                      child: IconButton(
+                        icon: Icon(Icons.share),
+                        onPressed: () async {
+                          final result = await Share.share(
+                              'check out new advice \"$description\.\"',
+                              subject: '$title Advice');
+
+                          if (result.status == ShareResultStatus.success) {
+                            sendMSG(description);
+                          }
+                        },
+                      ),
+                    ),
                   ],
                 )
               ],

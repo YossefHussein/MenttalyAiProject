@@ -9,7 +9,7 @@ class MoodMessageLoadingState extends MoodMessageState {}
 
 class MoodMessageLoadedState extends MoodMessageState {
   // this is from the model of the to get the text in finally
-  final MoodMessage moodMessage;
+  MoodMessage moodMessage;
 
   MoodMessageLoadedState({required this.moodMessage});
 }

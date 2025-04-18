@@ -7,6 +7,7 @@ import 'package:mental_health_app/core/routes.dart';
 import 'package:mental_health_app/features/presentation/get_doctor/page/get_doctor.dart';
 import 'package:mental_health_app/features/presentation/meditation/page/meditation_screen.dart';
 import 'package:mental_health_app/features/presentation/music/page/playlist_screen.dart';
+import 'package:mental_health_app/generated/assets.dart';
 import 'package:mental_health_app/presentation/bottom_nav_bar/bloc/navigation_bloc.dart';
 import 'package:mental_health_app/presentation/bottom_nav_bar/bloc/navigation_events.dart';
 import 'package:mental_health_app/presentation/bottom_nav_bar/bloc/navigation_states.dart';
@@ -84,7 +85,7 @@ class HomeScreen extends StatelessWidget {
           List<BottomNavigationBarItem> bottomNavBarItem(context) {
             return [
               createBottomNavigationBarItem(
-                assetName: 'assets/menu_home.png',
+                assetName: 'assets/images/menu_home.png',
                 navTooltip: 'menu home',
                 // when use this trick you not assign
                 // int to bool but you like ask compiler if [currentIndex]
@@ -93,7 +94,7 @@ class HomeScreen extends StatelessWidget {
                 context: context,
               ),
               createBottomNavigationBarItem(
-                assetName: 'assets/menu_songs.png',
+                assetName: 'assets/images/menu_songs.png',
                 navTooltip: 'menu songs',
                 isActive: currentIndex == 1,
                 context: context,
@@ -106,7 +107,7 @@ class HomeScreen extends StatelessWidget {
               //   context: context,
               // ),
               createBottomNavigationBarItem(
-                assetName: 'assets/menu_teams.png',
+                assetName: 'assets/images/menu_teams.png',
                 navTooltip: 'get doctor',
                 isActive: currentIndex == 3,
                 context: context,

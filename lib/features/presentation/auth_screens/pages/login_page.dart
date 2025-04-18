@@ -20,7 +20,6 @@ class LogInScreen extends StatefulWidget {
 }
 
 class _LogInScreenState extends State<LogInScreen> {
-  var obscureText = true;
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +33,7 @@ class _LogInScreenState extends State<LogInScreen> {
             children: [
               Positioned.fill(
                 child: Image.asset(
-                  'assets/onboarding.png',
+                  'assets/images/onboarding.png',
                   fit: BoxFit.fill,
                 ),
               ),
@@ -78,7 +77,7 @@ class _LogInScreenState extends State<LogInScreen> {
                     child: AutoSizeTextField(
                       maxLines: 1,
                       controller: cubit.passwordController,
-                      obscureText: obscureText,
+                      obscureText: cubit.obscureText,
                       style: TextStyle(color: Colors.white),
                       keyboardType: TextInputType.visiblePassword,
                       decoration: InputDecoration(
@@ -89,7 +88,7 @@ class _LogInScreenState extends State<LogInScreen> {
                         suffixIcon: IconButton(
                           icon: Icon(
                             // Based on passwordVisible state choose the icon
-                            obscureText
+                            cubit.obscureText
                                 ? Icons.visibility
                                 : Icons.visibility_off,
                             color: Theme.of(context).focusColor,
@@ -97,7 +96,7 @@ class _LogInScreenState extends State<LogInScreen> {
                           onPressed: () {
                             // Update the state i.e. toggle the state of passwordVisible variable
                             setState(() {
-                              obscureText = !obscureText;
+                              cubit.obscureText = !cubit.obscureText;
                             });
                           },
                         ),

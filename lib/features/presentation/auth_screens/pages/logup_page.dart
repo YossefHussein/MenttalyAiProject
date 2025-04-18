@@ -37,7 +37,7 @@ class _LogUpScreenState extends State<LogUpScreen> {
                   child: Image.asset(
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height,
-                'assets/onboarding.png',
+                'assets/images/onboarding.png',
                 fit: BoxFit.fill,
               )),
               Column(

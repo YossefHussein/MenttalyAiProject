@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:mental_health_app/core/ads_helper.dart';
+import 'package:mental_health_app/core/notification_handler.dart';
 import 'package:mental_health_app/core/theme.dart';
 import 'package:mental_health_app/features/presentation/auth_screens/widgets/widgets.dart';
 import 'package:mental_health_app/features/presentation/meditation/bloc/daily_quotes/daily_quotes_bloc.dart';
@@ -52,8 +53,8 @@ class _MeditationScreenState extends State<MeditationScreen> {
   late int count;
 
   // for make banner
-  // BannerAd? _banner;
-  // bool _isAdloaded = false;
+  BannerAd? _banner;
+  bool _isAdloaded = false;
 
   // this method to adding setting
   // void _initBannerAd() {
@@ -80,10 +81,13 @@ class _MeditationScreenState extends State<MeditationScreen> {
     return min + random.nextInt(max - min);
   }
 
+  NotificationHandler notificationHandler = NotificationHandler();
+
   @override
   void initState() {
     count = 1;
     dbHelper = DataBaseHelper.instance;
+    notificationHandler.initializeNotification();
     // config of ads
     // _initBannerAd();
     super.initState();
@@ -101,7 +105,7 @@ class _MeditationScreenState extends State<MeditationScreen> {
           onTap: () {
             scaffoldKey.currentState!.openDrawer();
           },
-          child: Image.asset('assets/menu_burger.png'),
+          child: Image.asset('assets/images/menu_burger.png'),
         ),
         actions: [
           profilePic(),
@@ -133,118 +137,130 @@ class _MeditationScreenState extends State<MeditationScreen> {
                 height: 16,
               ),
               // mode button
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Wrap(
-                  direction: Axis.horizontal,
-                  alignment: WrapAlignment.spaceBetween,
-                  runSpacing: 16,
-                  crossAxisAlignment: WrapCrossAlignment.start,
-                  children: [
-                    FeelingButton(
-                        label: LocaleKeys.home_screen_happy_mood_button.tr(),
-                        image: 'assets/happy.png',
-                        color: DefaultColors.pink,
-                        onTap: () async {
-                          context
-                              .read<MoodMessageBloc>()
-                              .add(FetchMoodMessageEvent('Today i am happy'));
-                          dbHelper.add(
-                            ChartModeDataModel(
-                              happyXValueNum: count,
-                              happyYValueNum: getRandomInt(10, 20),
-                            ),
-                          );
-                          chartModeData = await dbHelper.getDatabase();
-                          // Check if currentState is not null before calling setState
-                          chartKey.currentState?.setState(() {});
-
-                          count++;
-                          sendMSG(
-                            'Loadding message \n mode will be adding to database',
-                          );
-                        }),
-                    SizedBox(width: 10),
-                    FeelingButton(
-                        label: LocaleKeys.home_screen_calm_mood_button.tr(),
-                        image: 'assets/calm.png',
-                        color: DefaultColors.purple,
-                        onTap: () async {
-                          context
-                              .read<MoodMessageBloc>()
-                              .add(FetchMoodMessageEvent('Today i am calm'));
-                          dbHelper.add(
-                            ChartModeDataModel(
-                              calmXValueNum: count,
-                              clamYValueNum: getRandomInt(10, 20),
-                            ),
-                          );
-                          chartModeData = await dbHelper.getDatabase();
-                          chartKey.currentState?.setState(() {});
-                          count++;
-                          sendMSG(
-                            'Loadding message \n mode will be adding to database',
-                          );
-                        }),
-                    SizedBox(width: 10),
-                    FeelingButton(
-                        label: LocaleKeys.home_screen_relax_mood_button.tr(),
-                        image: 'assets/relax.png',
-                        color: DefaultColors.orange,
-                        onTap: () async {
-                          context
-                              .read<MoodMessageBloc>()
-                              .add(FetchMoodMessageEvent('Today i am relax'));
-
-                          dbHelper.add(
-                            ChartModeDataModel(
-                              relaxXValueNum: count,
-                              relaxYValueNum: getRandomInt(10, 20),
-                            ),
-                          );
-                          chartModeData = await dbHelper.getDatabase();
-                          chartKey.currentState?.setState(() {});
-                          count++;
-                          sendMSG(
-                            'Loadding message \n mode will be adding to database',
-                          );
-                        }),
-                    SizedBox(width: 10),
-                    FeelingButton(
-                        label: LocaleKeys.home_screen_focus_mood_button.tr(),
-                        image: 'assets/focus.png',
-                        color: DefaultColors.lightTeal,
-                        onTap: () async {
-                          context.read<MoodMessageBloc>().add(
-                                FetchMoodMessageEvent(
-                                    'Today i need to be focus'),
+              BlocConsumer<MoodMessageBloc, MoodMessageState>(
+                listener: (context, state) {
+                  if (state is MoodMessageLoadedState) {
+                    // Show notification with the latest mood message
+                    notificationHandler
+                        .showNormalNotification(state.moodMessage.text);
+                  }
+                },
+                builder: (context, state) {
+                  return SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Wrap(
+                      direction: Axis.horizontal,
+                      alignment: WrapAlignment.spaceBetween,
+                      runSpacing: 16,
+                      crossAxisAlignment: WrapCrossAlignment.start,
+                      children: [
+                        FeelingButton(
+                            label:
+                                LocaleKeys.home_screen_happy_mood_button.tr(),
+                            image: 'assets/images/happy.png',
+                            color: DefaultColors.pink,
+                            onTap: () async {
+                              // loading
+                              sendMSG(
+                                'Loadding message \n mode will be adding to database',
+                              ); // call notification
+                              context.read<MoodMessageBloc>().add(
+                                  FetchMoodMessageEvent('Today i am happy'));
+                              // adding to database
+                              dbHelper.add(
+                                ChartModeDataModel(
+                                  happyXValueNum: count,
+                                  happyYValueNum: getRandomInt(10, 20),
+                                ),
                               );
-                          dbHelper.add(
-                            ChartModeDataModel(
-                              focusXValueNum: count,
-                              focusYValueNum: getRandomInt(10, 20),
-                            ),
-                          );
-                          chartModeData = await dbHelper.getDatabase();
-                          chartKey.currentState?.setState(() {});
-                          count++;
-                          sendMSG(
-                            'Loadding message \n mode will be adding to database',
-                          );
-                        }),
-                    SizedBox(width: 10),
-                    FeelingButton(
-                      label: LocaleKeys.home_screen_my_mood_button.tr(),
-                      image: 'assets/custom_mood3.png',
-                      color: DefaultColors.white,
-                      onTap: () {
-                        // open chart mode bottom sheet
-                        customMoodBottomSheet(context);
-                      },
-                      borderColor: Colors.black,
+                              chartModeData = await dbHelper.getDatabase();
+                              // Check if currentState is not null before calling setState
+                              chartKey.currentState?.setState(() {});
+                              count++;
+                            }),
+                        SizedBox(width: 10),
+                        FeelingButton(
+                            label: LocaleKeys.home_screen_calm_mood_button.tr(),
+                            image: 'assets/images/calm.png',
+                            color: DefaultColors.purple,
+                            onTap: () async {
+                              sendMSG(
+                                'Loadding message \n mode will be adding to database',
+                              );
+                              context.read<MoodMessageBloc>().add(
+                                  FetchMoodMessageEvent('Today i am calm'));
+                              dbHelper.add(
+                                ChartModeDataModel(
+                                  calmXValueNum: count,
+                                  clamYValueNum: getRandomInt(10, 20),
+                                ),
+                              );
+                              chartModeData = await dbHelper.getDatabase();
+                              chartKey.currentState?.setState(() {});
+                              count++;
+                            }),
+                        SizedBox(width: 10),
+                        FeelingButton(
+                            label:
+                                LocaleKeys.home_screen_relax_mood_button.tr(),
+                            image: 'assets/images/relax.png',
+                            color: DefaultColors.orange,
+                            onTap: () async {
+                              sendMSG(
+                                'Loadding message \n mode will be adding to database',
+                              );
+                              context.read<MoodMessageBloc>().add(
+                                  FetchMoodMessageEvent('Today i am relax'));
+
+                              dbHelper.add(
+                                ChartModeDataModel(
+                                  relaxXValueNum: count,
+                                  relaxYValueNum: getRandomInt(10, 20),
+                                ),
+                              );
+                              chartModeData = await dbHelper.getDatabase();
+                              chartKey.currentState?.setState(() {});
+                              count++;
+                            }),
+                        SizedBox(width: 10),
+                        FeelingButton(
+                            label:
+                                LocaleKeys.home_screen_focus_mood_button.tr(),
+                            image: 'assets/images/focus.png',
+                            color: DefaultColors.lightTeal,
+                            onTap: () async {
+                              sendMSG(
+                                'Loadding message \n mode will be adding to database',
+                              );
+                              context.read<MoodMessageBloc>().add(
+                                    FetchMoodMessageEvent(
+                                        'Today i need to be focus'),
+                                  );
+                              dbHelper.add(
+                                ChartModeDataModel(
+                                  focusXValueNum: count,
+                                  focusYValueNum: getRandomInt(10, 20),
+                                ),
+                              );
+                              chartModeData = await dbHelper.getDatabase();
+                              chartKey.currentState?.setState(() {});
+                              count++;
+                            }),
+                        SizedBox(width: 10),
+                        FeelingButton(
+                          label: LocaleKeys.home_screen_my_mood_button.tr(),
+                          image: 'assets/images/custom_mood3.png',
+                          color: DefaultColors.white,
+                          onTap: () {
+                            // open chart mode bottom sheet
+                            customMoodBottomSheet(context);
+                          },
+                          borderColor: Colors.black,
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  );
+                },
               ),
               // // ads
               // ConditionalBuilder(
@@ -263,6 +279,7 @@ class _MeditationScreenState extends State<MeditationScreen> {
               SizedBox(
                 height: 16,
               ),
+              // daily quotes
               BlocBuilder<DailyQuotesBloc, DailyQuotesState>(
                 builder: (context, state) {
                   if (state is DailyQuoteLoading) {
@@ -316,6 +333,7 @@ class _MeditationScreenState extends State<MeditationScreen> {
                   }
                 },
               ),
+              // advice message
               BlocBuilder<MoodMessageBloc, MoodMessageState>(
                 builder: (context, state) {
                   if (state is MoodMessageLoadedState) {

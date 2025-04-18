@@ -8,6 +8,7 @@ class DoctorEntities {
   final String timeClass;
   final String doctorPhoto;
   final String colorDoctorSpecialty;
+  final dynamic percentSimilarity;
 
   DoctorEntities({
     required this.id,
@@ -19,5 +20,6 @@ class DoctorEntities {
     required this.doctorPhoto,
     required this.dateClass,
     required this.colorDoctorSpecialty,
+    required this.percentSimilarity,
   });
 }
