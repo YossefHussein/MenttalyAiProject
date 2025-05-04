@@ -37,7 +37,7 @@ class _AboutDeveloperState extends State<AboutDeveloper> {
               // youssef
               SizedBox(height: 10),
               const CircleAvatar(
-                radius: 52,
+                radius: 53,
                 backgroundColor: DefaultColors.orange,
                 child: CircleAvatar(
                   radius: 50,
@@ -79,9 +79,9 @@ class _AboutDeveloperState extends State<AboutDeveloper> {
                 decoration: BoxDecoration(
                     color: Colors.grey.shade100,
                     borderRadius: BorderRadius.circular(10)),
-                child: const Text(
-                    'Full-Stack Developer with building scalable mobile apps using JavaScript & Dart(Flutter, Node.js) with a focus on clean architecture and user-centric design.'),
                 alignment: Alignment.topLeft,
+                child: Text(
+                    'Full-Stack Developer with building scalable mobile apps using JavaScript & Dart(Flutter, Node.js) with a focus on clean architecture and user-centric design.'),
               ),
               // makary
               SizedBox(height: 10),
@@ -102,7 +102,8 @@ class _AboutDeveloperState extends State<AboutDeveloper> {
                     Buttons.facebook,
                     mini: true,
                     onPressed: () {
-                      openUrl('https://github.com/YossefHussein');
+                      openUrl(
+                          'https://www.facebook.com/profile.php?id=100028852187804&locale=ar_AR');
                     },
                   ),
                   SignInButton(
@@ -121,8 +122,8 @@ class _AboutDeveloperState extends State<AboutDeveloper> {
                 decoration: BoxDecoration(
                     color: Colors.grey.shade100,
                     borderRadius: BorderRadius.circular(10)),
-                child: const Text('he work on nodejs and DataBase In Project.'),
                 alignment: Alignment.topLeft,
+                child: const Text('He work on nodejs and DataBase In Project.'),
               ),
               // assem
               SizedBox(height: 10),
@@ -162,7 +163,7 @@ class _AboutDeveloperState extends State<AboutDeveloper> {
                     color: Colors.grey.shade100,
                     borderRadius: BorderRadius.circular(10)),
                 alignment: Alignment.topLeft,
-                child: const Text('he work on ERD & DataBase by PostgreSQL'),
+                child: const Text('He work on ERD & DataBase by PostgreSQL'),
               ),
 
               // Mohamed Aed
@@ -202,8 +203,69 @@ class _AboutDeveloperState extends State<AboutDeveloper> {
                 decoration: BoxDecoration(
                     color: Colors.grey.shade100,
                     borderRadius: BorderRadius.circular(10)),
-                child: const Text('he work on presentation'),
                 alignment: Alignment.topLeft,
+                child: const Text('He work on presentation'),
+              ),
+              // fars
+              SizedBox(height: 10),
+              const CircleAvatar(
+                radius: 52,
+                backgroundColor: DefaultColors.orange,
+                child: CircleAvatar(
+                  radius: 50,
+                  backgroundImage: NetworkImage(
+                      'https://res.cloudinary.com/dnhljjyzg/image/upload/v1744721204/profile%20pic/mental_health_app/developers%20photos/fares.jpg'),
+                ),
+              ),
+              Text('Fars & Mohamed'),
+              Container(
+                padding: EdgeInsets.all(8),
+                width: MediaQuery.of(context).size.width / 1.1,
+                decoration: BoxDecoration(
+                    color: Colors.grey.shade100,
+                    borderRadius: BorderRadius.circular(10)),
+                alignment: Alignment.topLeft,
+                child: const Text('He work with me on nodejs'),
+              ),
+              // youssef amr
+              SizedBox(height: 10),
+              const CircleAvatar(
+                radius: 52,
+                backgroundColor: DefaultColors.orange,
+                child: CircleAvatar(
+                  radius: 50,
+                  backgroundImage: NetworkImage(
+                      'https://res.cloudinary.com/dnhljjyzg/image/upload/v1746093458/profile%20pic/mental_health_app/developers%20photos/urnhpknmoe9eytxib8rv.png'),
+                ),
+              ),
+              Text('Youssef Amr'),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   children: [
+              //     SignInButton(
+              //       Buttons.facebook,
+              //       mini: true,
+              //       onPressed: () {
+              //         openUrl('https://res.cloudinary.com/dnhljjyzg/image/upload/v1746093458/profile%20pic/mental_health_app/developers%20photos/urnhpknmoe9eytxib8rv.png');
+              //       },
+              //     ),
+              //     SignInButton(
+              //       Buttons.email,
+              //       mini: true,
+              //       onPressed: () {
+              //         openUrl('mkarybshyr2@gmail.com');
+              //       },
+              //     ),
+              //   ],
+              // ),
+              Container(
+                padding: EdgeInsets.all(8),
+                width: MediaQuery.of(context).size.width / 1.1,
+                decoration: BoxDecoration(
+                    color: Colors.grey.shade100,
+                    borderRadius: BorderRadius.circular(10)),
+                alignment: Alignment.topLeft,
+                child: const Text('He work on research on new music'),
               ),
             ],
           ),

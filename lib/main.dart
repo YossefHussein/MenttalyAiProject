@@ -4,13 +4,13 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:mental_health_app/core/routes.dart';
 import 'package:mental_health_app/core/theme.dart';
 import 'package:mental_health_app/features/presentation/auth_screens/cubit/auth_cubit.dart';
 import 'package:mental_health_app/features/presentation/auth_screens/pages/login_page.dart';
 import 'package:mental_health_app/features/presentation/auth_screens/pages/logup_page.dart';
-// import 'package:mental_health_app/features/presentation/chat_gemini/chat_with_gemini.dart';
 import 'package:mental_health_app/features/presentation/get_doctor/bloc/doctor_bloc.dart';
 import 'package:mental_health_app/features/presentation/get_doctor/bloc/doctor_event.dart';
 import 'package:mental_health_app/features/presentation/get_doctor/page/get_doctor.dart';
@@ -34,6 +34,7 @@ import 'injection_container.dart' as di;
 import 'package:easy_localization/easy_localization.dart';
 import 'package:go_router/go_router.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 Future<void> main() async {
   // to fix problem when make async main function
@@ -52,13 +53,13 @@ Future<void> main() async {
   unawaited(MobileAds.instance.initialize());
   // initialized database
   await DataBaseHelper.initDataBase();
-
+  // crash analytics
   const fatalError = true;
-  // if user happend crashes in has device
+  // if user happened crashes in has device
   FlutterError.onError = (errorDetails) {
     if (fatalError) {
       FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
-    // ignore: dead_code
+      // ignore: dead_code
     } else {
       FirebaseCrashlytics.instance.recordFlutterError(errorDetails);
     }
@@ -67,14 +68,17 @@ Future<void> main() async {
   PlatformDispatcher.instance.onError = (error, stack) {
     if (fatalError) {
       FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
-    // ignore: dead_code
+      // ignore: dead_code
     } else {
       FirebaseCrashlytics.instance.recordError(error, stack);
     }
     return true;
   };
-
+  // remove the splash screen after run it
+  FlutterNativeSplash.remove();
+  // run app function
   runApp(
+    // localization
     EasyLocalization(
       path: 'assets/translations',
       supportedLocales: const [
@@ -315,7 +319,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (_) => AuthCubit()),
+        BlocProvider(create: (_) => di.sl<AuthCubit>()),
         BlocProvider(
           create: (_) => NavigationBloc(),
         ),
@@ -329,9 +333,10 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => di.sl<MoodMessageBloc>()),
       ],
       child: MaterialApp.router(
-        // debugShowCheckedModeBanner: true,
+        debugShowCheckedModeBanner: false,
         title: 'Mentally AI Project',
         theme: AppTheme.lightTheme,
+        darkTheme: AppTheme.darkTheme,
         localizationsDelegates: context.localizationDelegates,
         supportedLocales: context.supportedLocales,
         locale: context.locale,

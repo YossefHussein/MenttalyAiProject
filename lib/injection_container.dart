@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:mental_health_app/features/presentation/auth_screens/cubit/auth_cubit.dart';
 import 'package:mental_health_app/features/presentation/get_doctor/bloc/doctor_bloc.dart';
 import 'package:mental_health_app/features/presentation/get_doctor/data/datasource/doctor_remote_datasource.dart';
 import 'package:mental_health_app/features/presentation/get_doctor/data/repository/doctor_repository_impl.dart';
@@ -26,6 +27,7 @@ Future<void> init() async {
   sl.registerFactory(() => MoodMessageBloc(getMoodMessage: sl()));
   sl.registerFactory(() => SongBloc(getAllSongs: sl()));
   sl.registerFactory(() => GetDoctorBloc(getAllDoctor: sl()));
+  sl.registerFactory(() => AuthCubit());
 
   // Use cases
   sl.registerLazySingleton(() => GetDailyQuote(repository: sl()));

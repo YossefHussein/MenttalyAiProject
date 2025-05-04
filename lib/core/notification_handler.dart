@@ -7,7 +7,7 @@ class NotificationHandler {
 
   static const String channelId = "normal_channel_id";
   static const String channelName = "Normal Channel";
-  static const String channelDescription = "Receiving All Normal Notifications";
+  static const String channelDescription = "";
 
   // Define Android notification details
   final AndroidNotificationDetails _androidNotificationDetails =
@@ -15,7 +15,7 @@ class NotificationHandler {
     channelId,
     channelName,
     channelDescription: channelDescription,
-    importance: Importance.low,
+    importance: Importance.high,
     playSound: true,
     enableVibration: true,
   );
@@ -26,7 +26,7 @@ class NotificationHandler {
     channelId,
     channelName,
     description: channelDescription,
-    importance: Importance.low,
+    importance: Importance.high,
     playSound: true,
     enableVibration: true,
   );
@@ -34,7 +34,7 @@ class NotificationHandler {
   // Initialize notifications
   Future<void> initializeNotification() async {
     const AndroidInitializationSettings initializationSettingsAndroid =
-    AndroidInitializationSettings('@mipmap/ic_launcher');
+    AndroidInitializationSettings("@mipmap/ic_launcher");
 
     const InitializationSettings initializationSettings =
     InitializationSettings(android: initializationSettingsAndroid);
@@ -62,7 +62,7 @@ class NotificationHandler {
       randomId,
       "Advice $randomId",
       "$notificationContent: $randomId",
-      NotificationDetails(android: _androidNotificationDetails),
+      NotificationDetails(android: _androidNotificationDetails,),
     );
   }
 }

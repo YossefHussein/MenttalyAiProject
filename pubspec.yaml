@@ -76,39 +76,48 @@ dependencies:
   go_router: ^14.8.0
   # splash screen
   flutter_native_splash: ^2.2.17
-  # To process with the Syncfusion charts.
+  # to make chart
   syncfusion_flutter_charts: ^28.2.9
-  # To process with the sqlite db.
+  fl_chart: ^0.71.0
+  # to process with the sqlite db.
   sqflite: ^2.0.0+3
-  # To provide the path to store the data in the device.
+  # tTo provide the path to store the data in the device.
   path_provider: ^2.0.1
   # adding for join function
   path: ^1.9.0
   # for adding ads
   google_mobile_ads: ^4.0.0
+  # date format
   intl: ^0.19.0
   # for condition
   conditional_builder_null_safety: ^0.0.6
   # used in about developer screen
   sign_in_button: ^3.2.0
-  # package for change package name in same platfrom
+  # package for change package name in same platform
   change_app_package_name: ^1.5.0
+  #  crashlytics
   firebase_crashlytics: ^4.3.5
+  # copy text
   clipboard: ^0.1.3
+  # notification system
   flutter_local_notifications: ^19.1.0
+  # share feature
   share_plus: ^10.1.4
-
+  # ask the user to get permission
+  permission_handler: ^12.0.0+1
+  # to adding some color
+  hexcolor: ^3.0.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^3.0.0   
+  flutter_lints: ^3.0.0
 flutter_native_splash:
-  color: "#FFFFFFFF"  # Background color of the splash screen
-  image: assets/Icon_of_app.png  # Path to your splash screen image
+  color: "#ffffff" # Background color of the splash screen
+  image: assets/images/Icon_of_app.png  # Path to your splash screen image
   android: true  # Enable for Android
   ios: true  # Enable for iOS
-  web: true  # Enable for Web
+  branding: assets/images/brand_image.png # branding title
 
 
   # The "flutter_lints" package below contains a set of recommended lints to

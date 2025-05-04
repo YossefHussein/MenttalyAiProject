@@ -1,6 +1,6 @@
 {
   "onboarding_screen": {
-    "title_onboarding_button":"هل تقدر تخليني اساعدك"
+    "title_onboarding_button": "هل تقدر تخليني اساعدك"
   },
   "auth_screen": {
     "text_form": {
@@ -33,10 +33,10 @@
     "relax_mood_button": "استرخاء",
     "focus_mood_button": "مركز",
     "my_mood_button": "مسجل \n REC",
-    "okay_button":"حسنا"
-
+    "okay_button": "حسنا"
   },
   "drawer_widget": {
+    "settings_app": "إعدادات Mentally",
     "about_developer": "عن المطورين",
     "support_developer": "دعم المطورين",
     "tech_used_to_make_app": "التقنيات المستخدمة في تطبيق",
@@ -48,11 +48,11 @@
     "title_cancel_button": "كانسيل"
   },
   "song_playlist_screen": {
-    "song_mood_angary": "غاضب",
+    "song_mood_angry": "غاضب",
     "song_mood_good": "كويس",
     "song_mood_good_place": "مكان كويس",
     "song_mood_sad": "حزين"
   },
-  "no_data_found":"لا توجد بيانات الان"
-
+  "mentally_settings": {},
+  "no_data_found": "لا توجد بيانات الان"
 }

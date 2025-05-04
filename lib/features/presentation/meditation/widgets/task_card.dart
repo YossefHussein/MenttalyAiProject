@@ -50,36 +50,33 @@ class TaskCard extends StatelessWidget {
                         style: Theme.of(context).textTheme.labelSmall,
                       ),
                     ),
-
                   ],
-                ), Row(
+                ),
+                Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     const SizedBox(height: 1),
                     // copy the advice
                     Container(
                       padding: const EdgeInsets.all(1),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(50)),
                       child: IconButton(
                         icon: Icon(Icons.copy),
                         onPressed: () {
-                          FlutterClipboard.copy(description)
-                              .then((value) => sendMSG('copied the advice: $description\.'));
+                          FlutterClipboard.copy(description).then((value) =>
+                              sendMSG('copied the advice: $description\.'));
                         },
                       ),
                     ),
                     // share the advice
                     Container(
                       padding: const EdgeInsets.all(1),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(50)),
                       child: IconButton(
                         icon: Icon(Icons.share),
                         onPressed: () async {
                           final result = await Share.share(
-                              'check out new advice \"$description\.\"',
-                              subject: '$title Advice');
+                            'check out new advice \"$description\.\"',
+                            subject: '$title Advice',
+                          );
 
                           if (result.status == ShareResultStatus.success) {
                             sendMSG(description);

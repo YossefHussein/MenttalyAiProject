@@ -38,9 +38,6 @@ class PlaylistScreen extends StatelessWidget {
         title: AutoSizeText(
           'Songs PlayList',
         ),
-        backgroundColor: DefaultColors.white,
-        centerTitle: true,
-        elevation: 0,
       ),
       body: BlocBuilder<SongBloc, SongState>(
         builder: (context, state) {

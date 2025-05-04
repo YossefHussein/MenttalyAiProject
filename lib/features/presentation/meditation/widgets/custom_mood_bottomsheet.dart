@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mental_health_app/core/theme.dart';
 import 'package:mental_health_app/features/presentation/auth_screens/widgets/widgets.dart';
 import 'package:mental_health_app/features/presentation/meditation/bloc/mode_message/mode_message_bloc.dart';
 import 'package:mental_health_app/features/presentation/meditation/bloc/mode_message/mode_message_state.dart';
@@ -9,6 +10,7 @@ import 'package:mental_health_app/features/presentation/meditation/data/chart_mo
 import 'package:mental_health_app/features/presentation/meditation/data/model/chart_mode_data_model.dart';
 import 'package:mental_health_app/features/presentation/meditation/widgets/chart_widget.dart';
 import 'dart:math';
+import 'package:hexcolor/hexcolor.dart';
 
 /**
  * recording the mode of user
@@ -18,9 +20,9 @@ import 'dart:math';
 void customMoodBottomSheet(BuildContext context) {
   showModalBottomSheet(
     context: context,
-    backgroundColor: Colors.transparent,
     isScrollControlled: true,
     enableDrag: false,
+    backgroundColor: Colors.transparent,
     // isDismissible: false,
     // This allows the sheet to take up more space if needed
     shape: const RoundedRectangleBorder(
@@ -70,7 +72,7 @@ class _CustomBottomSheetState extends State<CustomBottomSheet> {
           BlocBuilder<MoodMessageBloc, MoodMessageState>(
         builder: (context, state) {
           return Container(
-            color: Colors.white,
+            color: DefaultColors.white,
             child: Container(
               margin: const EdgeInsets.all(16),
               child: ListView(
@@ -85,6 +87,12 @@ class _CustomBottomSheetState extends State<CustomBottomSheet> {
                   Container(
                     height: 400,
                     child: ChartBubble(
+                      key: chartKey,
+                    ),
+                  ),
+                  Container(
+                    height: 400,
+                    child: ColumnSeriesChartWidget(
                       key: chartKey,
                     ),
                   ),

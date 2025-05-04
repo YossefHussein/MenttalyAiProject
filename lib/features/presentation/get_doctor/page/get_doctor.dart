@@ -19,9 +19,6 @@ class GetDoctorScreen extends StatelessWidget {
         title: AutoSizeText(
           'Get Doctor',
         ),
-        backgroundColor: DefaultColors.white,
-        centerTitle: true,
-        elevation: 0,
       ),
       body: BlocBuilder<GetDoctorBloc, GetDoctorState>(
         builder: (context, state) {

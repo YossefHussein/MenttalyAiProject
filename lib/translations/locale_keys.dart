@@ -31,6 +31,7 @@ abstract class  LocaleKeys {
   static const home_screen_my_mood_button = 'home_screen.my_mood_button';
   static const home_screen_okay_button = 'home_screen.okay_button';
   static const home_screen = 'home_screen';
+  static const drawer_widget_settings_app = 'drawer_widget.settings_app';
   static const drawer_widget_about_developer = 'drawer_widget.about_developer';
   static const drawer_widget_support_developer = 'drawer_widget.support_developer';
   static const drawer_widget_tech_used_to_make_app = 'drawer_widget.tech_used_to_make_app';
@@ -41,11 +42,12 @@ abstract class  LocaleKeys {
   static const drawer_widget_title_logout_button = 'drawer_widget.title_logout_button';
   static const drawer_widget_title_cancel_button = 'drawer_widget.title_cancel_button';
   static const drawer_widget = 'drawer_widget';
-  static const song_playlist_screen_song_mood_angary = 'song_playlist_screen.song_mood_angary';
+  static const song_playlist_screen_song_mood_angry = 'song_playlist_screen.song_mood_angry';
   static const song_playlist_screen_song_mood_good = 'song_playlist_screen.song_mood_good';
   static const song_playlist_screen_song_mood_good_place = 'song_playlist_screen.song_mood_good_place';
   static const song_playlist_screen_song_mood_sad = 'song_playlist_screen.song_mood_sad';
   static const song_playlist_screen = 'song_playlist_screen';
+  static const mentally_settings = 'mentally_settings';
   static const no_data_found = 'no_data_found';
 
 }

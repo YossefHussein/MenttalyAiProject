@@ -3,7 +3,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:hexcolor/hexcolor.dart';
 
 // import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:just_audio/just_audio.dart';
@@ -130,6 +130,7 @@ class _SongsBottomSheetState extends State<SongsBottomSheet> {
   Future<void> seekRestart() async {
     _audioPlayer.seek(Duration.zero);
   }
+
   /// Notification
 //   const AndroidNotificationDetails androidNotificationDetails =
 //     AndroidNotificationDetails(
@@ -149,180 +150,185 @@ class _SongsBottomSheetState extends State<SongsBottomSheet> {
       maxChildSize: 1,
       builder: (_, controller) => Container(
         color: Colors.white,
-        child: Container(
-          margin: const EdgeInsets.all(16),
-          child: ListView(
-            controller: controller,
-            children: [
-              // Using Wrap makes the height dynamic
-              Wrap(
-                children: [
-                  Column(
-                    mainAxisSize: MainAxisSize.max,
-                    // Ensures the column takes only the necessary space
-                    children: [
-                      AppBar(
-                        leading: IconButton(
-                          onPressed: () => Navigator.pop(context),
-                          icon: Image.asset('assets/images/down_arrow.png'),
-                        ),
-                        actions: [
-                          IconButton(
-                            onPressed: () => Navigator.pop(context),
-                            icon: Image.asset('assets/images/transcript_icon.png'),
-                          ),
-                        ],
+        padding: const EdgeInsets.all(16),
+        child: ListView(
+          controller: controller,
+          children: [
+            // Using Wrap makes the height dynamic
+            Wrap(
+              children: [
+                Column(
+                  mainAxisSize: MainAxisSize.max,
+                  // Ensures the column takes only the necessary space
+                  children: [
+                    AppBar(
+                      title: AutoSizeText(
+                        'Music',
+                        style: TextStyle(color: Colors.white),
                       ),
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(15),
-                        child: CachedNetworkImage(
-                          imageUrl: widget.songs.thumbnail,
-                          width: double.infinity,
-                          fit: BoxFit.cover,
-                          progressIndicatorBuilder:
-                              (context, url, downloadProgress) {
-                            return SizedBox(
-                              height: 200.0,
-                              width: 200.0,
-                              child: Center(
-                                child: CircularProgressIndicator(
-                                  value: downloadProgress.progress,
+                      backgroundColor: DefaultColors.white,
+                      leading: IconButton(
+                        onPressed: () => Navigator.pop(context),
+                        icon: Image.asset('assets/images/down_arrow.png'),
+                      ),
+                      actions: [
+                        IconButton(
+                          onPressed: () => Navigator.pop(context),
+                          icon:
+                              Image.asset('assets/images/transcript_icon.png'),
+                        ),
+                      ],
+                    ),
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(15),
+                      child: CachedNetworkImage(
+                        imageUrl: widget.songs.thumbnail,
+                        width: double.infinity,
+                        fit: BoxFit.cover,
+                        progressIndicatorBuilder:
+                            (context, url, downloadProgress) {
+                          return SizedBox(
+                            height: 200.0,
+                            width: 200.0,
+                            child: Center(
+                              child: CircularProgressIndicator(
+                                value: downloadProgress.progress,
+                                color: DefaultColors.pink,
+                              ),
+                            ),
+                          );
+                        },
+                        errorWidget: (context, url, error) => Icon(Icons.error),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    AutoSizeText(
+                      widget.songs.title,
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleLarge
+                          ?.copyWith(color: Colors.black),
+                    ),
+
+                    AutoSizeText(
+                      'By : ${widget.songs.author}',
+                      style: Theme.of(context).textTheme.titleSmall?.copyWith(color: Colors.black),
+                    ),
+                    // ads
+                    // ConditionalBuilder(
+                    //   condition: _isAdloaded,
+                    //   builder: (context) => Container(
+                    //     width: _bannerAd.size.width.toDouble(),
+                    //     height: _bannerAd.size.height.toDouble(),
+                    //     child: AdWidget(ad: _bannerAd),
+                    //   ),
+                    //   fallback: (context) => Container(),
+                    // ),
+                    // progressbar
+                    StreamBuilder(
+                        stream: _audioPlayer.positionStream,
+                        builder: (context, snapshot) {
+                          final position = snapshot.data ?? Duration.zero;
+                          final total = _audioPlayer.duration ?? Duration.zero;
+                          return ProgressBar(
+                            progress: position,
+                            total: total,
+                            baseBarColor: DefaultColors.lightPink,
+                            thumbColor: DefaultColors.pink,
+                            progressBarColor: DefaultColors.pink,
+                            onSeek: (duration) {
+                              _audioPlayer.seek(duration);
+                            },
+                          );
+                        }),
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        IconButton(
+                          onPressed: () {},
+                          icon: const Icon(Icons.shuffle,
+                              color: DefaultColors.pink),
+                        ),
+                        IconButton(
+                          onPressed: seekBackward,
+                          icon: const Icon(
+                            Icons.skip_previous,
+                            color: DefaultColors.pink,
+                          ),
+                        ),
+                        StreamBuilder(
+                          stream: _audioPlayer.playerStateStream,
+                          builder: (context, snapshot) {
+                            final playerState = snapshot.data;
+                            final processingState =
+                                playerState?.processingState ??
+                                    ProcessingState.idle;
+                            final playing = playerState?.playing ?? false;
+                            if (processingState == ProcessingState.loading ||
+                                processingState == ProcessingState.buffering) {
+                              return Container(
+                                margin: const EdgeInsets.all(8),
+                                width: 50,
+                                height: 50,
+                                child: const CircularProgressIndicator(
                                   color: DefaultColors.pink,
                                 ),
-                              ),
-                            );
+                              );
+                            } else if (!playing) {
+                              return IconButton(
+                                iconSize: 80,
+                                onPressed: togglePlayerPause,
+                                icon: const Icon(
+                                  Icons.play_circle_filled,
+                                  color: DefaultColors.pink,
+                                ),
+                              );
+                            } else if (processingState !=
+                                ProcessingState.completed) {
+                              return IconButton(
+                                iconSize: 80,
+                                onPressed: togglePlayerPause,
+                                icon: const Icon(
+                                  Icons.pause_circle_filled,
+                                  color: DefaultColors.pink,
+                                ),
+                              );
+                            } else {
+                              return IconButton(
+                                iconSize: 80,
+                                onPressed: seekRestart,
+                                icon: const Icon(
+                                  Icons.replay_circle_filled,
+                                  color: DefaultColors.pink,
+                                ),
+                              );
+                            }
                           },
-                          errorWidget: (context, url, error) =>
-                              Icon(Icons.error),
                         ),
-                      ),
-                      const SizedBox(
-                        height: 16,
-                      ),
-                      AutoSizeText(
-                        widget.songs.title,
-                        style: Theme.of(context).textTheme.labelLarge,
-                      ),
-                      AutoSizeText(
-                        'By : ${widget.songs.author}',
-                        style: Theme.of(context).textTheme.labelSmall,
-                      ),
-                      // ads
-                      // ConditionalBuilder(
-                      //   condition: _isAdloaded,
-                      //   builder: (context) => Container(
-                      //     width: _bannerAd.size.width.toDouble(),
-                      //     height: _bannerAd.size.height.toDouble(),
-                      //     child: AdWidget(ad: _bannerAd),
-                      //   ),
-                      //   fallback: (context) => Container(),
-                      // ),
-                      // progressbar
-                      StreamBuilder(
-                          stream: _audioPlayer.positionStream,
-                          builder: (context, snapshot) {
-                            final position = snapshot.data ?? Duration.zero;
-                            final total =
-                                _audioPlayer.duration ?? Duration.zero;
-                            return ProgressBar(
-                              progress: position,
-                              total: total,
-                              baseBarColor: DefaultColors.lightPink,
-                              thumbColor: DefaultColors.pink,
-                              progressBarColor: DefaultColors.pink,
-                              onSeek: (duration) {
-                                _audioPlayer.seek(duration);
-                              },
-                            );
-                          }),
-                      Row(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          IconButton(
-                            onPressed: () {},
-                            icon: const Icon(Icons.shuffle,
-                                color: DefaultColors.pink),
+                        IconButton(
+                          onPressed: seekForward,
+                          icon: const Icon(
+                            Icons.skip_next,
+                            color: DefaultColors.pink,
                           ),
-                          IconButton(
-                            onPressed: seekBackward,
-                            icon: const Icon(
-                              Icons.skip_previous,
-                              color: DefaultColors.pink,
-                            ),
+                        ),
+                        IconButton(
+                          onPressed: toggleLoop,
+                          icon: Icon(
+                            isLooping ? Icons.repeat_one : Icons.repeat,
+                            color: DefaultColors.pink,
                           ),
-                          StreamBuilder(
-                            stream: _audioPlayer.playerStateStream,
-                            builder: (context, snapshot) {
-                              final playerState = snapshot.data;
-                              final processingState =
-                                  playerState?.processingState ??
-                                      ProcessingState.idle;
-                              final playing = playerState?.playing ?? false;
-                              if (processingState == ProcessingState.loading ||
-                                  processingState ==
-                                      ProcessingState.buffering) {
-                                return Container(
-                                  margin: const EdgeInsets.all(8),
-                                  width: 50,
-                                  height: 50,
-                                  child: const CircularProgressIndicator(
-                                    color: DefaultColors.pink,
-                                  ),
-                                );
-                              } else if (!playing) {
-                                return IconButton(
-                                  iconSize: 80,
-                                  onPressed: togglePlayerPause,
-                                  icon: const Icon(
-                                    Icons.play_circle_filled,
-                                    color: DefaultColors.pink,
-                                  ),
-                                );
-                              } else if (processingState !=
-                                  ProcessingState.completed) {
-                                return IconButton(
-                                  iconSize: 80,
-                                  onPressed: togglePlayerPause,
-                                  icon: const Icon(
-                                    Icons.pause_circle_filled,
-                                    color: DefaultColors.pink,
-                                  ),
-                                );
-                              } else {
-                                return IconButton(
-                                  iconSize: 80,
-                                  onPressed: seekRestart,
-                                  icon: const Icon(
-                                    Icons.replay_circle_filled,
-                                    color: DefaultColors.pink,
-                                  ),
-                                );
-                              }
-                            },
-                          ),
-                          IconButton(
-                            onPressed: seekForward,
-                            icon: const Icon(
-                              Icons.skip_next,
-                              color: DefaultColors.pink,
-                            ),
-                          ),
-                          IconButton(
-                            onPressed: toggleLoop,
-                            icon: Icon(
-                              isLooping ? Icons.repeat_one : Icons.repeat,
-                              color: DefaultColors.pink,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ],
-          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );

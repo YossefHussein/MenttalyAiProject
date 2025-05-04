@@ -6,15 +6,16 @@ import 'package:mental_health_app/core/ads_helper.dart';
 import 'package:mental_health_app/core/theme.dart';
 import 'package:mental_health_app/features/presentation/get_doctor/domain/entities/doctor.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
+import 'package:hexcolor/hexcolor.dart';
 
 void doctorBottomSheet(BuildContext context,
     {required DoctorEntities getDoctor}) {
   showModalBottomSheet(
       context: context,
-      backgroundColor: Colors.transparent,
       isScrollControlled: true,
       enableDrag: false,
       isDismissible: false,
+      backgroundColor: Colors.transparent,
       // This allows the sheet to take up more space if needed
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
@@ -68,153 +69,169 @@ class _GetDoctorBottomSheetState extends State<GetDoctorBottomSheet> {
       minChildSize: 0.7,
       maxChildSize: 1,
       builder: (_, controller) => Container(
-        color: Colors.white,
-        child: Container(
-          margin: const EdgeInsets.all(16),
-          child: ListView(
-            controller: controller,
-            children: [
-              AppBar(
-                leading: IconButton(
-                  onPressed: () => Navigator.pop(context),
-                  icon: Image.asset('assets/images/down_arrow.png'),
+        color: DefaultColors.white,
+        padding: const EdgeInsets.all(16),
+        child: ListView(
+          controller: controller,
+          children: [
+            AppBar(
+              backgroundColor: DefaultColors.white,
+              leading: IconButton(
+                onPressed: () => Navigator.pop(context),
+                icon: Image.asset(
+                  'assets/images/down_arrow.png',
                 ),
               ),
-              Column(
-                children: [
-                  // Using Wrap makes the height dynamic
-                  Wrap(
-                    children: [
-                      // photo
-                      Stack(
-                        alignment: AlignmentDirectional.bottomEnd,
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(15),
-                            child: CachedNetworkImage(
-                              imageUrl: widget.doctor.doctorPhoto,
-                              width: double.infinity,
-                              fit: BoxFit.cover,
-                              progressIndicatorBuilder:
-                                  (context, url, downloadProgress) {
-                                return SizedBox(
-                                  height: 200.0,
-                                  width: 200.0,
-                                  child: Center(
-                                    child: CircularProgressIndicator(
-                                      value: downloadProgress.progress,
-                                      color: DefaultColors.pink,
-                                    ),
+            ),
+            Column(
+              children: [
+                // Using Wrap makes the height dynamic
+                Wrap(
+                  children: [
+                    // photo
+                    Stack(
+                      alignment: AlignmentDirectional.bottomEnd,
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(15),
+                          child: CachedNetworkImage(
+                            imageUrl: widget.doctor.doctorPhoto,
+                            width: double.infinity,
+                            fit: BoxFit.cover,
+                            progressIndicatorBuilder:
+                                (context, url, downloadProgress) {
+                              return SizedBox(
+                                height: 200.0,
+                                width: 200.0,
+                                child: Center(
+                                  child: CircularProgressIndicator(
+                                    value: downloadProgress.progress,
+                                    color: DefaultColors.pink,
                                   ),
-                                );
-                              },
-                              errorWidget: (context, url, error) =>
-                                  Icon(Icons.error),
-                            ),
+                                ),
+                              );
+                            },
+                            errorWidget: (context, url, error) =>
+                                Icon(Icons.error),
                           ),
-                          Container(
-                            margin: EdgeInsets.fromLTRB(25, 20, 0, 0),
+                        ),
+                        // persint similarity
+                        Container(
+                          margin: EdgeInsets.fromLTRB(25, 20, 0, 0),
+                          child: CircleAvatar(
+                            radius: 32,
+                            backgroundColor: DefaultColors.purple,
                             child: CircleAvatar(
-                              radius: 32,
-                              backgroundColor: DefaultColors.purple,
-                              child: CircleAvatar(
-                                radius: 30,
-                                child: Text(
-                                  '${widget.doctor.percentSimilarity}',
-                                  style: TextStyle(
-                                    color: DefaultColors.purple,
-                                  ),
+                              radius: 30,
+                              child: Text(
+                                '${widget.doctor.percentSimilarity}',
+                                style: TextStyle(
+                                  color: DefaultColors.purple,
                                 ),
                               ),
                             ),
                           ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 16,
-                      ),
-                      // title for section
-                      AutoSizeText(
-                        widget.doctor.title,
-                        style: Theme.of(context).textTheme.labelLarge,
-                      ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          // name
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.baseline,
-                            textBaseline: TextBaseline.alphabetic,
-                            children: [
-                              Icon(Icons.account_circle),
-                              AutoSizeText(
-                                'In name : ${widget.doctor.doctorName}',
-                                style: Theme.of(context).textTheme.labelSmall,
-                              ),
-                            ],
-                          ),
-                          // time
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.baseline,
-                            textBaseline: TextBaseline.alphabetic,
-                            children: [
-                              Icon(Icons.access_time),
-                              AutoSizeText(
-                                'Time : ${widget.doctor.timeClass}',
-                                style: Theme.of(context).textTheme.labelSmall,
-                              ),
-                            ],
-                          ),
-                          // date
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.baseline,
-                            textBaseline: TextBaseline.alphabetic,
-                            children: [
-                              Icon(Icons.date_range),
-                              AutoSizeText(
-                                'In date : ${widget.doctor.dateClass}',
-                                style: Theme.of(context).textTheme.labelSmall,
-                              ),
-                            ],
-                          ),
-                          // place doctor
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.baseline,
-                            textBaseline: TextBaseline.alphabetic,
-                            children: [
-                              Icon(Icons.map),
-                              AutoSizeText(
-                                'Place : ${widget.doctor.place}',
-                                style: Theme.of(context).textTheme.labelSmall,
-                              ),
-                            ],
-                          ),
-                          // medical specialty
-                          FittedBox(
-                            child: Chip(
-                              elevation: 0,
-                              shape: StadiumBorder(
-                                  side: BorderSide(color: Colors.transparent)),
-                              backgroundColor: choiceColor(
-                                  widget.doctor.colorDoctorSpecialty),
-                              label: Text(
-                                widget.doctor.medicalSpecialty,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .labelSmall
-                                    ?.copyWith(color: Colors.white),
-                              ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    // title for section
+                    AutoSizeText(
+                      widget.doctor.title,
+                      style: Theme.of(context).textTheme.labelLarge,
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        // name
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.baseline,
+                          textBaseline: TextBaseline.alphabetic,
+                          children: [
+                            Icon(Icons.account_circle),
+                            AutoSizeText(
+                              'name : ${widget.doctor.doctorName}',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .labelSmall
+                                  ?.copyWith(color: Colors.black),
+                            ),
+                          ],
+                        ),
+                        // time
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.baseline,
+                          textBaseline: TextBaseline.alphabetic,
+                          children: [
+                            Icon(Icons.access_time),
+                            AutoSizeText(
+                              'Time : ${widget.doctor.timeClass}',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .labelSmall
+                                  ?.copyWith(color: Colors.black),
+                            ),
+                          ],
+                        ),
+                        // date
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.baseline,
+                          textBaseline: TextBaseline.alphabetic,
+                          children: [
+                            Icon(Icons.date_range),
+                            AutoSizeText(
+                              'In date : ${widget.doctor.dateClass}',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .labelSmall
+                                  ?.copyWith(color: Colors.black),
+                            ),
+                          ],
+                        ),
+                        // place doctor
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.baseline,
+                          textBaseline: TextBaseline.alphabetic,
+                          children: [
+                            Icon(
+                              Icons.map,
+                            ),
+                            AutoSizeText(
+                              'Place : ${widget.doctor.place}',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .labelSmall
+                                  ?.copyWith(color: Colors.black),
+                            ),
+                          ],
+                        ),
+                        // medical specialty
+                        FittedBox(
+                          child: Chip(
+                            elevation: 0,
+                            shape: StadiumBorder(
+                                side: BorderSide(color: Colors.transparent)),
+                            backgroundColor:
+                                choiceColor(widget.doctor.colorDoctorSpecialty),
+                            label: Text(
+                              widget.doctor.medicalSpecialty,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .labelSmall
+                                  ?.copyWith(color: Colors.white),
                             ),
                           ),
-                        ],
-                      )
-                    ],
-                  ),
-                ],
-              ),
-            ],
-          ),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );

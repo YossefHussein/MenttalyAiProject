@@ -52,6 +52,7 @@ class CodegenLoader extends AssetLoader{
     "okay_button": "حسنا"
   },
   "drawer_widget": {
+    "settings_app": "إعدادات Mentally",
     "about_developer": "عن المطورين",
     "support_developer": "دعم المطورين",
     "tech_used_to_make_app": "التقنيات المستخدمة في تطبيق",
@@ -63,11 +64,12 @@ class CodegenLoader extends AssetLoader{
     "title_cancel_button": "كانسيل"
   },
   "song_playlist_screen": {
-    "song_mood_angary": "غاضب",
+    "song_mood_angry": "غاضب",
     "song_mood_good": "كويس",
     "song_mood_good_place": "مكان كويس",
     "song_mood_sad": "حزين"
   },
+  "mentally_settings": {},
   "no_data_found": "لا توجد بيانات الان"
 };
 static const Map<String,dynamic> en = {
@@ -89,7 +91,7 @@ static const Map<String,dynamic> en = {
     "logup_Screen": {
       "title_logup_email_button": "Logup with email",
       "title_logup_google_button": "Logup with google",
-      "if_have_account": "Are you have account",
+      "if_have_account": "Are you have account?",
       "login_now": "Login now"
     }
   },
@@ -108,6 +110,7 @@ static const Map<String,dynamic> en = {
     "okay_button": "okay"
   },
   "drawer_widget": {
+    "settings_app": "Mentally Settings",
     "about_developer": "About Developer",
     "support_developer": "Support Developer",
     "tech_used_to_make_app": "Tech Used To Make App",
@@ -119,11 +122,12 @@ static const Map<String,dynamic> en = {
     "title_cancel_button": "Cancel"
   },
   "song_playlist_screen": {
-    "song_mood_angary": "Angary",
+    "song_mood_angry": "Angary",
     "song_mood_good": "Good",
     "song_mood_good_place": "Good Place",
     "song_mood_sad": "Sad"
   },
+  "mentally_settings": {},
   "no_data_found": "no data found"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ar": ar, "en": en};

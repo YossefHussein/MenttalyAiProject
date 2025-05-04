@@ -21,16 +21,20 @@ class ChartState extends State<ChartWidget> {
     _trackballBehavior = TrackballBehavior(
         enable: true,
         // Display mode of trackball tooltip
-        tooltipDisplayMode: TrackballDisplayMode.floatAllPoints
-    );
+        tooltipDisplayMode: TrackballDisplayMode.floatAllPoints);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return SfCartesianChart(
-      title: ChartTitle(text: 'Line Chart'),
+      title: ChartTitle(
+        text: 'Line Chart',
+        textStyle:  Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.black),
+      ),
       trackballBehavior: _trackballBehavior,
+      primaryXAxis: CategoryAxis(),
+      primaryYAxis: NumericAxis(minimum: 0, maximum: 30, interval: 7),
       series: <SplineSeries<ChartModeDataModel, num>>[
         SplineSeries<ChartModeDataModel, num>(
           animationDuration: 1,
@@ -38,7 +42,7 @@ class ChartState extends State<ChartWidget> {
           color: DefaultColors.pink,
           xValueMapper: (ChartModeDataModel sales, _) => sales.happyXValueNum,
           yValueMapper: (ChartModeDataModel sales, _) => sales.happyYValueNum,
-          name: 'happy',
+          name: 'Happy',
         ),
         SplineSeries<ChartModeDataModel, num>(
           animationDuration: 1,
@@ -46,7 +50,7 @@ class ChartState extends State<ChartWidget> {
           color: DefaultColors.purple,
           xValueMapper: (ChartModeDataModel sales, _) => sales.calmXValueNum,
           yValueMapper: (ChartModeDataModel sales, _) => sales.clamYValueNum,
-          name: 'clam',
+          name: 'Clam',
         ),
         SplineSeries<ChartModeDataModel, num>(
           animationDuration: 1,
@@ -54,7 +58,7 @@ class ChartState extends State<ChartWidget> {
           color: DefaultColors.orange,
           xValueMapper: (ChartModeDataModel sales, _) => sales.relaxXValueNum,
           yValueMapper: (ChartModeDataModel sales, _) => sales.relaxYValueNum,
-          name: 'relax',
+          name: 'Relax',
         ),
         SplineSeries<ChartModeDataModel, num>(
           animationDuration: 1,
@@ -62,7 +66,7 @@ class ChartState extends State<ChartWidget> {
           color: DefaultColors.lightTeal,
           xValueMapper: (ChartModeDataModel sales, _) => sales.focusXValueNum,
           yValueMapper: (ChartModeDataModel sales, _) => sales.focusYValueNum,
-          name: 'focus',
+          name: 'Focus',
         ),
       ],
     );
@@ -74,10 +78,10 @@ class ChartBubble extends StatefulWidget {
   ChartBubble({super.key});
 
   @override
-  State<ChartBubble> createState() => _ChartBubbleState();
+  State<ChartBubble> createState() => _BarSeriesState();
 }
 
-class _ChartBubbleState extends State<ChartBubble> {
+class _BarSeriesState extends State<ChartBubble> {
   late TrackballBehavior _trackballBehavior;
 
   @override
@@ -85,8 +89,7 @@ class _ChartBubbleState extends State<ChartBubble> {
     _trackballBehavior = TrackballBehavior(
         enable: true,
         // Display mode of trackball tooltip
-        tooltipDisplayMode: TrackballDisplayMode.floatAllPoints
-    );
+        tooltipDisplayMode: TrackballDisplayMode.floatAllPoints);
     super.initState();
   }
 
@@ -94,9 +97,12 @@ class _ChartBubbleState extends State<ChartBubble> {
   Widget build(BuildContext context) {
     return SfCartesianChart(
         primaryXAxis: CategoryAxis(),
-        primaryYAxis: NumericAxis(minimum: 0, maximum: 40, interval: 10),
+        primaryYAxis: NumericAxis(minimum: 0, maximum: 30, interval: 7),
         trackballBehavior: _trackballBehavior,
-        title: ChartTitle(text: 'Bubble Chart'),
+        title: ChartTitle(
+          text: 'Bubble Chart',
+          textStyle:  Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.black),
+        ),
         series: <CartesianSeries<ChartModeDataModel, num>>[
           BubbleSeries<ChartModeDataModel, num>(
             dataSource: chartModeData,
@@ -111,7 +117,7 @@ class _ChartBubbleState extends State<ChartBubble> {
             color: DefaultColors.purple,
             xValueMapper: (ChartModeDataModel sales, _) => sales.calmXValueNum,
             yValueMapper: (ChartModeDataModel sales, _) => sales.clamYValueNum,
-            name: 'clam',
+            name: 'Clam',
           ),
           BubbleSeries<ChartModeDataModel, num>(
             animationDuration: 1,
@@ -119,7 +125,7 @@ class _ChartBubbleState extends State<ChartBubble> {
             color: DefaultColors.orange,
             xValueMapper: (ChartModeDataModel sales, _) => sales.relaxXValueNum,
             yValueMapper: (ChartModeDataModel sales, _) => sales.relaxYValueNum,
-            name: 'relax',
+            name: 'Relax',
           ),
           BubbleSeries<ChartModeDataModel, num>(
             animationDuration: 1,
@@ -127,8 +133,63 @@ class _ChartBubbleState extends State<ChartBubble> {
             color: DefaultColors.lightTeal,
             xValueMapper: (ChartModeDataModel sales, _) => sales.focusXValueNum,
             yValueMapper: (ChartModeDataModel sales, _) => sales.focusYValueNum,
-            name: 'focus',
+            name: 'Focus',
           ),
         ]);
+  }
+}
+
+class ColumnSeriesChartWidget extends StatefulWidget {
+  const ColumnSeriesChartWidget({super.key});
+
+  @override
+  State<ColumnSeriesChartWidget> createState() =>
+      _ColumnSeriesChartWidgetState();
+}
+
+class _ColumnSeriesChartWidgetState extends State<ColumnSeriesChartWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return  SfCartesianChart(
+        primaryXAxis: CategoryAxis(),
+        primaryYAxis: NumericAxis(minimum: 0, maximum: 30, interval: 7),
+        title: ChartTitle(
+          text: 'ColumnSeries Chart',
+          textStyle:  Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.black),
+        ),
+        series: <CartesianSeries<ChartModeDataModel, num>>[
+          ColumnSeries<ChartModeDataModel, num>(
+            dataSource: chartModeData,
+            color: DefaultColors.pink,
+            xValueMapper: (ChartModeDataModel sales, _) => sales.happyXValueNum,
+            yValueMapper: (ChartModeDataModel sales, _) => sales.happyYValueNum,
+            name: 'Happy',
+          ),
+          ColumnSeries<ChartModeDataModel, num>(
+            animationDuration: 1,
+            dataSource: chartModeData,
+            color: DefaultColors.purple,
+            xValueMapper: (ChartModeDataModel sales, _) => sales.calmXValueNum,
+            yValueMapper: (ChartModeDataModel sales, _) => sales.clamYValueNum,
+            name: 'Clam',
+          ),
+          ColumnSeries<ChartModeDataModel, num>(
+            animationDuration: 1,
+            dataSource: chartModeData,
+            color: DefaultColors.orange,
+            xValueMapper: (ChartModeDataModel sales, _) => sales.relaxXValueNum,
+            yValueMapper: (ChartModeDataModel sales, _) => sales.relaxYValueNum,
+            name: 'Relax',
+          ),
+          ColumnSeries<ChartModeDataModel, num>(
+            animationDuration: 1,
+            dataSource: chartModeData,
+            color: DefaultColors.lightTeal,
+            xValueMapper: (ChartModeDataModel sales, _) => sales.focusXValueNum,
+            yValueMapper: (ChartModeDataModel sales, _) => sales.focusYValueNum,
+            name: 'Focus',
+          ),
+        ],
+    );
   }
 }

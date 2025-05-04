@@ -20,7 +20,6 @@ class LogInScreen extends StatefulWidget {
 }
 
 class _LogInScreenState extends State<LogInScreen> {
-
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AuthCubit, AuthStates>(
@@ -54,6 +53,7 @@ class _LogInScreenState extends State<LogInScreen> {
                             .auth_screen_text_form_email_text_from
                             .tr(),
                         labelStyle: TextStyle(color: Colors.white),
+                        // Enabled state border
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(5),
                           borderSide: BorderSide(
@@ -61,10 +61,26 @@ class _LogInScreenState extends State<LogInScreen> {
                             width: 1.0,
                           ),
                         ),
+                        // Focused state border
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(30),
                           borderSide: const BorderSide(
                             color: DefaultColors.pink,
+                            width: 2.0,
+                          ),
+                        ),
+                        // Error state borders (important for validation)
+                        errorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5),
+                          borderSide: BorderSide(
+                            color: Colors.red.shade400,
+                            width: 1.5,
+                          ),
+                        ),
+                        focusedErrorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30),
+                          borderSide: const BorderSide(
+                            color: Colors.redAccent,
                             width: 2.0,
                           ),
                         ),
@@ -100,6 +116,8 @@ class _LogInScreenState extends State<LogInScreen> {
                             });
                           },
                         ),
+
+                        // Enabled state border
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(5),
                           borderSide: BorderSide(
@@ -107,10 +125,26 @@ class _LogInScreenState extends State<LogInScreen> {
                             width: 1.0,
                           ),
                         ),
+                        // Focused state border
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(30),
                           borderSide: const BorderSide(
                             color: DefaultColors.pink,
+                            width: 2.0,
+                          ),
+                        ),
+                        // Error state borders (important for validation)
+                        errorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5),
+                          borderSide: BorderSide(
+                            color: Colors.red.shade400,
+                            width: 1.5,
+                          ),
+                        ),
+                        focusedErrorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30),
+                          borderSide: const BorderSide(
+                            color: Colors.redAccent,
                             width: 2.0,
                           ),
                         ),
@@ -135,7 +169,7 @@ class _LogInScreenState extends State<LogInScreen> {
                             );
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Theme.of(context).focusColor,
+                            backgroundColor: Color(0xFF371B34),
                             minimumSize: const Size(double.infinity, 50),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12),
@@ -177,7 +211,7 @@ class _LogInScreenState extends State<LogInScreen> {
                             );
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Theme.of(context).focusColor,
+                            backgroundColor: Color(0xFF371B34),
                             minimumSize: const Size(double.infinity, 50),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12),
