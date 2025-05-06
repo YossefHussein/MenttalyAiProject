@@ -1,6 +1,9 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import '../core/theme.dart';
 
 // class for set settings of tech info list
 class TechInfo {
@@ -199,14 +202,16 @@ class TechUsedScreen extends StatelessWidget {
 
   TechUsedScreen({super.key});
 
-  techUsed(TechInfo model) {
+  techUsed(TechInfo model, BuildContext context) {
     return GestureDetector(
       onTap: () {
         openUrl(model.url);
       },
       child: AutoSizeText(
         model.nameOfTechnology,
-        style: TextStyle(color: Colors.blue.shade800),
+        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+          color: Colors.blue.shade300
+        ),
       ),
     );
   }
@@ -225,7 +230,10 @@ class TechUsedScreen extends StatelessWidget {
             scrollDirection: Axis.vertical,
             shrinkWrap: true,
             itemCount: techInfoList.length,
-            itemBuilder: (context, index) => techUsed(techInfoList[index]),
+            itemBuilder: (context, index) => techUsed(
+              techInfoList[index],
+              context,
+            ),
           ),
         ),
       ),

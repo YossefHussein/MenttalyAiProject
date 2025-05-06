@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:clipboard/clipboard.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:go_router/go_router.dart';
@@ -10,6 +12,8 @@ import 'package:mental_health_app/presentation/about_developer.dart';
 import 'package:mental_health_app/presentation/support_developer.dart';
 import 'package:mental_health_app/presentation/tech_used.dart';
 import 'package:mental_health_app/translations/locale_keys.dart';
+
+import '../../auth_screens/widgets/widgets.dart';
 
 class DrawerWidget extends StatelessWidget {
   const DrawerWidget({super.key});
@@ -27,9 +31,11 @@ class DrawerWidget extends StatelessWidget {
             DrawerHeader(
               // to delete the padding of drawer header
               padding: EdgeInsets.zero,
+              // image of user
               child: Container(
                 decoration: BoxDecoration(
                   image: DecorationImage(
+                    // for cached the image
                     image: CachedNetworkImageProvider(
                         FirebaseAuth.instance.currentUser?.photoURL ?? ''),
                     fit: BoxFit.cover,
@@ -39,20 +45,32 @@ class DrawerWidget extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: Align(
                     alignment: Alignment.bottomLeft,
-                    child: AutoSizeText(
-                      '${FirebaseAuth.instance.currentUser?.email}',
-                      style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                            color:
-                                FirebaseAuth.instance.currentUser?.photoURL ==
-                                        null
-                                    ? Colors.black
-                                    : Colors.white,
-                          ),
+                    child: GestureDetector(
+                      // display email
+                      child: AutoSizeText(
+                        '${FirebaseAuth.instance.currentUser?.email}',
+                        style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                              color:
+                                  FirebaseAuth.instance.currentUser?.photoURL ==
+                                          null
+                                      ? Colors.black
+                                      : Colors.white,
+                            ),
+                      ),
+                      // copy email
+                      onTap: () {
+                        FlutterClipboard.copy(
+                                '${FirebaseAuth.instance.currentUser?.email}')
+                            .then(
+                          (value) => sendMSG('copied'),
+                        );
+                      },
                     ),
                   ),
                 ),
               ),
             ),
+            // go to settings
             ListTile(
               onTap: () {
                 Navigator.push(context,
@@ -107,35 +125,38 @@ class DrawerWidget extends StatelessWidget {
                 ),
               ),
             ),
-
             ListTile(
               title: GestureDetector(
                 onTap: () async {
-                  showDialog(
+                  showCupertinoDialog(
                       context: context,
-                      builder: (context) => AlertDialog(
+                      builder: (context) => CupertinoAlertDialog(
                             // title
                             title: Text(
-                                LocaleKeys.drawer_widget_title_logout.tr(),
-                                style: Theme.of(context).textTheme.labelMedium,
-                                textAlign: TextAlign.start),
+                              LocaleKeys.drawer_widget_title_logout.tr(),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .labelMedium
+                                  ?.copyWith(
+                                      color: true == Brightness.light
+                                          ? Colors.black
+                                          : Colors.black),
+                              textAlign: TextAlign.start,
+                            ),
                             content: Text(
                               '${LocaleKeys.drawer_widget_my_sir.tr()} ${FirebaseAuth.instance.currentUser?.displayName ?? ""} ${LocaleKeys.drawer_widget_title_description.tr()}',
                               style: Theme.of(context)
                                   .textTheme
-                                  .labelSmall
-                                  ?.copyWith(fontSize: 24),
+                                  .bodySmall
+                                  ?.copyWith(
+                                    color: true == Brightness.light
+                                        ? Colors.black
+                                        : Colors.black,
+                                  ),
                             ),
-                            icon: Align(
-                                alignment: Alignment.topLeft,
-                                child: Icon(
-                                  Icons.cancel,
-                                  color: Colors.red,
-                                  size: 48,
-                                )),
                             actions: [
-                              // dont log out
-                              TextButton(
+                              // don't log out
+                              CupertinoDialogAction(
                                   onPressed: () async {
                                     Navigator.pop(context);
                                   },
@@ -146,7 +167,7 @@ class DrawerWidget extends StatelessWidget {
                                         color: Colors.red, fontSize: 20),
                                   )),
                               // log out
-                              TextButton(
+                              CupertinoDialogAction(
                                   onPressed: () async {
                                     await FirebaseAuth.instance.signOut();
                                     context.go(Routes.authScreenRoute);
@@ -156,13 +177,13 @@ class DrawerWidget extends StatelessWidget {
                                     LocaleKeys.drawer_widget_title_logout_button
                                         .tr(),
                                     style: TextStyle(
-                                        color: Colors.black, fontSize: 20),
+                                        color: Colors.blue, fontSize: 20),
                                   ))
                             ],
                           ));
                 },
                 // log out from app
-                child: AutoSizeText(
+                child: Text(
                   LocaleKeys.drawer_widget_title_logout_button.tr(),
                   style: TextStyle(color: Colors.red, fontSize: 20),
                 ),

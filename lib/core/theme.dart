@@ -28,7 +28,9 @@ class DefaultColors {
   static Color taskDark3 = Colors.green[300]!;
 }
 
+// the app select theme by theme of user device
 class AppTheme {
+  // light theme
   static ThemeData get lightTheme {
     return ThemeData(
       primaryColor: const Color(0xFFAEAFF7),
@@ -95,6 +97,7 @@ class AppTheme {
     );
   }
 
+  //  dark theme
   static ThemeData get darkTheme {
     return ThemeData(
       primaryColor: const Color(0xFFAEAFF7),
@@ -106,15 +109,16 @@ class AppTheme {
         elevation: 0,
         iconTheme: IconThemeData(color: Colors.white),
         centerTitle: true,
-        titleTextStyle: TextStyle(
-          color: Colors.white,
+        titleTextStyle: GoogleFonts.alegreyaSans(
           fontSize: FontSizes.doubleExtraLarge,
           fontStyle: FontStyle.italic,
+          color: Colors.white,
           fontWeight: FontWeight.bold,
         ),
       ),
       drawerTheme: DrawerThemeData(
         backgroundColor: HexColor('#333739'),
+        width: 150
       ),
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
         backgroundColor: HexColor('#333739'),

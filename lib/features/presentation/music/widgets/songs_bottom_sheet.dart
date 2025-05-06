@@ -1,13 +1,10 @@
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
-
-// import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:just_audio_cache/just_audio_cache.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:mental_health_app/core/ads_helper.dart';
 import 'package:mental_health_app/core/theme.dart';
 import 'package:mental_health_app/features/presentation/music/domain/entities/song.dart';
 
@@ -43,10 +40,7 @@ class _SongsBottomSheetState extends State<SongsBottomSheet> {
   // music
   late AudioPlayer _audioPlayer;
   bool isLooping = false;
-
-  // ads
-  // late BannerAd _bannerAd;
-  // bool _isAdloaded = false;
+  PlayerState? _state;
 
   @override
   void initState() {
@@ -54,37 +48,19 @@ class _SongsBottomSheetState extends State<SongsBottomSheet> {
     // for initializing the music
     _audioPlayer = AudioPlayer();
     // to set urk of music
-    _audioPlayer.setUrl(widget.songs.songLink);
+    _audioPlayer.dynamicSet(
+      url: widget.songs.songLink,
+    );
     // for auto start the music
     _audioPlayer.play();
-    // config of ads
-    // _initBannerAd();
+    // to monitor the state
+    _audioPlayer.playerStateStream.listen((state) {
+      setState(() {
+        _state = state;
+      });
+      print(state);
+    });
   }
-
-  // void _initBannerAd() async {
-  //   _bannerAd = BannerAd(
-  //       adUnitId: AdHelper.bannerAdUnitId,
-  //       request: AdRequest(),
-  //       size: AdSize.banner,
-  //       listener: BannerAdListener(
-  //         onAdLoaded: (ad) {
-  //           if (!mounted) {
-  //             ad.dispose();
-  //             return;
-  //           }
-  //           setState(() {
-  //             _bannerAd = ad as BannerAd;
-  //           });
-  //           debugPrint('Ad Loaded');
-  //         },
-  //         onAdFailedToLoad: (ad, error) {
-  //           ad.dispose();
-  //           debugPrint('Ad failed to load ${error.toString()}');
-  //         },
-  //         onAdClosed: (ad) => debugPrint('Ad closed'),
-  //       ));
-  //   _bannerAd.load();
-  // }
 
   @override
   void dispose() {
@@ -131,17 +107,6 @@ class _SongsBottomSheetState extends State<SongsBottomSheet> {
     _audioPlayer.seek(Duration.zero);
   }
 
-  /// Notification
-//   const AndroidNotificationDetails androidNotificationDetails =
-//     AndroidNotificationDetails(
-//   'audio_channel', // Ignored on Android < 8.0
-//   'Audio Notifications', // Ignored on Android < 8.0
-//   channelDescription: 'Channel for audio notifications', // Ignored on Android < 8.0
-//   importance: Importance.high,
-//   priority: Priority.high,
-//   playSound: true,
-//   sound: RawResourceAndroidNotificationSound('notification_sound'), // Works on all versions
-// );
   @override
   Widget build(BuildContext context) {
     return DraggableScrollableSheet(
@@ -164,7 +129,6 @@ class _SongsBottomSheetState extends State<SongsBottomSheet> {
                     AppBar(
                       title: AutoSizeText(
                         'Music',
-                        style: TextStyle(color: Colors.white),
                       ),
                       backgroundColor: DefaultColors.white,
                       leading: IconButton(
@@ -211,21 +175,13 @@ class _SongsBottomSheetState extends State<SongsBottomSheet> {
                           .titleLarge
                           ?.copyWith(color: Colors.black),
                     ),
-
                     AutoSizeText(
                       'By : ${widget.songs.author}',
-                      style: Theme.of(context).textTheme.titleSmall?.copyWith(color: Colors.black),
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleSmall
+                          ?.copyWith(color: Colors.black),
                     ),
-                    // ads
-                    // ConditionalBuilder(
-                    //   condition: _isAdloaded,
-                    //   builder: (context) => Container(
-                    //     width: _bannerAd.size.width.toDouble(),
-                    //     height: _bannerAd.size.height.toDouble(),
-                    //     child: AdWidget(ad: _bannerAd),
-                    //   ),
-                    //   fallback: (context) => Container(),
-                    // ),
                     // progressbar
                     StreamBuilder(
                         stream: _audioPlayer.positionStream,
@@ -241,6 +197,11 @@ class _SongsBottomSheetState extends State<SongsBottomSheet> {
                             onSeek: (duration) {
                               _audioPlayer.seek(duration);
                             },
+                            timeLabelTextStyle: GoogleFonts.alegreyaSans(
+                              fontSize: FontSizes.large,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                            ),
                           );
                         }),
                     Row(
@@ -249,8 +210,10 @@ class _SongsBottomSheetState extends State<SongsBottomSheet> {
                       children: [
                         IconButton(
                           onPressed: () {},
-                          icon: const Icon(Icons.shuffle,
-                              color: DefaultColors.pink),
+                          icon: const Icon(
+                            Icons.shuffle,
+                            color: DefaultColors.pink,
+                          ),
                         ),
                         IconButton(
                           onPressed: seekBackward,

@@ -65,22 +65,6 @@ class GetDoctorScreen extends StatelessWidget {
                             SizedBox(
                               width: 10,
                             ),
-                            // FittedBox(
-                            //   child: Chip(
-                            //     elevation: 0,
-                            //     shape: StadiumBorder(
-                            //         side: BorderSide(color: Colors.transparent)),
-                            //     backgroundColor: choiceColor(
-                            //         state.getDoctors[index].colorDoctorSpecialty),
-                            //     label: Text(
-                            //       state.getDoctors[index].medicalSpecialty,
-                            //       style: Theme.of(context)
-                            //           .textTheme
-                            //           .labelSmall
-                            //           ?.copyWith(color: Colors.white),
-                            //     ),
-                            //   ),
-                            // ),
                           ],
                         ),
                         onTap: () {

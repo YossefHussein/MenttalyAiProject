@@ -14,29 +14,42 @@ class SettingScreen extends StatelessWidget {
       TextEditingController();
   TextEditingController photoTextFormFieldController = TextEditingController();
 
+  SettingScreen({super.key});
+
   // this function for selected the profile photo by URL
   void selectProfilePicture(context) async {
-    showDialog(
+    showCupertinoDialog(
       context: context,
-      builder: (context) => AlertDialog(
+      builder: (context) => CupertinoAlertDialog(
         title: Text(
           'Editing Profile Picture',
           style: Theme.of(context).textTheme.labelMedium,
         ),
-        content: TextFormField(
+        content: CupertinoTextField(
           controller: photoTextFormFieldController,
-          decoration: InputDecoration(
-              helper:
-                  Text('Should to be URL photo extension like PNG JPEG ETC')),
+          placeholder: 'Should to be URL photo extension like PNG JPEG ETC',
         ),
-        actions: [
-          TextButton(
-              onPressed: () async {
-                await user?.updatePhotoURL(photoTextFormFieldController.text);
-                Navigator.pop(context);
-                sendMSG('Restart the app');
-              },
-              child: Text(LocaleKeys.home_screen_okay_button.tr()))
+        actions: <CupertinoDialogAction>[
+          CupertinoDialogAction(
+            onPressed: () async {
+              Navigator.pop(context);
+            },
+            child: Text(
+              'cancel',
+              style: TextStyle(color: Colors.black),
+            ),
+          ),
+          CupertinoDialogAction(
+            onPressed: () async {
+              await user?.updatePhotoURL(photoTextFormFieldController.text);
+              Navigator.pop(context);
+              sendMSG('Restart the app');
+            },
+            child: Text(
+              LocaleKeys.home_screen_okay_button.tr(),
+              style: TextStyle(color: Colors.red),
+            ),
+          ),
         ],
       ),
     );
@@ -45,19 +58,19 @@ class SettingScreen extends StatelessWidget {
   void deleteAccount(context) async {
     var user = FirebaseAuth.instance.currentUser;
 
-    showDialog(
+    showCupertinoDialog(
       context: context,
-      builder: (context) => AlertDialog(
+      builder: (context) => CupertinoAlertDialog(
         title: Text(
           ' Delete Your Account?',
-          style: Theme.of(context).textTheme.labelMedium,
+          style: Theme.of(context).textTheme.labelMedium?.copyWith(color: true == Brightness.light ? Colors.black  : Colors.black),
         ),
         content: Text(
           'We\'re sad to see you go. Deleting your account will permanently remove all your data, including your personal insights, progress, and preferences. This action cannot be undone.If you\'re going through a difficult time, remember—you\'re not alone. We\'re here to support you.',
-          style: Theme.of(context).textTheme.bodySmall,
+          style: Theme.of(context).textTheme.bodySmall?.copyWith(color: true == Brightness.light ? Colors.black  : Colors.black),
         ),
-        actions: [
-          TextButton(
+        actions: <CupertinoDialogAction>[
+          CupertinoDialogAction(
             onPressed: () async {
               Navigator.pop(context);
             },
@@ -66,7 +79,7 @@ class SettingScreen extends StatelessWidget {
               style: TextStyle(color: Colors.red),
             ),
           ),
-          TextButton(
+          CupertinoDialogAction(
             onPressed: () async {
               await user?.delete().then((value) async {
                 await FirebaseAuth.instance.signOut();
@@ -77,9 +90,7 @@ class SettingScreen extends StatelessWidget {
             child: Text(
               'Yes, delete my account',
               style: TextStyle(
-                color: Brightness.light == true
-                    ? DefaultColors.white
-                    : Colors.black,
+                color: Colors.blue
               ),
             ),
           )
@@ -136,7 +147,8 @@ class SettingScreen extends StatelessWidget {
                     onSubmitted: (value) async {
                       await user?.verifyBeforeUpdateEmail(
                           changeEmailTextFormFieldController.text);
-                      sendMSG('we send message to this email:$value');
+                      sendMSG(
+                          'we send message to this email:${value.toString()}');
                     },
                     decoration: InputDecoration(
                       labelText: changeEmailTextFormFieldController.text,

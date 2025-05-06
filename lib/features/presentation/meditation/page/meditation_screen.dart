@@ -1,12 +1,9 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:mental_health_app/core/ads_helper.dart';
 import 'package:mental_health_app/core/notification_handler.dart';
 import 'package:mental_health_app/core/theme.dart';
 import 'package:mental_health_app/features/presentation/auth_screens/widgets/widgets.dart';
@@ -53,30 +50,7 @@ class _MeditationScreenState extends State<MeditationScreen> {
   late DataBaseHelper dbHelper;
   late int count;
 
-  // for make banner
-  // BannerAd? _banner;
-  // bool _isAdloaded = false;
-
-  // this method to adding setting
-  // void _initBannerAd() {
-  //   _banner = BannerAd(
-  //     size: AdSize.banner,
-  //     adUnitId: AdHelper.bannerAdUnitId,
-  //     listener: BannerAdListener(
-  //       onAdLoaded: (ad) => debugPrint('Ad Loaded'),
-  //       onAdFailedToLoad: (ad, error) {
-  //         setState(() {
-  //           _isAdloaded = true;
-  //         });
-  //         ad.dispose();
-  //         debugPrint('Ad failed to load $error');
-  //       },
-  //       onAdClosed: (ad) => debugPrint('Ad closed'),
-  //     ),
-  //     request: const AdRequest(),
-  //   )..load();
-  // }
-
+  
   int getRandomInt(int min, int max) {
     final Random random = Random();
     return min + random.nextInt(max - min);
@@ -266,16 +240,7 @@ class _MeditationScreenState extends State<MeditationScreen> {
                   );
                 },
               ),
-              // // ads
-              // ConditionalBuilder(
-              //   condition: _banner == null,
-              //   builder: (context) => Container(),
-              //   fallback: (context) => Container(
-              //     width: _banner?.size.width.toDouble(),
-              //     height: _banner?.size.height.toDouble(),
-              //     child: AdWidget(ad: _banner!),
-              //   ),
-              // ),
+             
               AutoSizeText(
                 LocaleKeys.home_screen_today_task.tr(),
                 style: Theme.of(context).textTheme.titleMedium,
@@ -388,3 +353,38 @@ class _MeditationScreenState extends State<MeditationScreen> {
     );
   }
 }
+
+ // // ads
+              // ConditionalBuilder(
+              //   condition: _banner == null,
+              //   builder: (context) => Container(),
+              //   fallback: (context) => Container(
+              //     width: _banner?.size.width.toDouble(),
+              //     height: _banner?.size.height.toDouble(),
+              //     child: AdWidget(ad: _banner!),
+              //   ),
+              // ),
+
+// for make banner
+  // BannerAd? _banner;
+  // bool _isAdloaded = false;
+
+  // this method to adding setting
+  // void _initBannerAd() {
+  //   _banner = BannerAd(
+  //     size: AdSize.banner,
+  //     adUnitId: AdHelper.bannerAdUnitId,
+  //     listener: BannerAdListener(
+  //       onAdLoaded: (ad) => debugPrint('Ad Loaded'),
+  //       onAdFailedToLoad: (ad, error) {
+  //         setState(() {
+  //           _isAdloaded = true;
+  //         });
+  //         ad.dispose();
+  //         debugPrint('Ad failed to load $error');
+  //       },
+  //       onAdClosed: (ad) => debugPrint('Ad closed'),
+  //     ),
+  //     request: const AdRequest(),
+  //   )..load();
+  // }
