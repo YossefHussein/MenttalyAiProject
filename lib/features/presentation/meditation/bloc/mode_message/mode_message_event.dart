@@ -1,10 +1,10 @@
-abstract class ModeMessageEvent{}
+abstract class ModeMessageEvent {}
 
 // get the message of mood
 class FetchMoodMessageEvent extends ModeMessageEvent {
-  final String mood;
+  final mood;
 
   FetchMoodMessageEvent(this.mood);
 }
 
-class ResetMoodMessage extends ModeMessageEvent{}
+class ResetMoodMessage extends ModeMessageEvent {}

@@ -5,22 +5,14 @@ import 'package:sign_in_button/sign_in_button.dart';
 import 'package:clipboard/clipboard.dart';
 import 'package:mental_health_app/features/presentation/auth_screens/widgets/widgets.dart';
 
-class AboutDeveloper extends StatefulWidget {
+class AboutDeveloper extends StatelessWidget {
   const AboutDeveloper({super.key});
 
   @override
-  State<AboutDeveloper> createState() => _AboutDeveloperState();
-}
-
-Future<void> openUrl(url) async {
-  if (!await launchUrl(Uri.parse(url))) {
-    throw Exception('Could not launch $url');
-  }
-}
-
-class _AboutDeveloperState extends State<AboutDeveloper> {
-  @override
   Widget build(BuildContext context) {
+    var styletTtleLarge = Theme.of(context).textTheme.titleLarge;
+    var styleBodyMedium =
+        Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.black);
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -45,7 +37,10 @@ class _AboutDeveloperState extends State<AboutDeveloper> {
                       'https://avatars.githubusercontent.com/u/81009531?s=400&u=9c1942390c70f9fb2f1d84efba50889a36d0be31&v=4'),
                 ),
               ),
-              Text('Youssef EL-Wazzer'),
+              Text(
+                'Youssef EL-Wazzer',
+                style: styletTtleLarge,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -81,7 +76,9 @@ class _AboutDeveloperState extends State<AboutDeveloper> {
                     borderRadius: BorderRadius.circular(10)),
                 alignment: Alignment.topLeft,
                 child: Text(
-                    'Full-Stack Developer with building scalable mobile apps using JavaScript & Dart(Flutter, Node.js) with a focus on clean architecture and user-centric design.'),
+                  'Full-Stack Developer with building scalable mobile apps using JavaScript & Dart(Flutter, Node.js) with a focus on clean architecture and user-centric design.',
+                  style: styleBodyMedium,
+                ),
               ),
               // makary
               SizedBox(height: 10),
@@ -94,7 +91,10 @@ class _AboutDeveloperState extends State<AboutDeveloper> {
                       'https://res.cloudinary.com/dnhljjyzg/image/upload/v1744720978/profile%20pic/mental_health_app/developers%20photos/makary.jpg'),
                 ),
               ),
-              Text('Makary'),
+              Text(
+                'Makary',
+                style: styletTtleLarge,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -123,7 +123,10 @@ class _AboutDeveloperState extends State<AboutDeveloper> {
                     color: Colors.grey.shade100,
                     borderRadius: BorderRadius.circular(10)),
                 alignment: Alignment.topLeft,
-                child: const Text('He work on nodejs and DataBase In Project.'),
+                child: Text(
+                  'He work on nodejs and DataBase In Project.',
+                  style: styleBodyMedium,
+                ),
               ),
               // assem
               SizedBox(height: 10),
@@ -136,7 +139,10 @@ class _AboutDeveloperState extends State<AboutDeveloper> {
                       'https://res.cloudinary.com/dnhljjyzg/image/upload/v1744721102/profile%20pic/mental_health_app/developers%20photos/assam.jpg'),
                 ),
               ),
-              Text('Assem'),
+              Text(
+                'Assem',
+                style: styletTtleLarge,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -163,7 +169,10 @@ class _AboutDeveloperState extends State<AboutDeveloper> {
                     color: Colors.grey.shade100,
                     borderRadius: BorderRadius.circular(10)),
                 alignment: Alignment.topLeft,
-                child: const Text('He work on ERD & DataBase by PostgreSQL'),
+                child: Text(
+                  'He work on ERD & DataBase by PostgreSQL',
+                  style: styleBodyMedium,
+                ),
               ),
 
               // Mohamed Aed
@@ -177,7 +186,10 @@ class _AboutDeveloperState extends State<AboutDeveloper> {
                       'https://res.cloudinary.com/dnhljjyzg/image/upload/v1744721020/profile%20pic/mental_health_app/developers%20photos/mohamed_eldamonhry.jpg'),
                 ),
               ),
-              Text('Mohamed Aed El-damnhory'),
+              Text(
+                'Mohamed Aed El-damnhory',
+                style: styletTtleLarge,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -204,7 +216,10 @@ class _AboutDeveloperState extends State<AboutDeveloper> {
                     color: Colors.grey.shade100,
                     borderRadius: BorderRadius.circular(10)),
                 alignment: Alignment.topLeft,
-                child: const Text('He work on presentation'),
+                child: Text(
+                  'He work on presentation',
+                  style: styleBodyMedium,
+                ),
               ),
               // fars
               SizedBox(height: 10),
@@ -217,7 +232,10 @@ class _AboutDeveloperState extends State<AboutDeveloper> {
                       'https://res.cloudinary.com/dnhljjyzg/image/upload/v1744721204/profile%20pic/mental_health_app/developers%20photos/fares.jpg'),
                 ),
               ),
-              Text('Fars & Mohamed'),
+              Text(
+                'Mohamed',
+                style: styletTtleLarge,
+              ),
               Container(
                 padding: EdgeInsets.all(8),
                 width: MediaQuery.of(context).size.width / 1.1,
@@ -225,7 +243,10 @@ class _AboutDeveloperState extends State<AboutDeveloper> {
                     color: Colors.grey.shade100,
                     borderRadius: BorderRadius.circular(10)),
                 alignment: Alignment.topLeft,
-                child: const Text('He work with me on nodejs'),
+                child: Text(
+                  'He work with me on nodejs',
+                  style: styleBodyMedium,
+                ),
               ),
               // youssef amr
               SizedBox(height: 10),
@@ -238,7 +259,10 @@ class _AboutDeveloperState extends State<AboutDeveloper> {
                       'https://res.cloudinary.com/dnhljjyzg/image/upload/v1746093458/profile%20pic/mental_health_app/developers%20photos/urnhpknmoe9eytxib8rv.png'),
                 ),
               ),
-              Text('Youssef Amr'),
+              Text(
+                'Youssef Amr',
+                style: styletTtleLarge,
+              ),
               // Row(
               //   mainAxisAlignment: MainAxisAlignment.center,
               //   children: [
@@ -265,12 +289,21 @@ class _AboutDeveloperState extends State<AboutDeveloper> {
                     color: Colors.grey.shade100,
                     borderRadius: BorderRadius.circular(10)),
                 alignment: Alignment.topLeft,
-                child: const Text('He work on research on new music'),
+                child: Text(
+                  'He work on research on new music',
+                  style: styleBodyMedium,
+                ),
               ),
             ],
           ),
         ),
       ),
     );
+  }
+}
+
+Future<void> openUrl(url) async {
+  if (!await launchUrl(Uri.parse(url))) {
+    throw Exception('Could not launch $url');
   }
 }

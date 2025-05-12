@@ -27,3 +27,8 @@ to set or change the splash screen write this code
 ```
 flutter pub run flutter_native_splash:create
 ```
+
+to run without error 
+```
+flutter run --release
+```

@@ -2,7 +2,9 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lottie/lottie.dart';
 import 'package:mental_health_app/core/theme.dart';
 import 'package:mental_health_app/features/presentation/get_doctor/bloc/doctor_bloc.dart';
 import 'package:mental_health_app/features/presentation/get_doctor/bloc/doctor_state.dart';
@@ -24,9 +26,11 @@ class GetDoctorScreen extends StatelessWidget {
         builder: (context, state) {
           if (state is GetDoctorLoading) {
             // display a loader
-            return const LinearProgressIndicator(
-              color: DefaultColors.pink,
+            return 
+              const LinearProgressIndicator(
+                color: DefaultColors.pink,
             );
+          
           } else if (state is GetDoctorLoaded) {
             // display all the information
             return ListView.builder(
@@ -68,6 +72,7 @@ class GetDoctorScreen extends StatelessWidget {
                           ],
                         ),
                         onTap: () {
+                          SystemSound.play(SystemSoundType.click);
                           doctorBottomSheet(
                             context,
                             getDoctor: state.getDoctors[index],

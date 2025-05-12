@@ -37,8 +37,22 @@ class GetDoctorBottomSheet extends StatefulWidget {
 }
 
 class _GetDoctorBottomSheetState extends State<GetDoctorBottomSheet> {
+  // for make banner
+  BannerAd? _banner;
+
+  // this method to adding setting
+  void _createBannerAd() {
+    _banner = BannerAd(
+      size: AdSize.leaderboard,
+      adUnitId: AdHelper.bannerAdUnitId!,
+      listener: AdHelper.bannerListener,
+      request: const AdRequest(),
+    )..load();
+  }
+
   @override
   void initState() {
+    _createBannerAd();
     super.initState();
   }
 
@@ -112,7 +126,18 @@ class _GetDoctorBottomSheetState extends State<GetDoctorBottomSheet> {
                               );
                             },
                             errorWidget: (context, url, error) =>
-                                Icon(Icons.error),
+                                ConditionalBuilder(
+                              condition: _banner != null,
+                              builder: (context) => Align(
+                                alignment: Alignment.bottomCenter,
+                                child: SizedBox(
+                                  width: _banner!.size.width.toDouble(),
+                                  height: _banner!.size.height.toDouble(),
+                                  child: AdWidget(ad: _banner!),
+                                ),
+                              ),
+                              fallback: (context) => Container(),
+                            ),
                           ),
                         ),
                         // persint similarity
@@ -207,6 +232,18 @@ class _GetDoctorBottomSheetState extends State<GetDoctorBottomSheet> {
                                   ?.copyWith(color: Colors.black),
                             ),
                           ],
+                        ),
+                        ConditionalBuilder(
+                          condition: _banner != null,
+                          builder: (context) => Align(
+                            alignment: Alignment.bottomCenter,
+                            child: SizedBox(
+                              width: _banner!.size.width.toDouble(),
+                              height: _banner!.size.height.toDouble(),
+                              child: AdWidget(ad: _banner!),
+                            ),
+                          ),
+                          fallback: (context) => Container(),
                         ),
                         // medical specialty
                         FittedBox(

@@ -60,6 +60,7 @@ class CodegenLoader extends AssetLoader{
     "title_logout": "هل انت متأكد انك تخرج من تطبيق",
     "my_sir": "سيدي",
     "title_description": "هل انت متأكد انك عايز تخرج من بيئة للتأمل لي مسعادتك في انك تكوين وقت جميل للتأمل, ارجوك فكر من جديد وختر من اختيارين من موجودين تحت نص دة",
+    "restart_app": "ريستارت برنامج",
     "title_logout_button": "تسجيل خروج ",
     "title_cancel_button": "كانسيل"
   },
@@ -118,6 +119,7 @@ static const Map<String,dynamic> en = {
     "title_logout": "Are You Sure Exit From Meditation",
     "my_sir": "My Sir",
     "title_description": "You Exit From Meditation environment to help YOU for make good Meditation time, Pleas think again and take option from these option under this text section",
+    "restart_app": "Restart App",
     "title_logout_button": "LogOut",
     "title_cancel_button": "Cancel"
   },

@@ -16,12 +16,10 @@ class MoodMessageLoadedState extends MoodMessageState {
 
 // if there error in meditation screen get the error in the state
 class MoodMessageErrorState extends MoodMessageState {
-  final String message;
+  final  message;
 
   MoodMessageErrorState({required this.message}) {
-    print(message);
+    print(message.toString());
   }
 // ;
 }
-
-

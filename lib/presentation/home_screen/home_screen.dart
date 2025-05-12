@@ -109,7 +109,7 @@ class HomeScreen extends StatelessWidget {
               createBottomNavigationBarItem(
                 assetName: 'assets/images/menu_teams.png',
                 navTooltip: 'get doctor',
-                isActive: currentIndex == 3,
+                isActive: currentIndex == 2,
                 context: context,
               ),
             ];

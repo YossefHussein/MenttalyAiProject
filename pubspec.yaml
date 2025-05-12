@@ -109,6 +109,8 @@ dependencies:
   hexcolor: ^3.0.1
   # for cache the audio from just audio
   just_audio_cache: ^0.1.2
+  # restart the app
+  restart_app: ^1.1.0
 
 dev_dependencies:
   flutter_test:

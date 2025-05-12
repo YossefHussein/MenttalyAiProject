@@ -50,20 +50,20 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBqJw5dz6yj-bUnKwb5bhzqP656cklVgeg',
-    appId: '1:1079684114432:android:1d729fcc3ff62c0dcf90e5',
-    messagingSenderId: '1079684114432',
-    projectId: 'metally-project',
-    storageBucket: 'metally-project.firebasestorage.app',
+    apiKey: 'AIzaSyAEZMRaCnY96JJHlTDxGnDyjaQprF_7pLY',
+    appId: '1:715095642554:android:30b59481cfe5df30220d83',
+    messagingSenderId: '715095642554',
+    projectId: 'mentallyaiproject-8f49e',
+    storageBucket: 'mentallyaiproject-8f49e.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDFuejF75AhTCaFzSiWHihcIvEOayZv8xc',
-    appId: '1:1079684114432:ios:92334582bdb751d0cf90e5',
-    messagingSenderId: '1079684114432',
-    projectId: 'metally-project',
-    storageBucket: 'metally-project.firebasestorage.app',
+    apiKey: 'AIzaSyCd5mrQOW8IWl2kEh2Y4csKV2MyxvFplCI',
+    appId: '1:715095642554:ios:f536b7582af9bc47220d83',
+    messagingSenderId: '715095642554',
+    projectId: 'mentallyaiproject-8f49e',
+    storageBucket: 'mentallyaiproject-8f49e.firebasestorage.app',
+    iosClientId: '715095642554-of8fa95lfqtvnrgnseqhkjrm9kgq1s15.apps.googleusercontent.com',
     iosBundleId: 'com.futureitway.mentally',
   );
-
 }

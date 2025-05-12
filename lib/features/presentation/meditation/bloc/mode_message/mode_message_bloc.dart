@@ -6,18 +6,19 @@ import 'package:mental_health_app/features/presentation/meditation/domain/usecas
 class MoodMessageBloc extends Bloc<ModeMessageEvent, MoodMessageState> {
   final GetMoodMessage getMoodMessage;
 
-  MoodMessageBloc({required this.getMoodMessage}) : super(MoodMessageInitialState()) {
+  MoodMessageBloc({required this.getMoodMessage})
+      : super(MoodMessageInitialState()) {
     on<FetchMoodMessageEvent>((event, emit) async {
       emit(MoodMessageLoadingState());
-      try{
+      try {
         final moodMessage = await getMoodMessage(event.mood);
         emit(MoodMessageLoadedState(moodMessage: moodMessage));
-      } catch(error) {
+      } catch (error) {
         emit(MoodMessageErrorState(message: error.toString()));
       }
     });
 
-    on<ResetMoodMessage>((event, emit){
+    on<ResetMoodMessage>((event, emit) {
       emit(MoodMessageInitialState());
     });
   }

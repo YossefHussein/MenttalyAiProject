@@ -47,6 +47,9 @@ class AppTheme {
           fontWeight: FontWeight.bold,
         ),
       ),
+      drawerTheme: DrawerThemeData(
+        width: 160,
+      ),
       textTheme: TextTheme(
         bodySmall: GoogleFonts.alegreyaSans(
           fontSize: FontSizes.small,
@@ -116,10 +119,8 @@ class AppTheme {
           fontWeight: FontWeight.bold,
         ),
       ),
-      drawerTheme: DrawerThemeData(
-        backgroundColor: HexColor('#333739'),
-        width: 150
-      ),
+      drawerTheme:
+          DrawerThemeData(backgroundColor: HexColor('#333739'), width: 160),
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
         backgroundColor: HexColor('#333739'),
       ),

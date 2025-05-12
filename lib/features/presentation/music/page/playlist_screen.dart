@@ -2,8 +2,10 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
 import 'package:mental_health_app/core/theme.dart';
 import 'package:mental_health_app/features/presentation/music/bloc/song_bloc.dart';
 import 'package:mental_health_app/features/presentation/music/bloc/song_state.dart';
@@ -40,7 +42,6 @@ class PlaylistScreen extends StatelessWidget {
           'Songs PlayList',
           style: GoogleFonts.alegreyaSans(
             fontSize: FontSizes.doubleExtraLarge,
-            color: Colors.white,
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -110,6 +111,7 @@ class PlaylistScreen extends StatelessWidget {
                           ],
                         ),
                         onTap: () {
+                          SystemSound.play(SystemSoundType.click);
                           songBottomSheet(
                             context,
                             songs: state.songs[index],

@@ -34,23 +34,29 @@ import 'injection_container.dart' as di;
 import 'package:easy_localization/easy_localization.dart';
 import 'package:go_router/go_router.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 Future<void> main() async {
   // to fix problem when make async main function
   WidgetsFlutterBinding.ensureInitialized();
   // Initialized the localization
   await EasyLocalization.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   // Observer is class watch the movement state of bloc
   Bloc.observer = MyBlocObserver();
   // reading .env file
   await dotenv.load(fileName: ".env");
   // initialize the firebase
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   // dependency injection
   await di.init();
   // adding ads
-  unawaited(MobileAds.instance.initialize());
+  await MobileAds.instance.updateRequestConfiguration(RequestConfiguration(
+    testDeviceIds: [
+       /* These are `IDs` of different mobile phones on which I have installed and tested my app.  */
+      '97c2dde4b28c410ca8e3c3fe8b343cab',
+    ],
+  ));
   // initialized database
   await DataBaseHelper.initDataBase();
   // crash analytics

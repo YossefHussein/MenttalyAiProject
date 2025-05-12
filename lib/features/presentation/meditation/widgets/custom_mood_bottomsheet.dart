@@ -10,7 +10,6 @@ import 'package:mental_health_app/features/presentation/meditation/data/chart_mo
 import 'package:mental_health_app/features/presentation/meditation/data/model/chart_mode_data_model.dart';
 import 'package:mental_health_app/features/presentation/meditation/widgets/chart_widget.dart';
 import 'dart:math';
-import 'package:hexcolor/hexcolor.dart';
 
 /**
  * recording the mode of user

@@ -39,6 +39,7 @@ abstract class  LocaleKeys {
   static const drawer_widget_title_logout = 'drawer_widget.title_logout';
   static const drawer_widget_my_sir = 'drawer_widget.my_sir';
   static const drawer_widget_title_description = 'drawer_widget.title_description';
+  static const drawer_widget_restart_app = 'drawer_widget.restart_app';
   static const drawer_widget_title_logout_button = 'drawer_widget.title_logout_button';
   static const drawer_widget_title_cancel_button = 'drawer_widget.title_cancel_button';
   static const drawer_widget = 'drawer_widget';

@@ -1,10 +1,13 @@
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:just_audio_cache/just_audio_cache.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:mental_health_app/core/ads_helper.dart';
 import 'package:mental_health_app/core/theme.dart';
 import 'package:mental_health_app/features/presentation/music/domain/entities/song.dart';
 
@@ -40,34 +43,8 @@ class _SongsBottomSheetState extends State<SongsBottomSheet> {
   // music
   late AudioPlayer _audioPlayer;
   bool isLooping = false;
+  // for caching
   PlayerState? _state;
-
-  @override
-  void initState() {
-    super.initState();
-    // for initializing the music
-    _audioPlayer = AudioPlayer();
-    // to set urk of music
-    _audioPlayer.dynamicSet(
-      url: widget.songs.songLink,
-    );
-    // for auto start the music
-    _audioPlayer.play();
-    // to monitor the state
-    _audioPlayer.playerStateStream.listen((state) {
-      setState(() {
-        _state = state;
-      });
-      print(state);
-    });
-  }
-
-  @override
-  void dispose() {
-    _audioPlayer.dispose();
-    // _bannerAd.dispose();
-    super.dispose();
-  }
 
   // play and close music
   Future<void> togglePlayerPause() async {
@@ -107,6 +84,51 @@ class _SongsBottomSheetState extends State<SongsBottomSheet> {
     _audioPlayer.seek(Duration.zero);
   }
 
+/**
+ * ads section 
+ **/
+
+  // for make banner
+  BannerAd? _banner;
+
+  // this method to adding setting
+  void _createBannerAd() {
+    _banner = BannerAd(
+      size: AdSize.leaderboard,
+      adUnitId: AdHelper.bannerAdUnitId!,
+      listener: AdHelper.bannerListener,
+      request: const AdRequest(),
+    )..load();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    // for initializing the music
+    _audioPlayer = AudioPlayer();
+    // to set urk of music and save
+    _audioPlayer.dynamicSet(
+      url: widget.songs.songLink,
+    );
+    // for auto start the music
+    _audioPlayer.play();
+    // to monitor the state
+    _audioPlayer.playerStateStream.listen((state) {
+      setState(() {
+        _state = state;
+      });
+      print(state);
+    });
+    _createBannerAd();
+  }
+
+  @override
+  void dispose() {
+    _audioPlayer.dispose();
+    // _bannerAd.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return DraggableScrollableSheet(
@@ -127,9 +149,6 @@ class _SongsBottomSheetState extends State<SongsBottomSheet> {
                   // Ensures the column takes only the necessary space
                   children: [
                     AppBar(
-                      title: AutoSizeText(
-                        'Music',
-                      ),
                       backgroundColor: DefaultColors.white,
                       leading: IconButton(
                         onPressed: () => Navigator.pop(context),
@@ -162,7 +181,26 @@ class _SongsBottomSheetState extends State<SongsBottomSheet> {
                             ),
                           );
                         },
-                        errorWidget: (context, url, error) => Icon(Icons.error),
+                        errorWidget: (context, url, error) =>
+                            ConditionalBuilder(
+                          condition: _banner != null,
+                          builder: (context) => Align(
+                            alignment: Alignment.bottomCenter,
+                            child: SizedBox(
+                              width: _banner!.size.width.toDouble(),
+                              height: _banner!.size.height.toDouble(),
+                              child: AdWidget(ad: _banner!),
+                            ),
+                          ),
+                          fallback: (context) => Align(
+                            alignment: Alignment.bottomCenter,
+                            child: SizedBox(
+                              width: _banner!.size.width.toDouble(),
+                              height: _banner!.size.height.toDouble(),
+                              child: AdWidget(ad: _banner!),
+                            ),
+                          ),
+                        ),
                       ),
                     ),
                     const SizedBox(
@@ -286,6 +324,25 @@ class _SongsBottomSheetState extends State<SongsBottomSheet> {
                           ),
                         ),
                       ],
+                    ),
+                    ConditionalBuilder(
+                      condition: _banner != null,
+                      builder: (context) => Align(
+                        alignment: Alignment.bottomCenter,
+                        child: SizedBox(
+                          width: _banner!.size.width.toDouble(),
+                          height: _banner!.size.height.toDouble(),
+                          child: AdWidget(ad: _banner!),
+                        ),
+                      ),
+                      fallback: (context) => Align(
+                        alignment: Alignment.bottomCenter,
+                        child: SizedBox(
+                          width: _banner!.size.width.toDouble(),
+                          height: _banner!.size.height.toDouble(),
+                          child: AdWidget(ad: _banner!),
+                        ),
+                      ),
                     ),
                   ],
                 ),
